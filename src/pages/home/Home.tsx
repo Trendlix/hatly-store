@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import TopIntro from "../../components/TopIntro";
 import Navbar from "../../components/Navbar";
 import BottomIntro from "../../components/BottomIntro";
-import FrontDrop from "../../assets/new-frontdrop.png";
+import FrontDrop from "../../assets/frontdrop.png";
 import BackDrop1 from "../../assets/backdrop-home-1.png";
 import BackDrop2 from "../../assets/backdrop-home-2.png";
 import SideBar from "../../components/Sidebar/Sidebar";
