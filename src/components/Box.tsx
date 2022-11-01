@@ -8,8 +8,8 @@ type propsType ={
 const Box : FC<propsType> = props => {
   return (
     <div className={`flex flex-col  font-extrabold ${props.classes ?? ''}` }>
-      <h3 className='text-lg max-md:text-primary'>{props.title}</h3>
-      <p className='text-[#FFFFFF] max-md:text-inherit'>{props.description}</p>
+      <h3 className='text-lg '>{props.title}</h3>
+      <p className='text-[#FFFFFF] '>{props.description}</p>
     </div>
   )
 }

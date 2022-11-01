@@ -5,6 +5,7 @@ import BottomIntro from "../../components/BottomIntro";
 import FrontDrop from '../../assets/frontdrop-home.png'
 import BackDrop1 from '../../assets/backdrop-home-1.png'
 import BackDrop2 from '../../assets/backdrop-home-2.png'
+import SideBar from "../../components/Sidebar/Sidebar";
 const Home: FC = () => {
   return (
     // <section
@@ -16,17 +17,19 @@ const Home: FC = () => {
       <Navbar />
       <TopIntro/>
       </div>
+      
+      <div className="bg-primary  h-[40vh] top-[60vh] z-10">
+        <BottomIntro />
+      </div>
+      <SideBar />
       <img 
-      className="absolute bottom-0 left-0  max-md:relative max-md:w-full max-md:bg-primary  w-1/2 z-10"
+      className="absolute bottom-0 left-0  max-md:relative max-md:mt-[-3rem] max-md:w-full max-md:bg-primary  w-1/2 z-10"
       src={FrontDrop} 
       alt="waves" />
       <img 
-      className="absolute bottom-0 left-[-6rem]  max-md:hidden   w-[60%]"
+      className="absolute bottom-0 left-[-6rem]  max-md:hidden w-[57.5%]"
       src={BackDrop2} 
       alt="waves" />
-      <div className="bg-primary max-md:bg-secondary h-[40vh] top-[60vh] z-10">
-        <BottomIntro />
-      </div>
       {/* <div className="absolute top-0 h-screen left-1/2"> */}
       {/* <img 
       className="w-full h-full"

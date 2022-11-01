@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .nav__element {
-  @apply duration-100 cursor-pointer hover:font-semibold ;
+  @apply duration-100 cursor-pointer hover:font-semibold hover:scale-[1.1];
 }
 img{
   max-width: none;
@@ -34,4 +34,8 @@ img{
     justify-content:center;
     align-items:center;
     text-align:center; */
+  }
+
+  .sidebar__element{
+    @apply my-2 py-1 cursor-pointer px-4 font-semibold rounded-lg duration-150 hover:bg-[hsla(0,0%,0%,0.07)];
   }
