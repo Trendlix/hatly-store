@@ -8,7 +8,7 @@ import { isSidebarOpened } from '../../features/sidebar/sidebar-slice'
 const SideBar: FC = props => {
   const isOpened = useSelector(isSidebarOpened)
   return (
-    <div className={`fixed top-0 bottom-0 right-0 bg-secondary mx-1 z-[1000] w-[300px] duration-150 translate-x-[100%] ${isOpened === true ? 'translate-x-0' : '' }` }>
+    <div className={`fixed top-0 bottom-0 right-0 bg-secondary ml-1 z-[1000] w-[300px] duration-150 translate-x-[100%] ${isOpened === true ? 'translate-x-0' : '' }` }>
       <CloseWrapper />
       <ul className="flex flex-col text-start py-4 px-8">
         <li className='sidebar__element'><a href="#tesla">Home</a></li>

@@ -39,3 +39,9 @@ img{
   .sidebar__element{
     @apply my-2 py-1 cursor-pointer px-4 font-semibold rounded-lg duration-150 hover:bg-[hsla(0,0%,0%,0.07)];
   }
+  .sectionSize {
+    @apply lg:px-48 md:px-12 px-4 py-14 flex flex-col items-center;
+  }
+  /* .secondaryTitle {
+    @apply font-pt-serif text-3xl bg-left-bottom bg-no-repeat pb-8 px-16 mb-8;
+  } */

@@ -13,7 +13,7 @@ const Home: FC = () => {
     dispatch(openSidebar())
   }
   return (
-    <div className="flex py-5 px-[5%] w-screen items-center h-20">
+    <div className="flex py-5 px-[5%]  items-center h-20">
       <div className="logo flex align-middle">
         <img src={logo} alt="waves" className=" lg:pt-4 w-[100px] lg:w-[150px]" />
       </div>
