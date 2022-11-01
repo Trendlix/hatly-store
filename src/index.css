@@ -46,10 +46,10 @@ img {
   @apply lg:px-48 md:px-12 px-4 py-14 flex flex-col items-center;
 }
 .main-box-shadow{
-  box-shadow: 4.5px 5px 0px 0px #2196f3;
+  box-shadow: 6.5px 6px 0px 0px #98b0d2;
 }
 .main-box-shadow:hover{
-  box-shadow: 0px 0px 4px 0 #2196f3, 4.5px 5px 0px 0px #03a9f4;
+  box-shadow: 0px 0px 4px 0 #98b0d2, 6.5px 6px 0px 0px #98b0d2;
 }
 /* .secondaryTitle {
     @apply font-pt-serif text-3xl bg-left-bottom bg-no-repeat pb-8 px-16 mb-8;

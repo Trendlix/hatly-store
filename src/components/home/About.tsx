@@ -13,7 +13,7 @@ const About: FC = () => {
         </h2>
       </div>
       <div className="md:grid md:grid-cols-2 md:grid-rows-2 md:gap-x-4">
-        <div className="flex items-start font-montserrat mb-6 p-4 rounded-[1rem] border-primary border-solid border-[3px] hover:scale-[1.05] duration-150 main-box-shadow">
+        <div className="flex items-start font-montserrat mb-6 p-4 rounded-[1rem] border-primary border-solid border-[3px] hover:scale-[1.025] duration-150 main-box-shadow">
           <img src="dist/assets/logos/Heart.svg" alt="" className="h-7 mr-4" />
           <div>
             <h3 className="font-semibold text-2xl">About Waves #1</h3>
@@ -26,7 +26,7 @@ const About: FC = () => {
             </p>
           </div>
         </div>
-        <div className="flex items-start font-montserrat mb-6 p-4 rounded-[1rem] border-primary border-solid border-[3px] hover:scale-[1.05] duration-150 main-box-shadow">
+        <div className="flex items-start font-montserrat mb-6 p-4 rounded-[1rem] border-primary border-solid border-[3px] hover:scale-[1.025] duration-150 main-box-shadow">
           <img src="dist/assets/logos/Heart.svg" alt="" className="h-7 mr-4" />
           <div>
             <h3 className="font-semibold text-2xl">Vision #2</h3>
@@ -35,7 +35,7 @@ const About: FC = () => {
             </p>
           </div>
         </div>
-        <div className="flex items-start font-montserrat mb-6 p-4 rounded-[1rem] border-primary border-solid border-[3px] hover:scale-[1.05] duration-150 main-box-shadow">
+        <div className="flex items-start font-montserrat mb-6 p-4 rounded-[1rem] border-primary border-solid border-[3px] hover:scale-[1.025] duration-150 main-box-shadow">
           <img src="dist/assets/logos/Heart.svg" alt="" className="h-7 mr-4" />
           <div>
             <h3 className="font-semibold text-2xl">Mission #3</h3>
@@ -45,7 +45,7 @@ const About: FC = () => {
             </p>
           </div>
         </div>
-        <div className="flex items-start font-montserrat mb-6 p-4 rounded-[1rem] border-primary border-solid border-[3px] hover:scale-[1.05] duration-150 main-box-shadow">
+        <div className="flex items-start font-montserrat mb-6 p-4 rounded-[1rem] border-primary border-solid border-[3px] hover:scale-[1.025] duration-150 main-box-shadow">
           <img src="dist/assets/logos/Heart.svg" alt="" className="h-7 mr-4" />
           <div>
             <h3 className="font-semibold text-2xl">The Story #4</h3>
