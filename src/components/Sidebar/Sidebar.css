@@ -3,6 +3,6 @@
 @tailwind components;
 @tailwind utilities;
 
-.sidebar__element{
+.sidebar__element {
   @apply my-2 py-1 px-4 font-semibold rounded-lg duration-150 hover:bg-[rgba(0,0,0,0.7)];
 }

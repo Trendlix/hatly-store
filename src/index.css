@@ -5,27 +5,30 @@
 .nav__element {
   @apply duration-100 cursor-pointer hover:font-semibold hover:scale-[1.1];
 }
-img{
+img {
   max-width: none;
 }
-.read__more_btn{
-  
-    --b: 4px;   /* thickness of the border */
-    --c: black;   /* color of the border */
-    --w: 14px;  /* width of border */
-    
-  
-    border: var(--b) solid #0000; /* space for the border */
-    --_g: #0000 90deg,var(--c) 0;
-    --_p: var(--w) var(--w) border-box no-repeat;
-    background:
-      conic-gradient(from 90deg  at top    var(--b) left  var(--b),var(--_g)) 0    0    / var(--_p),
-      conic-gradient(from 180deg at top    var(--b) right var(--b),var(--_g)) 100% 0    / var(--_p),
-      conic-gradient(from 0deg   at bottom var(--b) left  var(--b),var(--_g)) 0    100% / var(--_p),
-      conic-gradient(from -90deg at bottom var(--b) right var(--b),var(--_g)) 100% 100% / var(--_p);
-    
-    
-    /* width:200px;
+.read__more_btn {
+  --b: 4px; /* thickness of the border */
+  --c: black; /* color of the border */
+  --w: 14px; /* width of border */
+
+  border: var(--b) solid #0000; /* space for the border */
+  --_g: #0000 90deg, var(--c) 0;
+  --_p: var(--w) var(--w) border-box no-repeat;
+  background: conic-gradient(
+        from 90deg at top var(--b) left var(--b),
+        var(--_g)
+      )
+      0 0 / var(--_p),
+    conic-gradient(from 180deg at top var(--b) right var(--b), var(--_g)) 100% 0 /
+      var(--_p),
+    conic-gradient(from 0deg at bottom var(--b) left var(--b), var(--_g)) 0 100% /
+      var(--_p),
+    conic-gradient(from -90deg at bottom var(--b) right var(--b), var(--_g))
+      100% 100% / var(--_p);
+
+  /* width:200px;
     height:100px;
     box-sizing:border-box;
     margin:5px;
@@ -34,14 +37,14 @@ img{
     justify-content:center;
     align-items:center;
     text-align:center; */
-  }
+}
 
-  .sidebar__element{
-    @apply my-2 py-1 cursor-pointer px-4 font-semibold rounded-lg duration-150 hover:bg-[hsla(0,0%,0%,0.07)];
-  }
-  .sectionSize {
-    @apply lg:px-48 md:px-12 px-4 py-14 flex flex-col items-center;
-  }
-  /* .secondaryTitle {
+.sidebar__element {
+  @apply my-2 py-1 cursor-pointer px-4 font-semibold rounded-lg duration-150 hover:bg-[hsla(0,0%,0%,0.07)];
+}
+.sectionSize {
+  @apply lg:px-48 md:px-12 px-4 py-14 flex flex-col items-center;
+}
+/* .secondaryTitle {
     @apply font-pt-serif text-3xl bg-left-bottom bg-no-repeat pb-8 px-16 mb-8;
   } */
