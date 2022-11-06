@@ -7,8 +7,8 @@ import target from '../assets/icons/target.svg'
 
 const BottomIntro: FC = () => {
   return (
-    <div className=" flex relative h-full">
-      <div className="md:absolute left-1/2 grid grid-cols-2 gap-x-8 gap-y-8 content-center md:pr-1 h-full max-md:px-4">
+    <div className=" flex justify-center relative h-full">
+      <div className="md:absolute left-1/2 grid grid-cols-2 gap-x-8  max-sm:gap-x-2 gap-y-8 content-center md:pr-1 h-full max-md:px-4">
         {/* <div className="grid grid-cols-2 gap-x-4 gap-y-4"> */}
         <Box
           title="Adventurers Experience"
