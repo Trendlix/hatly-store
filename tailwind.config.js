@@ -11,6 +11,9 @@ module.exports = {
         secondary: "#ede4d7",
         light: "#eafdff",
         nav_black: "#11120d",
+        error : "#ff0000c7",
+        input_error : "rgba(243, 174, 174, 0.5)",
+        input_error_shadow : "rgba(243, 174, 174, 0.25)",
         // black: "black",
         // mygray: "#000000a6",
         // mygreen:'#0EDC8D'

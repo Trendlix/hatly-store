@@ -3,7 +3,7 @@ import React, { FC } from "react";
 import underline from "../../assets/UnderlineBlack.svg";
 const About: FC = () => {
   return (
-    <section className="lg:px-48 md:px-12 px-4 py-14 flex flex-col items-center bg-secondary">
+    <section className="lg:px-48 md:px-12 px-4 py-14 flex flex-col items-center animatedBackground">
       <div>
         <h2
           style={{ backgroundImage: `url(${underline})` }}
@@ -14,7 +14,7 @@ const About: FC = () => {
       </div>
       <div className="md:grid md:grid-cols-2 md:grid-rows-2 md:gap-x-4">
         <div className="flex items-start font-montserrat mb-6 p-4 rounded-[1rem] border-primary border-solid border-[3px] hover:scale-[1.025] duration-150 main-box-shadow">
-          <img src="dist/assets/logos/Heart.svg" alt="" className="h-7 mr-4" />
+          {/* <img src="dist/assets/logos/Heart.svg" alt="" className="h-7 mr-4" /> */}
           <div>
             <h3 className="font-semibold text-2xl">About Waves #1</h3>
             <p className="text-[#777]">
@@ -27,7 +27,7 @@ const About: FC = () => {
           </div>
         </div>
         <div className="flex items-start font-montserrat mb-6 p-4 rounded-[1rem] border-primary border-solid border-[3px] hover:scale-[1.025] duration-150 main-box-shadow">
-          <img src="dist/assets/logos/Heart.svg" alt="" className="h-7 mr-4" />
+          {/* <img src="dist/assets/logos/Heart.svg" alt="" className="h-7 mr-4" /> */}
           <div>
             <h3 className="font-semibold text-2xl">Vision #2</h3>
             <p className="text-[#777]">
@@ -36,7 +36,7 @@ const About: FC = () => {
           </div>
         </div>
         <div className="flex items-start font-montserrat mb-6 p-4 rounded-[1rem] border-primary border-solid border-[3px] hover:scale-[1.025] duration-150 main-box-shadow">
-          <img src="dist/assets/logos/Heart.svg" alt="" className="h-7 mr-4" />
+          {/* <img src="dist/assets/logos/Heart.svg" alt="" className="h-7 mr-4" /> */}
           <div>
             <h3 className="font-semibold text-2xl">Mission #3</h3>
             <p className="text-[#777]">
@@ -46,7 +46,7 @@ const About: FC = () => {
           </div>
         </div>
         <div className="flex items-start font-montserrat mb-6 p-4 rounded-[1rem] border-primary border-solid border-[3px] hover:scale-[1.025] duration-150 main-box-shadow">
-          <img src="dist/assets/logos/Heart.svg" alt="" className="h-7 mr-4" />
+          {/* <img src="dist/assets/logos/Heart.svg" alt="" className="h-7 mr-4" /> */}
           <div>
             <h3 className="font-semibold text-2xl">The Story #4</h3>
             <p className="text-[#777]">

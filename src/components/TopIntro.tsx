@@ -21,7 +21,7 @@ const TopIntro: FC = () => {
         <div className="flex justify-center">
           <span className="read__more_btn inline-block">
             <button type="button" className="bg-primary px-4 py-1 ">
-              Read More
+            Register Now
             </button>
           </span>
         </div>

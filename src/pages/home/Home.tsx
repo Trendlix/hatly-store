@@ -8,6 +8,7 @@ import BackDrop2 from "../../assets/backdrop-home-2.png";
 import SideBar from "../../components/Sidebar/Sidebar";
 import About from "../../components/home/About";
 import OurServices from "../../components/home/OurServices";
+import Footer from "../../components/Footer";
 const Home: FC = () => {
   return (
     // <section
@@ -16,17 +17,16 @@ const Home: FC = () => {
     // ></section>
     <>
       <div className=" text-nav_black relative max-w-[100vw] ">
-        <div className="bg-secondary h-[60vh] ">
-          <Navbar />
+        <div className="bg-secondary main-height">
+          
           <TopIntro />
         </div>
 
         <div className="bg-primary  h-[40vh] top-[60vh] ">
           <BottomIntro />
         </div>
-        <SideBar />
         <img
-          className="absolute bottom-0 md:left-[5%] max-md:relative max-md:mt-[-3rem] max-md:w-full max-md:bg-primary  w-1/3 z-10"
+          className="absolute bottom-0 md:left-[5%] max-md:relative max-md:mt-[-3rem] max-md:w-full max-md:hidden max-md:bg-primary  w-1/3 z-10"
           src={FrontDrop}
           alt="waves"
         />
