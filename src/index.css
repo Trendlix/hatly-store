@@ -41,7 +41,13 @@ img {
     align-items:center;
     text-align:center; */
 }
+.sidebar_bg{
+  /* background: rgb(237,228,215); */
+/* background: linear-gradient(184deg, rgba(237,228,215,1) 0%, rgba(124,131,147,1) 100%); */
 
+background: rgb(237,228,215);
+background: linear-gradient(184deg, rgba(237,228,215,1) 0%, rgba(207,214,230,1) 100%);
+}
 .sidebar__element {
   @apply my-2 py-1 cursor-pointer px-4 font-semibold rounded-lg duration-150 hover:bg-[hsla(0,0%,0%,0.07)];
 }
