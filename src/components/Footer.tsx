@@ -1,5 +1,8 @@
 import React, { FC } from 'react'
 
+import CallOutlinedIcon from '@mui/icons-material/CallOutlined';
+import MailOutlineRoundedIcon from '@mui/icons-material/MailOutlineRounded';
+
 const Footer:FC = () => {
   return (
     <footer className="bg-[#f9efed] dark:bg-gray-900">
@@ -41,8 +44,14 @@ const Footer:FC = () => {
 
                     <div>
                         <h3 className="text-gray-700 uppercase dark:text-white">Contact</h3>
-                        <span className="block mt-2 text-sm text-gray-600 dark:text-gray-400 hover:underline">+971543300334</span>
-                        <span className="block mt-2 text-sm text-gray-600 dark:text-gray-400 hover:underline">waves.seasons@gmail.com</span>
+                        <a className="flex items-center gap-2 mt-2 text-sm text-gray-600 dark:text-gray-400 duration-300 hover:text-blue-400 " href='tel:+971543300334'>
+                            <CallOutlinedIcon />
+                            <span>+971543300334</span>
+                        </a>
+                        <a className="flex items-center gap-2 mt-2 text-sm text-gray-600 dark:text-gray-400 duration-300 hover:text-blue-400 " href="mailto:waves.seasons@gmail.com?subject=Waves contact-us">
+                            <MailOutlineRoundedIcon />
+                            <span>waves.seasons@gmail.com</span>
+                        </a>
                         <div className="flex mt-6 -mx-2">
                         <a className="mx-1.5 dark:hover:text-blue-400 text-gray-400 transition-colors duration-300 transform hover:text-blue-400" href="https://www.instagram.com/Waves.seasons/" target="_blank"  rel="noreferrer" >
                             <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -1,9 +1,15 @@
 import React, { FC } from "react";
 
 import underline from "../../assets/UnderlineBlack.svg";
+
+import aboutWaves from '../../assets/icons/about waves.svg'
+import vision from '../../assets/icons/vision.svg'
+import mission from '../../assets/icons/mission.svg'
+import TheStory from '../../assets/icons/the story.svg'
+import Mission from "../icons/Mission";
 const About: FC = () => {
   return (
-    <section className="lg:px-48 md:px-12 px-4 py-14 flex flex-col items-center animatedBackground">
+    <section className="lg:px-48 md:px-12 px-4 py-14 flex flex-col items-center bg-secondary animatedBackground">
       <div>
         <h2
           style={{ backgroundImage: `url(${underline})` }}
@@ -12,11 +18,11 @@ const About: FC = () => {
           About us
         </h2>
       </div>
-      <div className="md:grid md:grid-cols-2 md:grid-rows-2 md:gap-x-4">
-        <div className="flex items-start font-montserrat mb-6 p-4 rounded-[1rem] border-primary border-solid border-[3px] hover:scale-[1.025] duration-150 main-box-shadow">
-          {/* <img src="dist/assets/logos/Heart.svg" alt="" className="h-7 mr-4" /> */}
+      <div className="md:grid md:grid-cols-2 md:grid-rows-2 md:gap-x-8">
+        <div className="flex  items-start font-montserrat mb-6 p-4 rounded-[1rem] border-primary border-solid border-[3px] hover:scale-[1.025] duration-150 main-box-shadow">
+          <img  src={aboutWaves} alt="About Waves" className="h-8 w-8 mr-4" />
           <div>
-            <h3 className="font-semibold text-2xl">About Waves #1</h3>
+            <h3 className="font-semibold text-2xl mb-4">About Waves #1</h3>
             <p className="text-[#777]">
               In Waves Seasons we design an amazing getaway for our audience to
               become the most anticipated destination for them and their
@@ -26,29 +32,29 @@ const About: FC = () => {
             </p>
           </div>
         </div>
-        <div className="flex items-start font-montserrat mb-6 p-4 rounded-[1rem] border-primary border-solid border-[3px] hover:scale-[1.025] duration-150 main-box-shadow">
-          {/* <img src="dist/assets/logos/Heart.svg" alt="" className="h-7 mr-4" /> */}
+        <div className="flex  items-start font-montserrat mb-6 p-4 rounded-[1rem] border-primary border-solid border-[3px] hover:scale-[1.025] duration-150 main-box-shadow">
+          <img  src={vision} alt="vision" className="h-8 w-8 mr-4" />
           <div>
-            <h3 className="font-semibold text-2xl">Vision #2</h3>
+            <h3 className="font-semibold text-2xl mb-4">Vision #2</h3>
             <p className="text-[#777]">
               To become one of the most sought out seasonal events in Dubai
             </p>
           </div>
         </div>
-        <div className="flex items-start font-montserrat mb-6 p-4 rounded-[1rem] border-primary border-solid border-[3px] hover:scale-[1.025] duration-150 main-box-shadow">
-          {/* <img src="dist/assets/logos/Heart.svg" alt="" className="h-7 mr-4" /> */}
+        <div className="flex  items-start font-montserrat mb-6 p-4 rounded-[1rem] border-primary border-solid border-[3px] hover:scale-[1.025] duration-150 main-box-shadow">
+          <img  src={mission} alt="Mission" className="h-8 w-8 mr-4" />
           <div>
-            <h3 className="font-semibold text-2xl">Mission #3</h3>
+            <h3 className="font-semibold text-2xl mb-4">Mission #3</h3>
             <p className="text-[#777]">
               To offer our clients an amazing experience that will create
               memorable moments at the best gathering destination in Dubai
             </p>
           </div>
         </div>
-        <div className="flex items-start font-montserrat mb-6 p-4 rounded-[1rem] border-primary border-solid border-[3px] hover:scale-[1.025] duration-150 main-box-shadow">
-          {/* <img src="dist/assets/logos/Heart.svg" alt="" className="h-7 mr-4" /> */}
+        <div className="flex  items-start font-montserrat mb-6 p-4 rounded-[1rem] border-primary border-solid border-[3px] hover:scale-[1.025] duration-150 main-box-shadow">
+          <img  src={TheStory} alt="The Story" className="h-8 w-8 mr-4" />
           <div>
-            <h3 className="font-semibold text-2xl">The Story #4</h3>
+            <h3 className="font-semibold text-2xl mb-4">The Story #4</h3>
             <p className="text-[#777]">
               We live in an era that is fast paced and changes in trends happen
               on a daily basis. What's the next big thing is always the most
