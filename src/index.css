@@ -1,7 +1,39 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Cabin:ital,wght@1,600&display=swap');
 
+.slider_title{
+  font-family: 'Cabin', sans-serif;
+  font-style: italic;
+}
+
+.slider_front{
+  /* transform-style: preserve-3d; */
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transition: 0.3s ease;
+}
+
+.slider_backface{
+  /* transform-style: preserve-3d; */
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform: rotateY(-180deg);
+  transition: 0.3s ease;
+}
+
+
+@media (max-width : 768px){
+  .slider:hover .slider_front{
+    transform: rotateY(180deg);
+  }
+  .slider:hover .slider_backface{
+    transform: rotateY(0deg);
+  }
+}
 .main-height{
   height: calc(60vh - 80px);
 }

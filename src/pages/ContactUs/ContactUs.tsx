@@ -46,7 +46,7 @@ const ContactUs: FC = () => {
     <ErrorOutlineOutlinedIcon style={{ fontSize: '1rem' }} />
     <span>This field is required</span>
   </p>;
-  const inputStyle = (validation: boolean) => `block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40 duration-250 ${validation === true ? 'bg-input_error focus:border-input_error_shadow focus:ring-input_error_shadow' : ''}`
+  const inputStyle = (validation: boolean) => `block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40 duration-250 ${validation === true ? 'bg-input_error focus:border-input_error_shadow focus:ring-input_error_shadow' : ''}`
   const [sendingForm, setSendingForm] = useState(false);
   let formIsValid = false;
   if (enteredNameIsValid && enteredPhoneIsValid && enteredEmailIsValid && enteredMessageIsValid)
@@ -101,45 +101,45 @@ const ContactUs: FC = () => {
     window.open(url, '_blank')
   }
   return (
-    <section className="bg-secondary dark:bg-gray-900">
+    <section className="bg-secondary ">
       <div className="container px-6 py-12 mx-auto">
         <div className="lg:flex lg:items-center lg:-mx-6">
           <div className="lg:w-1/2 lg:mx-6">
-            <h1 className="text-3xl font-semibold text-gray-800 capitalize dark:text-white lg:text-5xl">
+            <h1 className="text-3xl font-semibold text-gray-800 capitalize  lg:text-5xl">
               Contact us for <br /> more info
             </h1>
 
             <div className="mt-6 space-y-8 md:mt-8">
               <p className="flex items-start -mx-2">
-                <PlaceOutlinedIcon className='w-6 h-6 mx-2 text-blue-500 dark:text-blue-400' />
+                <PlaceOutlinedIcon className='w-6 h-6 mx-2 text-blue-500 ' />
 
-                <span className="mx-2 text-gray-700 truncate w-72 dark:text-gray-400">
+                <span className="mx-2 text-gray-700 truncate w-72 ">
                   Cecilia Chapman 711-2880 Nulla
                   St. Mankato Mississippi 96522
                 </span>
               </p>
 
               <p className="flex items-start -mx-2">
-                <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mx-2 text-blue-500 dark:text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mx-2 text-blue-500 " fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                 </svg>
 
-                <span className="mx-2 text-gray-700 truncate w-72 dark:text-gray-400">+(971) 543 300 334</span>
+                <span className="mx-2 text-gray-700 truncate w-72 ">+(971) 543 300 334</span>
               </p>
 
               <p className="flex items-start -mx-2">
-                <MailOutlineRoundedIcon className="w-6 h-6 mx-2 text-blue-500 dark:text-blue-400" />
+                <MailOutlineRoundedIcon className="w-6 h-6 mx-2 text-blue-500 " />
 
-                <span className="mx-2 text-gray-700 truncate w-72 dark:text-gray-400">waves.seasons@gmail.com</span>
+                <span className="mx-2 text-gray-700 truncate w-72 ">waves.seasons@gmail.com</span>
               </p>
             </div>
 
             <div className="mt-6 w-80 md:mt-8">
-              <h3 className="text-gray-600 dark:text-gray-300 ">Follow us</h3>
+              <h3 className="text-gray-600  ">Follow us</h3>
 
               <div className="flex mt-4 -mx-1.5 cursor-pointer">
                 <span
-                  className="mx-1.5 dark:hover:text-blue-400 text-gray-400 transition-colors duration-300 transform hover:text-blue-500"
+                  className="mx-1.5  text-gray-400 transition-colors duration-300 transform hover:text-blue-500"
                   onClick={() => { redirectToSocialMedia('https://www.instagram.com/Waves.seasons/') }}
                 >
                   <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -152,12 +152,12 @@ const ContactUs: FC = () => {
 
           <div className="mt-8 lg:w-1/2 lg:mx-6">
             <div
-              className="w-full px-8 py-10 mx-auto overflow-hidden bg-white rounded-lg shadow-2xl dark:bg-gray-900 lg:max-w-xl shadow-gray-300/50 dark:shadow-black/50">
+              className="w-full px-8 py-10 mx-auto overflow-hidden bg-white rounded-lg shadow-2xl  lg:max-w-xl shadow-gray-300/50 ">
               <h1 className="text-lg font-medium text-gray-700">What do you want to ask</h1>
 
               <form className="mt-6" onSubmit={formSubmissionHandler}>
                 <div className="flex-1 h-[102px]">
-                  <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">Full Name</label>
+                  <label className="block mb-2 text-sm text-gray-600 ">Full Name</label>
                   <input
                     value={enteredName}
                     onChange={onChangeNameHandler}
@@ -174,7 +174,7 @@ const ContactUs: FC = () => {
                 </div>
 
                 <div className="flex-1 h-[102px] mt-2">
-                  <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">Email Address</label>
+                  <label className="block mb-2 text-sm text-gray-600 ">Email Address</label>
                   <input
                     type="email"
                     placeholder="johndoe@example.com"
@@ -191,7 +191,7 @@ const ContactUs: FC = () => {
                 </div>
 
                 <div className="flex-1 h-[102px] mt-2">
-                  <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">Phone Number</label>
+                  <label className="block mb-2 text-sm text-gray-600 ">Phone Number</label>
                   <input
                     type="text"
                     placeholder="+971xxxxxxxxx"
@@ -208,9 +208,9 @@ const ContactUs: FC = () => {
                 </div>
 
                 <div className="w-full mt-2">
-                  <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">Message</label>
+                  <label className="block mb-2 text-sm text-gray-600 ">Message</label>
                   <textarea
-                    className={`block w-full h-20 px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md md:h-20 dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40 ${messageHasError === true ? 'bg-input_error focus:border-input_error_shadow focus:ring-input_error_shadow' : ''}`}
+                    className={`block w-full h-20 px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md md:h-20  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40 ${messageHasError === true ? 'bg-input_error focus:border-input_error_shadow focus:ring-input_error_shadow' : ''}`}
                     placeholder="Message"
                     value={enteredMessage}
                     onChange={onChangeMessageHandler}

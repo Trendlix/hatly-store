@@ -9,6 +9,7 @@ import Footer from "./Footer";
 import SideBar from "./Sidebar/Sidebar";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import AboutUs from "../pages/AboutUs/AboutUs";
 const App: FC = () => {
   return (
     <div>
@@ -19,6 +20,7 @@ const App: FC = () => {
         <SideBar />
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/about-us" element={<AboutUs />} />
             <Route path="/contact-us" element={<ContactUs />} />
           </Routes>
         <Footer/>
