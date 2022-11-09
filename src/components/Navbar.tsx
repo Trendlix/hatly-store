@@ -24,7 +24,7 @@ const Home: FC = () => {
       </div>
       <div className="flex mx-4 gap-4 lg:gap-8 lg:mx-12 max-md:hidden">
         <Link to="/" className="nav__element">Home</Link>
-        <Link to="/" className="nav__element">About us</Link>
+        <Link to="/about-us" className="nav__element">About us</Link>
         <Link to="/" className="nav__element">Our Services</Link>
         <Link to="/" className="nav__element">Events</Link>
         <Link to="/contact-us" className="nav__element">Contact Us</Link>

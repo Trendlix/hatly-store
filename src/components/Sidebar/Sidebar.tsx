@@ -17,9 +17,9 @@ const SideBar: FC = (props) => {
       <CloseWrapper />
       <div className="flex flex-col text-start py-4 px-8">
           <Link className="sidebar__element" to="/">Home</Link>
-          <Link className="sidebar__element" to="#waves">About us</Link>
-          <Link className="sidebar__element" to="#waves">Our Services</Link>
-          <Link className="sidebar__element" to="#waves">Events</Link>
+          <Link className="sidebar__element" to="/about-us">About us</Link>
+          <Link className="sidebar__element" to="/">Our Services</Link>
+          <Link className="sidebar__element" to="/">Events</Link>
           <Link className="sidebar__element" to="/contact-us">Contact Us</Link>
       </div>
     </div>
