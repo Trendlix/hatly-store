@@ -9,7 +9,7 @@ import TheStory from '../../assets/icons/the story.svg'
 import Mission from "../icons/Mission";
 const About: FC = () => {
   return (
-    <section className="lg:px-48 md:px-12 px-4 py-14 flex flex-col items-center bg-secondary animatedBackground">
+    <section className="lg:px-48 md:px-12 px-4 py-14 flex flex-col items-center  animatedBackground">
       <div>
         <h2
           style={{ backgroundImage: `url(${underline})` }}
