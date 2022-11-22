@@ -12,7 +12,7 @@
 /build
 
 # build compressed files
-.zip
+*.zip
 
 # misc
 .DS_Store
