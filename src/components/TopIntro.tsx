@@ -13,7 +13,7 @@ import slider2 from "../assets/slider2.jpg"
 const TopIntro: FC = () => {
   return (
     <div className="relative">
-      <div className="intro__text absolute left-1/2 max-lg:left-[5%] max-md:left-0 top-8 max-md:w-full">
+      <div className="intro__text md:absolute left-1/2 max-lg:left-[5%]  top-8 max-md:w-full">
         <h1 className="font-black text-3xl md:text-5xl lg:text-7xl max-md:text-center">
           Let's Get
           <br className="max-md:hidden" />

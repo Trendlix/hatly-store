@@ -16,13 +16,13 @@ const Home: FC = () => {
     //   className="cotainer min-h-screen"
     // ></section>
     <>
-      <div className=" text-nav_black relative max-w-[100vw] ">
-        <div className="bg-secondary main-height">
-          
+      <div className=" text-nav_black relative max-w-[100vw]">
+        <div className="bg-secondary md:main-height ">
+
           <TopIntro />
         </div>
 
-        <div className="bg-primary  h-[40vh] top-[60vh] ">
+        <div className="bg-primary  md:h-[40vh] md:top-[60vh] ">
           <BottomIntro />
         </div>
         <img

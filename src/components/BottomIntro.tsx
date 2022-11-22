@@ -7,12 +7,12 @@ import target from '../assets/icons/target.svg'
 
 const BottomIntro: FC = () => {
   return (
-    <div className=" flex justify-center flex-col relative h-full">
-      <h2 className="md:hidden text-3xl text-center pt-6 font-extrabold">Our Services</h2>
+    <div className=" flex justify-center flex-col relative h-full py-6">
+      <h2 className="md:hidden text-3xl text-center font-extrabold">Our Services</h2>
       <div className="md:absolute left-1/2 right-0 grid grid-cols-2 gap-x-8
                       -mt-[3rem] max-sm:gap-x-2 gap-y-8 content-center md:pr-1 
                       h-full max-md:px-4 max-md:flex max-md:flex-col max-md:justify-center
-                      max-md:items-stretch max-md:m-0"
+                      max-md:items-stretch max-md:m-0 max-md:gap-y-4"
                       >
         {/* <div className="grid grid-cols-2 gap-x-4 gap-y-4"> */}
         <Box
