@@ -50,7 +50,7 @@ const AboutUs:FC = () => {
       <div style={{backgroundImage : `url(${slider})`}}
         className="main__slider relative w-full h-[35vh] bg-primary bg-no-repeat bg-cover" 
         > 
-      <h2 className='absolute slider_title text-6xl md:text-8xl font-bold text-white max-md:w-full max-md:text-center md:right-[15%] top-[25%]'>About Us</h2>
+      <h2 className='absolute  text-6xl md:text-8xl font-bold text-white max-md:w-full max-md:text-center md:right-[15%] top-[25%]'>About Us</h2>
       </div>
       <div className="cards w-full py-8 px-4 md:px-14 flex max-xl:flex-col gap-6 flex-wrap justify-evenly items-center">
       {aboutCards?.map(el=> <AboutCard 

@@ -1,4 +1,5 @@
 const express  = require('express');
+const cors  = require('cors');
 
 const config = require('./src/config');
 const api = require('./src/routes/index');
@@ -11,6 +12,7 @@ const port  = config.port || 3001;
 
 // middleware to parse incoming request
 app.use(express.json());
+app.use(cors())
 
 //default getaway
 app.get('/', (_,res)=>{

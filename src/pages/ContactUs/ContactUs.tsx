@@ -4,6 +4,7 @@ import MailOutlineRoundedIcon from '@mui/icons-material/MailOutlineRounded';
 import ErrorOutlineOutlinedIcon from '@mui/icons-material/ErrorOutlineOutlined';
 import useInput, { InputHookType } from '../../hooks/use-input';
 import { toast } from 'react-toastify';
+import axios from 'axios';
 
 
 const isNotEmpty = (value: string) => value.trim() !== '';
@@ -48,10 +49,23 @@ const ContactUs: FC = () => {
   </p>;
   const inputStyle = (validation: boolean) => `block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40 duration-250 ${validation === true ? 'bg-input_error focus:border-input_error_shadow focus:ring-input_error_shadow' : ''}`
   const [sendingForm, setSendingForm] = useState(false);
+  const sendForm = async (name: string, email: string, phone: string, message: string) => {
+    try {
+      await axios.post('http://127.0.0.1:3001/api/v1/contact-us', {
+        fullName : name,
+        email,
+        phone,
+        message
+      })
+    } catch (e: any) {
+      throw new Error(e);
+    }
+
+  }
   let formIsValid = false;
   if (enteredNameIsValid && enteredPhoneIsValid && enteredEmailIsValid && enteredMessageIsValid)
     formIsValid = true;
-  const formSubmissionHandler = (e: any) => {
+  const formSubmissionHandler = async (e: any) => {
     //prevent default behavior
     e.preventDefault();
     //touch all inputs
@@ -59,39 +73,53 @@ const ContactUs: FC = () => {
     onBlurEmailHandler();
     onBlurPhoneHandler();
     onBlurMessageHandler();
-    //set status to pending to send message
-    setSendingForm(prev => true)
-    const formToast = toast.loading("Sending your message...")
-    //check that all inputs are valid
-    setTimeout(
-      () => {
-        setSendingForm(prev => false);
-        toast.update(formToast,
-          {
-            render: "Your message has been sent successfully",
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-            isLoading: false,
-            type: toast.TYPE.SUCCESS,
-            closeButton: true,
-          }
-        )
-      }, 2000
-    )
+
     if (!formIsValid)
       return;
-
-    console.log(enteredName)
-    console.log(enteredEmail)
-    console.log(enteredPhone)
-
-    //reset inputs
+      //set status to pending to send message
+      const formToast = toast.loading("Sending your message...")
+    try {
+      setSendingForm(prev => true)
+      //check that all inputs are valid
+      console.log('sending')
+      await sendForm(enteredName, enteredPhone, enteredEmail, enteredMessage);
+      toast.update(formToast,
+        {
+          render: "Your message has been sent successfully",
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          isLoading: false,
+          type: toast.TYPE.SUCCESS,
+          closeButton: true,
+        }
+      )
+    } catch (e: any) {
+      console.log(2)
+      toast.update(formToast,
+        {
+          render: "Sorry we couldn't send your message",
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          isLoading: false,
+          type: toast.TYPE.ERROR,
+          closeButton: true,
+        })
+    }
+    //set sending message state to false
+    setSendingForm(prev => false);
+    // reset inputs
     resetNameInput();
     resetEmailInput();
     resetPhoneInput();

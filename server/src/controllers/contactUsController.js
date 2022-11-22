@@ -2,7 +2,7 @@ const nodemailer = require('nodemailer');
 
 const config = require('../config');
 
-const Email = (options) => {
+const Email = async (options) => {
   console.log(config.email)
   let transporter = nodemailer.createTransport({
     service: 'gmail', //i use outlook
@@ -11,23 +11,22 @@ const Email = (options) => {
       pass: config.emailPassword, //password
     },
   });
-  transporter.sendMail(options, (err, info) => {
-    if (err) {
-      console.log(err);
-      return;
-    }
-  });
+  try {
+    await transporter.sendMail(options);
+  } catch (e) {
+    throw new Error(e);
+  }
 };
 
 // send email
-const EmailSender = ({
+const EmailSender = async ({
   fullName,
   email,
   phone,
   message
 }) => {
   const options = {
-    from: config.email,
+    from: "contact us",
     to: config.email,
     subject: 'Message From Contact US',
     html: `
@@ -38,7 +37,7 @@ const EmailSender = ({
           </div>
           <div style="width: 100%; gap: 10px; padding: 30px 0; display: grid">
             <p style="font-weight: 800; font-size: 1.2rem; padding: 0 30px">
-              Form Shoeshop Store
+              From contact us form
             </p>
             <div style="font-size: .8rem; margin: 0 30px">
               <p>FullName: <b>${fullName}</b></p>
@@ -51,7 +50,12 @@ const EmailSender = ({
       </div>
         `,
   };
-  Email(options)
+  try {
+    await Email(options)
+    
+  } catch (e) {
+    throw new Error(e);
+  }
 };
 const sendEmail = async (req, res) => {
   try {
@@ -61,7 +65,7 @@ const sendEmail = async (req, res) => {
       phone,
       message
     } = req.body
-    EmailSender({
+    await EmailSender({
       fullName,
       email,
       phone,
@@ -73,10 +77,11 @@ const sendEmail = async (req, res) => {
       message: "Your message sent successfully",
     });
   } catch (e) {
-    res.status(404).json({
+    console.log(e.message)
+    res.status(500).json({
       ok: false , 
-      code : 404,
-      message: e.message
+      code : 500,
+      message: "internal server error"
     });
   }
 }

@@ -18,7 +18,7 @@ const About: FC = () => {
           About us
         </h2>
       </div>
-      <div className="md:grid md:grid-cols-2 md:grid-rows-2 md:gap-x-8">
+      <div className="md:grid md:grid-cols-2 md:grid-rows-1 md:gap-x-8">
         <div className="flex  items-start font-montserrat mb-6 p-4 rounded-[1rem] border-primary border-solid border-[3px] hover:scale-[1.025] duration-150 main-box-shadow">
           <img  src={aboutWaves} alt="About Waves" className="h-11 w-11 mr-4" />
           <div>
@@ -32,7 +32,7 @@ const About: FC = () => {
             </p>
           </div>
         </div>
-        <div className="flex  items-start font-montserrat mb-6 p-4 rounded-[1rem] border-primary border-solid border-[3px] hover:scale-[1.025] duration-150 main-box-shadow">
+        {/* <div className="flex  items-start font-montserrat mb-6 p-4 rounded-[1rem] border-primary border-solid border-[3px] hover:scale-[1.025] duration-150 main-box-shadow">
           <img  src={vision} alt="vision" className="h-11 w-11 mr-4" />
           <div>
             <h3 className="font-semibold text-2xl mb-4">Vision #2</h3>
@@ -50,11 +50,11 @@ const About: FC = () => {
               memorable moments at the best gathering destination in Dubai
             </p>
           </div>
-        </div>
+        </div> */}
         <div className="flex  items-start font-montserrat mb-6 p-4 rounded-[1rem] border-primary border-solid border-[3px] hover:scale-[1.025] duration-150 main-box-shadow">
           <img  src={TheStory} alt="The Story" className="h-11 w-11 mr-4" />
           <div>
-            <h3 className="font-semibold text-2xl mb-4">The Story #4</h3>
+            <h3 className="font-semibold text-2xl mb-4">The Story #2</h3>
             <p className="text-[#777]">
               We live in an era that is fast paced and changes in trends happen
               on a daily basis. What's the next big thing is always the most

@@ -46,7 +46,7 @@ const Home: FC = () => {
       {/* about */}
       <About />
       {/* our services */}
-      <OurServices />
+      {/* <OurServices /> */}
     </>
   );
 };

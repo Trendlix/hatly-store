@@ -27,14 +27,14 @@ const AboutCard:FC<propsType> = props => {
       </div>
       <h2 className="relative max-md:text-center max-md:w-full title w-max text-primary text-3xl mb-6 before:content-[''] before:bg-secondary before:w-[110px] before:h-2 before:left-0 max-md:before:left-[30%] before:-bottom-3 before:absolute ">{props.title}</h2>
       {props.description && <p className='max-md:hidden text-[#6f6e6e] max-w-[275px]'>{props.description}</p>}
-      {props?.points?.map(el=> <p className='max-md:hidden text-[#6f6e6e] max-w-[275px]'>{el}</p>)}
+      {props?.points?.map(el=> <p key={el.length} className='max-md:hidden text-[#6f6e6e] max-w-[275px]'>{el}</p>)}
       <img src={props.logo} alt={props.title} className="md:hidden max-w-[125px] max-md:mt-8 mx-auto"/>
     </div>
 
     <div className="backface absolute top-0 left-0 right-0 bottom-0  md:hidden min-h-[275px] md:w-[600px] max-md:w-[80vw] max-md:p-4 max-md:rounded-2xl max-md:border-[3px] max-md:border-[#98b0d2]
       max-md:bg-[#9bb0d217] max-md:cursor-pointer rotate slider_backface flex flex-col justify-center items-center">
               {props.description && <p className=' text-[#6f6e6e] max-w-[100%] text-center'>{props.description}</p>}
-      {props?.points?.map(el=> <p className=' text-[#6f6e6e] max-w-[100%] text-center'>{el}</p>)}
+      {props?.points?.map(el=> <p  key={el.length} className=' text-[#6f6e6e] max-w-[100%] text-center'>{el}</p>)}
     </div>
     </div>
   )

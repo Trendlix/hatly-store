@@ -2,7 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 @import url('https://fonts.googleapis.com/css2?family=Cabin:ital,wght@1,600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sulphur+Point:wght@300;400;700&display=swap');
 
+.sec_font{
+  font-family: 'Sulphur Point', sans-serif;
+}
+body{
+  font-family: 'Sulphur Point', sans-serif;
+
+}
 .slider_title{
   font-family: 'Cabin', sans-serif;
   font-style: italic;
@@ -78,7 +86,8 @@ img {
   /* background: rgb(237,228,215); */
 /* background: linear-gradient(184deg, rgba(237,228,215,1) 0%, rgba(124,131,147,1) 100%); */
 background: rgb(237,228,215);
-background: linear-gradient(184deg, rgba(237,228,215,1) 0%, rgba(207,214,230,1) 100%);
+/* background: linear-gradient(184deg, rgba(237,228,215,1) 0%, rgba(207,214,230,1) 100%); */
+background: linear-gradient(184deg, rgba(237,228,215,1) 0%, #c9a08ef3 100%);
 }
 .sidebar__element {
   @apply my-2 py-1 cursor-pointer px-4 font-semibold rounded-lg duration-150 hover:bg-[hsla(0,0%,0%,0.07)];

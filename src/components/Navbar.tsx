@@ -3,8 +3,9 @@ import { useDispatch } from "react-redux";
 import SearchIcon from "@mui/icons-material/Search";
 import MenuIcon from "@mui/icons-material/Menu";
 import logo from "../assets/logo2.png";
+import wavesLogo from '../assets/waves-logo.png'
 import { openSidebar } from "../features/sidebar/sidebar-slice";
-import { Link } from "react-router-dom";
+import { Link  } from "react-router-dom";
 
 const Home: FC = () => {
   const dispatch = useDispatch();
@@ -14,12 +15,12 @@ const Home: FC = () => {
     dispatch(openSidebar());
   };
   return (
-    <div className="flex py-4 pb-6 px-[5%]  items-center h-20 bg-secondary">
+    <div className={`flex py-4 pb-6 px-[5%]  items-center h-20 bg-secondary `}>
       <div className="logo flex align-middle max-md:ml-[50%] max-md:translate-x-[-50%]">
         <img
-          src={logo}
+          src={wavesLogo}
           alt="waves"
-          className=" lg:pt-4 w-[100px] lg:w-[150px]"
+          className=" lg:pt-4 w-[100px] lg:w-[150px] max-md:bg-white max-md:rounded-[50%] max-md:w-[70px]"
         />
       </div>
       <div className="flex mx-4 gap-4 lg:gap-8 lg:mx-12 max-md:hidden">
