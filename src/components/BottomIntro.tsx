@@ -25,13 +25,13 @@ const BottomIntro: FC = () => {
         description="TOP BRANDS COLLABORATIONS" 
         icon={kids}
         />
-        <Box title="Festivals"
-        description="YEARS OF EVENTS FIELD EXPERIENCE" 
-        icon={festivals}
-        />
         <Box title="SMEs Community"
         description="PARTNERSHIP" 
         icon={sme}
+        />
+        <Box title="Festivals"
+        description="YEARS OF EVENTS FIELD EXPERIENCE" 
+        icon={festivals}
         />
         {/* </div> */}
       </div>

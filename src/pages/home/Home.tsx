@@ -17,7 +17,7 @@ const Home: FC = () => {
     // ></section>
     <>
       <div className=" text-nav_black relative max-w-[100vw]">
-        <div className="bg-secondary md:main-height ">
+        <div className="bg-secondary main-height max-md:h-max">
 
           <TopIntro />
         </div>

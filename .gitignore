@@ -11,6 +11,9 @@
 # production
 /build
 
+# build compressed files
+.zip
+
 # misc
 .DS_Store
 .env.local

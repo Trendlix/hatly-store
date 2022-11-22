@@ -33,7 +33,7 @@ const TopIntro: FC = () => {
             </button>
           </span>
         </div>
-        <div className="slider md:hidden py-2 ">
+        <div className="slider md:hidden pt-2 ">
         <Swiper navigation={true} modules={[Navigation]} className="mySwiper">
         <SwiperSlide>
           <img src={slider1} alt="slider" className="w-full"/>
