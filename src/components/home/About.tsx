@@ -2,6 +2,8 @@ import React, { FC } from "react";
 
 import underline from "../../assets/UnderlineBlack.svg";
 
+import arrowLeft from '../../assets/arrowLeft.png'
+import arrowRight from '../../assets/arrowRight.png'
 import aboutWaves from '../../assets/icons/about waves.svg'
 import vision from '../../assets/icons/vision.svg'
 import mission from '../../assets/icons/mission.svg'
@@ -19,16 +21,34 @@ const About: FC = () => {
         </h2>
       </div>
       <div className="md:grid md:grid-cols-2 md:grid-rows-1 md:gap-x-8">
-        <div className="flex  items-start font-montserrat mb-6 p-4 rounded-[1rem] border-primary border-solid border-[3px] hover:scale-[1.025] duration-150 main-box-shadow">
-          <img  src={aboutWaves} alt="About Waves" className="h-11 w-11 mr-4" />
+        <div className="flex  items-start font-montserrat mb-6 p-4 px-8 rounded-[1rem] border-primary border-solid border-[3px] hover:scale-[1.025] duration-150 main-box-shadow">
+          {/* <img  src={aboutWaves} alt="About Waves" className="h-11 w-11 mr-4" /> */}
           <div>
-            <h3 className="font-semibold text-2xl mb-4">About Waves #1</h3>
+            <div className="div relative">
+              <h3 className="font-semibold text-2xl mb-4">About Waves</h3>
+              <img src={arrowLeft} alt="arrow" className="absolute left-[-35px] top-[-300%]" />
+            </div>
             <p className="text-[#777]">
               In Waves Seasons we design an amazing getaway for our audience to
               become the most anticipated destination for them and their
               families to create memorable moments and live the best experience
               ever that could be tailored specially for them. Every season of
               our journey will carry a new surprising story behind it.
+            </p>
+          </div>
+        </div>
+        <div className="flex  items-start font-montserrat mb-6 p-4 px-8 rounded-[1rem] border-primary border-solid border-[3px] hover:scale-[1.025] duration-150 main-box-shadow">
+          {/* <img  src={TheStory} alt="The Story" className="h-11 w-11 mr-4" /> */}
+          <div>
+            <div className="div relative">
+              <h3 className="font-semibold text-2xl mb-4">The Story</h3>
+              <img src={arrowRight} alt="arrow" className="absolute right-[-25px] top-[-275%]" />
+            </div>
+            <p className="text-[#777]">
+              We live in an era that is fast paced and changes in trends happen
+              on a daily basis. What's the next big thing is always the most
+              asked question! We created a concept that will have the answer, so
+              join us and lets all ride the trendy “WAVES”
             </p>
           </div>
         </div>
@@ -51,18 +71,7 @@ const About: FC = () => {
             </p>
           </div>
         </div> */}
-        <div className="flex  items-start font-montserrat mb-6 p-4 rounded-[1rem] border-primary border-solid border-[3px] hover:scale-[1.025] duration-150 main-box-shadow">
-          <img  src={TheStory} alt="The Story" className="h-11 w-11 mr-4" />
-          <div>
-            <h3 className="font-semibold text-2xl mb-4">The Story #2</h3>
-            <p className="text-[#777]">
-              We live in an era that is fast paced and changes in trends happen
-              on a daily basis. What's the next big thing is always the most
-              asked question! We created a concept that will have the answer, so
-              join us and lets all ride the trendy “WAVES”
-            </p>
-          </div>
-        </div>
+
       </div>
     </section>
   );

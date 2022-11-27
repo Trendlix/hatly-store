@@ -38,7 +38,7 @@ const aboutCards = [
   {
     id : 5,
     title: "Our Values",
-    points : ['- Joy', '- Loyalty', '- Atmosphere'],
+    points : ['Joy', 'Loyalty', 'Atmosphere'],
     logo: theStory
     // description : '- Joy - Loyalty - Atmosphere' 
   },
