@@ -166,6 +166,8 @@ const Login = () => {
 export async function getServerSideProps(context) {
   const token = context.req.cookies.access_token
   // const session = await getSession(context)
+  // const auth = await axios.get(API_URL + '/users/auth');
+  // const token = auth.data.ok
   if(token)
   return{
     redirect: {
