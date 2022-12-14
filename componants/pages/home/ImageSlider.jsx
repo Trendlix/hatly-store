@@ -43,7 +43,7 @@ export default function ImageSlider(props) {
   //   </MDBCarousel>
     
   // );
-  console.log(props.img)
+  // console.log(props.img)
   return (
     <MDBCarousel showControls showIndicators>
       {props?.img?.map((el,i)=>{

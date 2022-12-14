@@ -1,7 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import Link from 'next/link'
 // import appStore from "../img/appstore.png";
 import playStore from "../img/play-srore.png";
+import Image from "next/image";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFacebook, faInstagram } from "@fortawesome/free-brands-svg-icons";
 
 const Footer = () => {
   return (
@@ -25,7 +28,7 @@ const Footer = () => {
                       behavior: "smooth",
                     });
                   }}
-                  to="/shop/Mobiles"
+                  href="/shop/Mobiles"
                   style={{
                     textDecoration: "none",
                     color: "#fff",
@@ -44,7 +47,7 @@ const Footer = () => {
                       behavior: "smooth",
                     });
                   }}
-                  to="/shop/Mobiles"
+                  href="/shop/Mobiles"
                   style={{
                     textDecoration: "none",
                     color: "#fff",
@@ -63,7 +66,7 @@ const Footer = () => {
                       behavior: "smooth",
                     });
                   }}
-                  to="/shop/Mobiles"
+                  href="/shop/Mobiles"
                   style={{
                     textDecoration: "none",
                     color: "#fff",
@@ -82,7 +85,7 @@ const Footer = () => {
                       behavior: "smooth",
                     });
                   }}
-                  to="/shop/Mobiles"
+                  href="/shop/Mobiles"
                   style={{
                     textDecoration: "none",
                     color: "#fff",
@@ -101,7 +104,7 @@ const Footer = () => {
                       behavior: "smooth",
                     });
                   }}
-                  to="/shop/Mobiles"
+                  href="/shop/Mobiles"
                   style={{
                     textDecoration: "none",
                     color: "#fff",
@@ -120,7 +123,7 @@ const Footer = () => {
                       behavior: "smooth",
                     });
                   }}
-                  to="/shop/Mobiles"
+                  href="/shop/Mobiles"
                   style={{
                     textDecoration: "none",
                     color: "#fff",
@@ -144,7 +147,7 @@ const Footer = () => {
                       behavior: "smooth",
                     });
                   }}
-                  to="/"
+                  href="/"
                   style={{
                     textDecoration: "none",
                     color: "#fff",
@@ -163,7 +166,7 @@ const Footer = () => {
                       behavior: "smooth",
                     });
                   }}
-                  to="/about"
+                  href="/about"
                   style={{
                     textDecoration: "none",
                     color: "#fff",
@@ -182,7 +185,7 @@ const Footer = () => {
                       behavior: "smooth",
                     });
                   }}
-                  to="/contact"
+                  href="/contact"
                   style={{
                     textDecoration: "none",
                     color: "#fff",
@@ -201,7 +204,7 @@ const Footer = () => {
                       behavior: "smooth",
                     });
                   }}
-                  to="/shop/all"
+                  href="/shop/all"
                   style={{
                     textDecoration: "none",
                     color: "#fff",
@@ -220,7 +223,7 @@ const Footer = () => {
                       behavior: "smooth",
                     });
                   }}
-                  to="/policy"
+                  href="/policy"
                   style={{
                     textDecoration: "none",
                     color: "#fff",
@@ -239,7 +242,7 @@ const Footer = () => {
                       behavior: "smooth",
                     });
                   }}
-                  to="/our_store"
+                  href="/our_store"
                   style={{
                     textDecoration: "none",
                     color: "#fff",
@@ -278,7 +281,7 @@ const Footer = () => {
                   target="_blank"
                   rel="noreferrer"
                 >
-                  <img style={{ width: "50%" }} src={playStore} alt="Hatly store"></img>
+                  <Image style={{ width: "50%" }} src={playStore} alt="Hatly store"></Image>
                 </a>
               </li>
             </ul>
@@ -304,18 +307,20 @@ const Footer = () => {
             </ul>
             <div style={{ display: "flex" }}>
               <a href="https://www.facebook.com/hatly.store/" target="_blank" rel="noreferrer">
-                <i
+                <FontAwesomeIcon
                   style={{ fontSize: "30px", color: "#ebeef5" }}
                   className="p-3 fa fa-facebook"
                   aria-hidden="true"
-                ></i>
+                  icon={faFacebook}
+                ></FontAwesomeIcon>
               </a>
               <a href="https://www.instagram.com/hatlystores/" target="_blank" rel="noreferrer">
-                <i
+                <FontAwesomeIcon
                   style={{ fontSize: "30px", color: "#ebeef5" }}
                   className="p-3 fa fa-instagram"
                   aria-hidden="true"
-                ></i>
+                  icon={faInstagram}
+                ></FontAwesomeIcon>
               </a>
             </div>
           </div>

@@ -1,16 +1,17 @@
 import { faArrowRightFromBracket, faPhone } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { Link, redirect, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { logout } from '../../../redux/features/user/userSlice';
 
 import style from './NavButtons.module.css';
 
 const NavButtons = () => {
+  const router = useRouter()
   const dispatch = useDispatch();
-  const navigate = useNavigate()
   const logoutHandler = ()=>{
     try {
       dispatch(logout())
@@ -25,7 +26,7 @@ const NavButtons = () => {
         theme: "light",
         });
         // return redirect('/')
-        navigate('/',{replace : true , preventScrollReset : false})
+        router.push('/')
     } catch (e) {
       toast.error('Internal error happened', {
         position: "top-right",
@@ -42,7 +43,7 @@ const NavButtons = () => {
   return (
     <ul className={style.buttons_container}>
       <li className={style.button}>
-        <Link className={style.link} to="/contact">
+        <Link className={style.link} href="/contact">
           <FontAwesomeIcon
             className="col pe-2"
             icon={faPhone}

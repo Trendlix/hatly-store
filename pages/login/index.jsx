@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import axios from 'axios'
 import { toast } from 'react-toastify';
 import { useDispatch ,useSelector} from 'react-redux'
+import { getSession, signIn, signOut } from "next-auth/react"
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import useInput from '../../hooks/use-input'
@@ -51,6 +52,14 @@ const Login = () => {
           email,
           password
       })
+      // const status = await signIn('credentials', {
+        // redirect: false,
+        // email,
+        // password,
+        // callbackUrl: "/"
+    // })
+    
+    // console.log(status)
       toast.success('Logged in successfully', {
         position: "top-right",
         autoClose: 5000,
@@ -62,7 +71,8 @@ const Login = () => {
         theme: "light",
         });
         dispatch(userActions.loginSuccess({user : req.data.body}))
-        router.push('/')
+        router.push('/account/overview')
+        // if(!status.error)
         // navigate('/',{replace : true})
       // console.log(req.data)
     } catch (e) {
@@ -155,6 +165,7 @@ const Login = () => {
 
 export async function getServerSideProps(context) {
   const token = context.req.cookies.access_token
+  // const session = await getSession(context)
   if(token)
   return{
     redirect: {

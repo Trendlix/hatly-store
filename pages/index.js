@@ -43,6 +43,8 @@ import Category from "../componants/pages/home/Category";
 import PaymentSlider from "../componants/PaymentSlider";
 import CategoriesSlider from "../componants/CategoriesSlider";
 import Image from "next/image";
+import { wrapper } from "../redux/store";
+import { getUser, userState } from "../redux/features/user/userSlice";
 
 
 const categoryArray = [
@@ -525,7 +527,9 @@ const Home = () => {
         <PaymentSlider number={3}></PaymentSlider>
       </div>
       {/* <section className="container mb-4 w-full">       */}
+      <div className="container">
         <video src={bannerVideo} controls width="100%"></video>
+      </div>
       {/* </section> */}
       <CategoryDevider
         url="all"
@@ -539,3 +543,6 @@ const Home = () => {
 };
 
 export default Home;
+
+
+

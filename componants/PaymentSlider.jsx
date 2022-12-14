@@ -35,7 +35,7 @@ import "swiper/css/scrollbar";
 import Image from "next/image";
 const PaymentSlider = (props) => {
   SwiperCore.use([Autoplay]);
-  console.log(props.number)
+  // console.log(props.number)
   return (
     <Swiper
       breakpoints={{

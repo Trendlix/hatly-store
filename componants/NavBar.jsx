@@ -1,5 +1,3 @@
-import 'bootstrap/dist/css/bootstrap.css'
-
 import React, { useRef } from "react";
 import "bootstrap/dist/js/bootstrap.bundle";
 import logo from "../img/logo.png";
@@ -45,13 +43,26 @@ import { useState, useEffect, useCallback } from "react";
 import SearchProduct from "./SearchProduct";
 import { useDispatch } from "react-redux";
 import { showAlert } from "../redux/alertReducer";
-import { logout, userActions, userState } from "../redux/features/user/userSlice";
+import { getUser, logout, userActions, userState } from "../redux/features/user/userSlice";
 import { toast } from "react-toastify";
 import Image from "next/image";
+import { signOut, useSession } from 'next-auth/react';
+import { useRouter } from "next/router";
+// import { useSession } from 'next-auth/client';
 
-const NavBar = () => {
+const NavBar = props => {
   const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(getUser())
+  }, [dispatch]);
   const user = useSelector(userState);
+  const router = useRouter()
+  // console.log(user)
+  // console.log('auth')
+  // console.log(props.isAuthenticated)
+  // const { data: session } = useSession()
+  // console.log(session)
+
   const [elementMotion, setElementMotion] = useState({ x: "150%", opacity: 0 });
   const cart = useSelector((state) => state.cart);
   const [y, setY] = useState(window.scrollY);
@@ -64,9 +75,11 @@ const NavBar = () => {
   const [flage, setFlage] = useState(0)
   const [catIcon, setCatIcon] = useState(faPlus)
 
-  const logoutHandler = ()=>{
+  const logoutHandler = async () => {
     try {
       dispatch(logout())
+      // await signOut()
+      router.push('/')
       toast.success('Logged out successfully', {
         position: "top-right",
         autoClose: 5000,
@@ -76,7 +89,7 @@ const NavBar = () => {
         draggable: true,
         progress: undefined,
         theme: "light",
-        });
+      });
     } catch (e) {
       toast.error('Internal error happened', {
         position: "top-right",
@@ -87,7 +100,7 @@ const NavBar = () => {
         draggable: true,
         progress: undefined,
         theme: "light",
-        });
+      });
     }
   }
 
@@ -201,7 +214,7 @@ const NavBar = () => {
                   ></FontAwesomeIcon>Inquiries</Link>
               </div>
               <div className="col-auto p-3">
-                {/* <Link href={`/${user.isAuthenticated ? 'account': 'login'}`}> */}
+                {/* <Link href={`/${user?.isAuthenticated ? 'account': 'login'}`}> */}
                 <div className={style.options_list_container}>
                   <FontAwesomeIcon
                     className="col pe-2"
@@ -209,32 +222,32 @@ const NavBar = () => {
                   ></FontAwesomeIcon>
                   <span>Account</span>
                   <ul className={style.options_list}>
-                    {<Link href={`/${user.isAuthenticated ? 'account': 'login'}`}>
+                    {<Link href={`/${user?.isAuthenticated ? 'account/overview' : 'login'}`}>
                       {
-                        user.isAuthenticated ?
-                        <>
-                        <FontAwesomeIcon 
-                        className="col pe-2"
-                        icon={faUserCircle}
-                        />
-                        <span>My Account</span>
-                        </>  
+                        user?.isAuthenticated ?
+                          <>
+                            <FontAwesomeIcon
+                              className="col pe-2"
+                              icon={faUserCircle}
+                            />
+                            <span>My Account</span>
+                          </>
                           :
                           <>
-                          <FontAwesomeIcon 
-                          className="col pe-2"
-                          icon={faArrowRightToBracket}
-                          />
-                          <span>Login</span>
-                          </> 
+                            <FontAwesomeIcon
+                              className="col pe-2"
+                              icon={faArrowRightToBracket}
+                            />
+                            <span>Login</span>
+                          </>
                       }
                     </Link>
                     }
                     {<>
-                      {user.isAuthenticated ?
-                        <div 
-                        onClick={logoutHandler}
-                        className={style.hover_scale}
+                      {user?.isAuthenticated ?
+                        <div
+                          onClick={logoutHandler}
+                          className={style.hover_scale}
                         >
                           <FontAwesomeIcon
                             className="col pe-2"
@@ -244,12 +257,12 @@ const NavBar = () => {
                         </div>
                         :
                         <Link href="/signup">
-                        <FontAwesomeIcon 
-                        className="col pe-2"
-                        icon={faUserPlus}
-                        />
-                        <span>Signup</span>
-                        </Link> 
+                          <FontAwesomeIcon
+                            className="col pe-2"
+                            icon={faUserPlus}
+                          />
+                          <span>Signup</span>
+                        </Link>
                       }
                     </>}
                   </ul>
@@ -716,3 +729,21 @@ const NavBar = () => {
 };
 
 export default NavBar;
+
+
+// export const getServerSideProps = async (context)=>{
+//   const session = await getSession({req : context.req})
+//   console.log(1)
+//   if(!session)
+//   return {
+//     props : {
+//       isAuthenticated : false
+//     }
+//   }
+//   return {
+//     props : {
+//       isAuthenticated : true
+//     }
+//   }
+
+// }

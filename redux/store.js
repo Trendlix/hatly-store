@@ -4,6 +4,7 @@ import tokenReducer from "./tokenRedux";
 import recentlyReducer from "./recentlyRedux";
 import alertReducer from "./alertReducer";
 import { userReducer } from "./features/user/userSlice";
+// import { createWrapper } from "next-redux-wrapper";
 
 export default configureStore({
   reducer: {

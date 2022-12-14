@@ -1,6 +1,5 @@
-/** @type {import('next').NextConfig} */
+// /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
   webpack(config, { isServer }) {
     const prefix = config.assetPrefix ?? config.basePath ?? '';
     config.module.rules.push({
@@ -18,7 +17,7 @@ const nextConfig = {
   },
   images: {
     domains: ['hatlystore.tswsp.net', 'accept.paymobsolutions.com'],
-    unoptimized : true,
+    unoptimized : false,
   },
 }
 

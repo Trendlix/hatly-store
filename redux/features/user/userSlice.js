@@ -39,7 +39,16 @@ const userSlice = createSlice({
     logoutFailed : (state , action)=>{
       state.loading = false;
     }
-  }
+  },
+  // extraReducers: {
+  //   [HYDRATE]: (state, action) => {
+  //     // console.log('HYDRATE', state, action.payload);
+  //     return {
+  //       ...state,
+  //       ...action.payload.subject,
+  //     };
+  //   },
+  // },
 })
 
 

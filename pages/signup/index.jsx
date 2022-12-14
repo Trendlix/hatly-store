@@ -245,3 +245,19 @@ const Signup = () => {
 }
 
 export default Signup
+export async function getServerSideProps(context) {
+  const token = context.req.cookies.access_token
+  // const session = await getSession(context)
+  if(token)
+  return{
+    redirect: {
+      destination: "/",
+      permanent: false,
+    },
+    props: {},
+  };
+  return {
+    props: {}, // will be passed to the page component as props
+  }
+
+}

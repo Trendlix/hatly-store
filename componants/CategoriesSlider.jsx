@@ -50,7 +50,7 @@ const categoryArray = [
 
 const CategoriesSlider = (props) => {
   SwiperCore.use([Autoplay]);
-  console.log(props.number)
+  // console.log(props.number)
   return (
     <Swiper
       breakpoints={{
