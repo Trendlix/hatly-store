@@ -44,7 +44,7 @@ const Login = () => {
       dispatch(userActions.loggingIn())
       const email = enteredEmail;
       const password = enteredPassword;
-      const req = await axios.post(`${API_URL}/users/login`, {
+      const req = await axios.post(`/api/login`, {
         Headers: {
           "Accept" : "*/*", 
           "Content-Type": "application/json",
