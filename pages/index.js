@@ -76,7 +76,7 @@ const categoryArray = [
   }
 ];
 
-const slider1 = [{ img: sliderImage2, link: '/payment_methods' }, { img: sliderImage3 }, { img: sliderImage5 }, { img: sliderImage1 , link : '/inquiries'}];
+const slider1 = [{ img: sliderImage2, link: '/payment-methods' }, { img: sliderImage3 }, { img: sliderImage5 }, { img: sliderImage1 , link : '/inquiries'}];
 const slider2 = [{ img: sliderImage4 }, { img: sliderImage6 }, { img: sliderImage7 }];
 
 const MainSection = styled.section`

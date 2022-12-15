@@ -3,28 +3,44 @@ import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import API_URL from '../../../API/ApiUrl'
 
-import AccountSidebar from '../../../componants/Account/AccountSidebar/AccountSidebar'
+// import AccountSidebar from '../../../componants/Account/AccountSidebar/AccountSidebar'
 import Overview from '../../../componants/Account/Overview/Overview'
+import AccountLayout from '../../../Layout/Account'
 import { getUser } from '../../../redux/features/user/userSlice'
-import style from './Account.module.css'
+// import style from './Account.module.css'
+
 axios.defaults.withCredentials = true
 
-const Account = () => {
+const AccountOverview = () => {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(getUser())
   }, []);
   return (
-    <div className={`${style.page_container} container`}>
-      <AccountSidebar />
+    // <div className={`${style.page_container} container`}>
+      // <AccountSidebar />
       <Overview />
-    </div>
+    // </div>
   )
 }
+AccountOverview.PageLayout = AccountLayout;
 
-export default Account
+export default AccountOverview
 
 export async function getServerSideProps(context) {
+  // try {
+    // const x = await axios.get(API_URL+'/users/me')
+    // console.log(x)
+    // console.log
+  // } catch (error) {
+    
+  // }
+  // try {
+    // const req = await fetch(API_URL+'/users/me',)
+    
+  // } catch (e) {
+    // console.log(e)
+  // }
   const token = context.req.cookies.access_token
   if (!token)
     return {

@@ -1,11 +1,16 @@
 import React from "react";
-import {
-  MDBCarousel,
-  // MDBCarouselInner,
-  MDBCarouselItem,
-  // MDBCarouselElement,
-} from "mdb-react-ui-kit";
+// import {
+// MDBCarousel,
+// MDBCarouselInner,
+// MDBCarouselItem,
+// MDBCarouselElement,
+// } from "mdb-react-ui-kit";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Autoplay } from "swiper";
 import Link from 'next/link'
+import "swiper/css";
+import "swiper/css/navigation";
 import Image from 'next/image'
 export default function ImageSlider(props) {
   // console.log(props.img)
@@ -41,36 +46,47 @@ export default function ImageSlider(props) {
   //       })}
   //     {/* </MDBCarouselInner> */}
   //   </MDBCarousel>
-    
+
   // );
   // console.log(props.img)
   return (
-    <MDBCarousel showControls showIndicators>
-      {props?.img?.map((el,i)=>{
-        return(
-          <Link href={el.link ?? '/'} key={i}>
-
-        <MDBCarouselItem key={i}
-        className='w-100 d-block'
-        itemId={i+1}
-        src={el.img.src}
-        alt='...'
-        />
-        </Link>
-        )
-      })}
-      {/* <MDBCarouselItem
-        className='w-100 d-block'
-        itemId={2}
-        src='https://mdbootstrap.com/img/new/slides/042.jpg'
-        alt='...'
-      />
-      <MDBCarouselItem
-        className='w-100 d-block'
-        itemId={3}
-        src='https://mdbootstrap.com/img/new/slides/043.jpg'
-        alt='...'
-      /> */}
-    </MDBCarousel>
-  );
+    // <div className="slider">
+    <Swiper
+      navigation={true}
+      loop={true}
+      speed={1000}
+      autoplay={{
+        delay: 2500,
+        disableOnInteraction: false,
+      }}
+      modules={[Navigation, Autoplay]}
+      className="mySwiper" 
+      >
+      {
+        props?.img?.map((el, i) => {
+          return (
+            <SwiperSlide key={i}>
+              <Link href={el.link ?? ''} >
+                <Image
+                  src={el.img.src}
+                  alt="slider"
+                  width={el.img.width}
+                  height={el.img.height}
+                  blurDataURL={el.img.blurDataURL}
+                />
+              </Link>
+            </SwiperSlide>
+          )
+        })}
+    </Swiper>
+    // </div>
+  )
+  //       <Link href={el.link ?? '/'} key={i}>
+  //     <MDBCarouselItem key={i}
+  //     className='w-100 d-block'
+  //     itemId={i+1}
+  //     src={el.img.src}
+  //     alt='...'
+  //     />
+  //     </Link>
 }
