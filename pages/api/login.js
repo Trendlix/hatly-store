@@ -23,7 +23,7 @@ export default async  function  handler(req, res){
         ok : true,
         status : 200,
         message  : 'success',
-        body : user.data
+        body : user.data.user
       })
     }
     else {
