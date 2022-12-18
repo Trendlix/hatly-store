@@ -19,8 +19,9 @@
     "@mdx-js/loader": "^2.1.5",
     "@mui/material": "^5.10.12",
     "@reduxjs/toolkit": "^1.8.3",
-    "axios": "^0.27.2",
+    "axios": "^1.2.1",
     "bootstrap": "^5.2.3",
+    "dev-null": "^0.1.1",
     "eslint": "8.28.0",
     "eslint-config-next": "13.0.5",
     "file-loader": "^6.2.0",
@@ -42,6 +43,7 @@
     "react-toastify": "^9.1.1",
     "styled-components": "^5.3.5",
     "swiper": "^8.4.5",
-    "url-loader": "^4.1.1"
+    "url-loader": "^4.1.1",
+    "web-streams-polyfill": "^3.2.1"
   }
 }

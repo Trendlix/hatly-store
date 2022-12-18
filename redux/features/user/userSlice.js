@@ -57,7 +57,7 @@ export const userState = state => state.user;
 export const userReducer = userSlice.reducer;
 export const userActions = userSlice.actions;
 
-export const getUser =  () => {
+export const getUser = () => {
   return async (dispatch, getState) => {
     try {
       dispatch(userSlice.actions.loggingIn());
