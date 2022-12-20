@@ -1,5 +1,6 @@
 import '../styles/globals.css'
 import dynamic from 'next/dynamic'
+import NextNProgress from 'nextjs-progressbar';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.css'
@@ -25,6 +26,7 @@ function MyApp({
 
   return <>
     <Provider store={store}>
+      <NextNProgress />
       <ToastContainer />
       <NavbarWithNoSSR />
       {Component.PageLayout ? (

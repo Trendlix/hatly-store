@@ -681,15 +681,65 @@ const NavBar = props => {
                 });
               }} href="/shop/Mobiles">
                 <p className="text-end" style={{ fontSize: "25px" }}>
-                  <FontAwesomeIcon
-                    className="col pe-2"
+                <FontAwesomeIcon
+                className="col pe-2"
                     icon={faMobileScreen}
-                  ></FontAwesomeIcon>
-                  Cases
+                    ></FontAwesomeIcon>
+                    Cases
                 </p>
-              </Link>
-            </motion.div> */}
+                </Link>
+              </motion.div> */}
           </div>
+          {
+            user?.isAuthenticated &&
+            <Link onClick={() => {
+              setElementMotion({ x: "150%", opacity: 0 })
+              window.scroll({
+                top: 0,
+                left: 0,
+                behavior: "smooth",
+              });
+            }} href="/account/overview">
+              <p className="text-end" style={{ fontSize: "25px" }}>
+                <FontAwesomeIcon
+                  className="col pe-2"
+                  icon={faUserCircle}
+                ></FontAwesomeIcon>
+                Account
+              </p>
+            </Link>
+          }
+          {
+            user?.isAuthenticated &&
+            <div onClick={logoutHandler}>
+              <p className="text-end" style={{ fontSize: "25px" }}>
+                <FontAwesomeIcon
+                  className="col pe-2"
+                  icon={faArrowRightFromBracket}
+                ></FontAwesomeIcon>
+                Logout
+              </p>
+            </div>
+          }
+          {
+            user?.isAuthenticated === false &&
+            <Link onClick={() => {
+              setElementMotion({ x: "150%", opacity: 0 })
+              window.scroll({
+                top: 0,
+                left: 0,
+                behavior: "smooth",
+              });
+            }} href="/login">
+              <p className="text-end" style={{ fontSize: "25px" }}>
+                <FontAwesomeIcon
+                  className="col pe-2"
+                  icon={faArrowRightToBracket}
+                ></FontAwesomeIcon>
+                Login
+              </p>
+            </Link>
+          }
         </div>
 
 
