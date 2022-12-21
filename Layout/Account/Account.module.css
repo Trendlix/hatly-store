@@ -1,9 +1,15 @@
-.page_container{
-  padding: 160px 0 0 0 ;
+.page_container {
+  padding: 160px 0 0 0;
   display: flex;
   position: relative;
   padding: 0;
   margin-top: 160px;
   /* backdrop-filter: url('../../img/accountBackground.png'); */
   /* background-color: red; */
+}
+
+@media (max-width: 768px) {
+  .page_container {
+    max-width: 95%;
+  }
 }

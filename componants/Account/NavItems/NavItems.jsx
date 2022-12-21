@@ -1,4 +1,4 @@
-import { faCircleInfo, faEye } from '@fortawesome/free-solid-svg-icons';
+import { faCircleInfo, faClipboardList, faEye } from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
 import NavItem from '../NavItem/NavItem';
 
@@ -9,6 +9,7 @@ const NavItems = () => {
     <ul className={style.nav_items}>
       <NavItem icon={faEye} name="Overview" link="/account/overview" />
       <NavItem  icon={faCircleInfo} name="Information"  link="/account/information" />
+      <NavItem  icon={faClipboardList} name="Orders"  link="/orders" />
     </ul>
   )
 }

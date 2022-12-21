@@ -1,0 +1,46 @@
+.componentContainer {
+  background-color: #FFFFFF;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.25rem 1rem;
+  border-radius: 0.375rem;
+}
+
+.dataContainer {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.dataContainer .productName {
+  font-weight: 600;
+  font-size: 1.25rem;
+  margin: 0 0 0.5rem;
+}
+.dataContainer .category{
+  font-weight: 300;
+}
+
+.img {
+  width: 70px;
+}
+.priceContainer{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.priceContainer .price{
+  margin: 0;
+  position: relative;
+}
+.priceContainer .price::before{
+  content: "";
+  position: absolute;
+  height: 200%;
+  width: 1px;
+  background-color: #414a90;
+  left: -50%;
+  top: -40%;
+}
