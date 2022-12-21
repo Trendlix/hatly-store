@@ -4,12 +4,31 @@
   position: relative;
   padding: 0;
   margin-top: 160px;
+  transition: 0.15s ease;
   /* backdrop-filter: url('../../img/accountBackground.png'); */
   /* background-color: red; */
 }
 
+.gear {
+  display: none;
+  position: absolute;
+  /* left: 230px; */
+  right: -200px;
+  top: 1rem;
+  background: #fff;
+  padding: 4px;
+  border-radius: 0.375rem;
+  ;
+}
+
 @media (max-width: 768px) {
   .page_container {
-    max-width: 95%;
+    max-width: 100%;
+    transform: translateX(-225px);
+  }
+
+  .page_container.isOpened {
+    max-width: 100%;
+    transform: translateX(0);
   }
 }

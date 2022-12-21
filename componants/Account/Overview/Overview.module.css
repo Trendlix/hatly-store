@@ -170,6 +170,9 @@
   }
 }
 @media (max-width: 768px) {
+  .overview {
+    min-width: 100%;
+  }
   .userDataContainer{
     /* flex-direction: column; */
     gap: 1rem;

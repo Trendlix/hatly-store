@@ -4,7 +4,8 @@ import {useReducer } from 'react'
 
 const initialInputState = {
   value: '' ,
-  isTouched: false 
+  isTouched: false ,
+  isChanged : false
 }
 const inputStateReducer = (state  , action ) => {
   if(action.type === 'SET_VALUE'){
@@ -16,10 +17,12 @@ const inputStateReducer = (state  , action ) => {
   if (action.type === 'ON_CHANGE')
     return {
       value: action.value,
+      isChanged : true,
       isTouched: true
     }
   if (action.type === 'BLUR')
     return {
+      ...state,
       value: state.value,
       isTouched: true
     }
@@ -61,6 +64,7 @@ const useInput = (validateValueFun , initialValue ) => {
     value: inputState.value,
     hasError,
     isValid: isValid ,
+    isChanged : inputState.isChanged,
     setValueHandler,
     onChangeHandler,
     onBlurHandler,

@@ -9,12 +9,16 @@ import useInput from '../../../hooks/use-input';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUser, userState } from '../../../redux/features/user/userSlice';
 import axios from 'axios';
-import devnull from 'dev-null';
+// import devnull from 'dev-null';
 import Button from '../../../componants/Account/Button/Button';
-
+import API_URL from '../../../API/ApiUrl';
+import { toast } from 'react-toastify';
+axios.defaults.withCredentials = true
 const AccountInformation = () => {
   const dispatch = useDispatch();
   const user = useSelector(userState);
+  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
     if (!user.user)
       dispatch(getUser())
@@ -22,6 +26,7 @@ const AccountInformation = () => {
   const {
     value: enteredFirstName,
     isValid: enteredFirstNameIsValid,
+    isChanged: enteredFirstNameIsChanged,
     hasError: firstNameHasError,
     setValueHandler: setFirstName,
     onChangeHandler: onChangeFirstNameHandler,
@@ -32,6 +37,7 @@ const AccountInformation = () => {
   const {
     value: enteredLastName,
     isValid: enteredLastNameIsValid,
+    isChanged: enteredLastNameIsChanged,
     hasError: lastNameHasError,
     setValueHandler: setLastName,
     onChangeHandler: onChangeLastNameHandler,
@@ -41,6 +47,7 @@ const AccountInformation = () => {
   const {
     value: enteredEmail,
     isValid: enteredEmailIsValid,
+    isChanged: enteredEmailIsChanged,
     hasError: emailHasError,
     setValueHandler: setEmail,
     onChangeHandler: onChangeEmailHandler,
@@ -51,6 +58,7 @@ const AccountInformation = () => {
   const {
     value: enteredPhone,
     isValid: enteredPhoneIsValid,
+    isChanged: enteredPhoneIsChanged,
     hasError: phoneHasError,
     onChangeHandler: onChangePhoneHandler,
     onBlurHandler: onBlurPhoneHandler,
@@ -59,6 +67,7 @@ const AccountInformation = () => {
   const {
     value: enteredState,
     isValid: enteredStateIsValid,
+    isChanged: enteredStateIsChanged,
     hasError: stateHasError,
     onChangeHandler: onChangeStateHandler,
     onBlurHandler: onBlurStateHandler,
@@ -67,6 +76,7 @@ const AccountInformation = () => {
   const {
     value: enteredCity,
     isValid: enteredCityIsValid,
+    isChanged: enteredCityIsChanged,
     hasError: cityHasError,
     onChangeHandler: onChangeCityHandler,
     onBlurHandler: onBlurCityHandler,
@@ -75,6 +85,7 @@ const AccountInformation = () => {
   const {
     value: enteredStreet,
     isValid: enteredStreetIsValid,
+    isChanged: enteredStreetIsChanged,
     hasError: streetHasError,
     onChangeHandler: onChangeStreetHandler,
     onBlurHandler: onBlurStreetHandler,
@@ -83,6 +94,7 @@ const AccountInformation = () => {
   const {
     value: enteredBuilding,
     isValid: enteredBuildingIsValid,
+    isChanged: enteredBuildingIsChanged,
     hasError: buildingHasError,
     onChangeHandler: onChangeBuildingHandler,
     onBlurHandler: onBlurBuildingHandler,
@@ -91,6 +103,7 @@ const AccountInformation = () => {
   const {
     value: enteredFloor,
     isValid: enteredFloorIsValid,
+    isChanged: enteredFloorIsChanged,
     hasError: floorHasError,
     onChangeHandler: onChangeFloorHandler,
     onBlurHandler: onBlurFloorHandler,
@@ -99,12 +112,13 @@ const AccountInformation = () => {
   const {
     value: enteredApartment,
     isValid: enteredApartmentIsValid,
+    isChanged: enteredApartmentIsChanged,
     hasError: apartmentHasError,
     onChangeHandler: onChangeApartmentHandler,
     onBlurHandler: onBlurApartmentHandler,
     resetInputHandler: resetApartmentInput
   } = useInput((value) => value.trim().length > 0, user?.user?.apartment);
-  console.log(enteredStreetIsValid)
+
   let formIsValid = false;
   //check if form is valid
   if (enteredFirstNameIsValid &&
@@ -114,30 +128,97 @@ const AccountInformation = () => {
     enteredStateIsValid &&
     enteredCityIsValid &&
     enteredStreetIsValid &&
-    enteredBuildingIsValid&&
+    enteredBuildingIsValid &&
     enteredFloorIsValid &&
     enteredApartmentIsValid
   )
     formIsValid = true;
 
-  const updateUserHandler = ()=>{
+  const updateUserHandler = async () => {
+    // set is loading state to true
+    setIsLoading(true)
+    // set tost to loading
+    const formToast = toast.loading("Updating your information...")
     const firstName = enteredFirstName;
     const lastName = enteredLastName;
     const email = enteredEmail;
     const phone = enteredPhone
-    const state  = enteredState 
-    const city  = enteredCity 
-    const street  = enteredStreet 
+    const state = enteredState
+    const city = enteredCity
+    const street = enteredStreet
     const building = enteredBuilding
-    const floor  = enteredFloor 
+    const floor = enteredFloor
     const apartment = enteredApartment
+
+    try {
+      await axios.patch(`${API_URL}/users`, {
+        firstName,
+        lastName,
+        email,
+        phone,
+        state,
+        city,
+        street,
+        building,
+        floor,
+        apartment,
+      })
+      toast.update(formToast,
+        {
+          render: "Your information has been updated",
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          isLoading: false,
+          type: toast.TYPE.SUCCESS,
+          closeButton: true,
+        }
+      )
+    } catch (e) {
+      toast.update(formToast,
+        {
+          render: e.message,
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          isLoading: false,
+          type: toast.TYPE.ERROR,
+          closeButton: true,
+        })
+    }
+    setIsLoading(false)
   }
+  const onChangeFormHandler = () => {
+    // setIsChanged(true)
+  }
+  const isChanged =
+    enteredFirstNameIsChanged ||
+    enteredLastNameIsChanged ||
+    enteredEmailIsChanged ||
+    enteredPhoneIsChanged ||
+    enteredStateIsChanged ||
+    enteredCityIsChanged ||
+    enteredStreetIsChanged ||
+    enteredBuildingIsChanged ||
+    enteredFloorIsChanged ||
+    enteredApartmentIsChanged;
+    
   return (
     <div className={style.pageContainer}>
       <div className={style.headerContainer}>
         <h2 className={style.header}>General Information</h2>
       </div>
-      <div className={`${style.generalInformation} `}>
+      <form className={`${style.generalInformation} `} onChange={() => { console.log(1) }}>
         <TextField
           className={`${style.TextField} ${firstNameHasError ? style.TextFieldError : ''}`}
           id="firstName"
@@ -183,7 +264,7 @@ const AccountInformation = () => {
           variant="outlined"
         />
 
-      </div>
+      </form>
       <div className={`${style.headerContainer} ${style.subHeader}`}>
         <h4 className={style.header}>Address</h4>
       </div>
@@ -259,8 +340,9 @@ const AccountInformation = () => {
 
       <div className={style.buttonsContainer}>
         <Button
-          text="Save"
-          disabled={!formIsValid}
+          text={isLoading ? 'saving' : 'save'}
+          disabled={!formIsValid || isLoading || !isChanged}
+          onClickHandler={updateUserHandler}
         />
         <Button
           text="Change Password"
