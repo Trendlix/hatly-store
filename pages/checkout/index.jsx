@@ -655,3 +655,18 @@ const Checkout = () => {
 };
 
 export default Checkout;
+
+export async function getServerSideProps(context) {
+  const token = context.req.cookies.access_token
+  if (!token)
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+      props: {},
+    };
+  return {
+    props: {}, // will be passed to the page component as props
+  }
+}
