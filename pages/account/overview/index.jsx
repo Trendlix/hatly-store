@@ -28,19 +28,6 @@ AccountOverview.PageLayout = AccountLayout;
 export default AccountOverview
 
 export async function getServerSideProps(context) {
-  // try {
-    // const x = await axios.get(API_URL+'/users/me')
-    // console.log(x)
-    // console.log
-  // } catch (error) {
-    
-  // }
-  // try {
-    // const req = await fetch(API_URL+'/users/me',)
-    
-  // } catch (e) {
-    // console.log(e)
-  // }
   const token = context.req.cookies.access_token
   if (!token)
     return {
@@ -53,5 +40,4 @@ export async function getServerSideProps(context) {
   return {
     props: {}, // will be passed to the page component as props
   }
-
 }
