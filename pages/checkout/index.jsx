@@ -14,6 +14,7 @@ import cardImage from "../../img/Credit-Card.png";
 import instalmentImage from "../../img/Bank-Installments.png";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import API_URL from "../../API/ApiUrl";
 
 axios.defaults.withCredentials = false
 const pStyle = {

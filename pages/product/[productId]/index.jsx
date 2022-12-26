@@ -20,6 +20,8 @@ import sliderImage5 from "../../../img/slider6.jpg";
 import BookItem from "../../../componants/BookItem/BookItem";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 
 
 const SingleProduct = () => {
@@ -346,7 +348,7 @@ const SingleProduct = () => {
                             color: "white",
                           }}
                         >
-                          <i className="fa fa-minus"></i>
+                          <FontAwesomeIcon icon={faMinus}/>
                         </button>
                         <i className="p-3">{singleProductQuantity}</i>
                         <button
@@ -367,7 +369,7 @@ const SingleProduct = () => {
                             color: "white",
                           }}
                         >
-                          <i className="fa fa-plus"></i>
+                          <FontAwesomeIcon icon={faPlus}/>
                         </button>
                       </div>
                     </div>

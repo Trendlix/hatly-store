@@ -154,7 +154,7 @@ const Login = () => {
               >
                 Login
               </button>
-              <p onClick={test}>test</p>
+              {/* <p onClick={test}>test</p> */}
             </div>
           </form>
         </div>
