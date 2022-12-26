@@ -15,8 +15,9 @@ import instalmentImage from "../../img/Bank-Installments.png";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import API_URL from "../../API/ApiUrl";
+import { getUser, userActions, userState } from "../../redux/features/user/userSlice";
 
-axios.defaults.withCredentials = false
+axios.defaults.withCredentials = true
 const pStyle = {
   WebkitBoxOrient: "vertical",
   WebkitLineClamp: "1",
@@ -27,14 +28,39 @@ const pStyle = {
 };
 
 const Checkout = () => {
-  const [items, setItems] = useState([]);
   const router = useRouter()
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm();
+  const {user} = useSelector(userState);
+  const dispatch = useDispatch()
+  useEffect(() => {
+    if(!user)
+    dispatch(getUser())
+    setValue('firstName' , user?.firstName)
+  }, [dispatch]);
+  useEffect(() => {
+    if(user){
+      setValue('firstName' , user?.firstName)
+      setValue('lastName' , user?.lastName)
+      setValue('email' , user?.email)
+      setValue('phone' , user?.phone)
+      setValue('state' , user?.state)
+      setValue('city' , user?.city)
+      setValue('street' , user?.street)
+      setValue('building' , user?.building)
+      setValue('floor' , user?.floor)
+      setValue('apartment' , user?.apartment)
+    }
+  }, [user]);
+
+  const [items, setItems] = useState([]);
+  
   const cart = useSelector((state) => state.cart);
+  
   useEffect(() => {
     const data = cart.products.map((product) => {
       return {
@@ -68,7 +94,7 @@ const Checkout = () => {
       "api_key": "ZXlKMGVYQWlPaUpLVjFRaUxDSmhiR2NpT2lKSVV6VXhNaUo5LmV5SmpiR0Z6Y3lJNklrMWxjbU5vWVc1MElpd2ljSEp2Wm1sc1pWOXdheUk2TWpBMU9Ea3lMQ0p1WVcxbElqb2lhVzVwZEdsaGJDSjkuOXBjWkVFbDNqRkxkZExSYTdjU1piMFhoU0d4RHpfYkp3WUZ6dVIyQXFZZlc4aS02Tmh3cHktNVdLNjNvUnlYN2pXQmNEZ2RNdzRaWnNFZzJqMTdzNGc="
     });
 
-    return  fetch("https://accept.paymob.com/api/auth/tokens", {
+    return fetch("https://accept.paymob.com/api/auth/tokens", {
       method: "POST",
       body: bodyContent,
       headers: headersList
@@ -117,7 +143,7 @@ const Checkout = () => {
       },
     });
 
-  const getPaymentKeys = (token, orderId, data , more) =>
+  const getPaymentKeys = (token, orderId, data, more) =>
     axios.post("https://accept.paymob.com/api/acceptance/payment_keys", {
       auth_token: token,
       // amount_cents: `${Number(cart.total) * 100}`,
@@ -150,8 +176,8 @@ const Checkout = () => {
       console.log(response)
       // localStorage.setItem("token", JSON.stringify(response.data.token));
       sendOrder(response.token, data).then((res) => {
-        
-        getPaymentKeys(response.token, res.data.id, data ,res.data).then(
+
+        getPaymentKeys(response.token, res.data.id, data, res.data).then(
           (paymentdata) => {
             setPaymentKeys(paymentdata.data.token);
             setTimeout(() => {
@@ -308,7 +334,17 @@ const Checkout = () => {
                       {errors.state?.message}
                     </p>
                   </div>
-
+                  <div className="mb-3">
+                    <label className="form-label">City*</label>
+                    <input
+                      {...register("city", { required: "This is required" })}
+                      type="text"
+                      className="form-control"
+                    />
+                    <p className="mb-0 pt-2 text-danger">
+                      {errors.city?.message}
+                    </p>
+                  </div>
                   <div className="mb-3">
                     <label className="form-label">Street*</label>
                     <input
@@ -357,17 +393,7 @@ const Checkout = () => {
                       {errors.apartment?.message}
                     </p>
                   </div>
-                  <div className="mb-3">
-                    <label className="form-label">City*</label>
-                    <input
-                      {...register("city", { required: "This is required" })}
-                      type="text"
-                      className="form-control"
-                    />
-                    <p className="mb-0 pt-2 text-danger">
-                      {errors.city?.message}
-                    </p>
-                  </div>
+
 
                   <div className="mb-3">
                     <label className="form-label">Extra Description</label>
@@ -409,6 +435,7 @@ const Checkout = () => {
                                 ? `${`https://hatlystore.tswsp.net${product.image}`}`
                                 : notFound
                             }
+                            alt="Product"
                           />
                         </div>
                         <div className="col-8">
@@ -658,6 +685,11 @@ const Checkout = () => {
 export default Checkout;
 
 export async function getServerSideProps(context) {
+  // try {
+  //   const req = await axios.get(`${API_URL}/users/me`)
+  // } catch (e) {
+    
+  // }
   const token = context.req.cookies.access_token
   if (!token)
     return {

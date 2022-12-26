@@ -1,4 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
+import Cookies from 'js-cookie';
+
+const saveToCookies = cartState => {
+  console.log( JSON.stringify(cartState))
+  const strState = JSON.stringify(cartState)
+  Cookies.set('cart',strState );
+};
 
 const cartSlice = createSlice({
   name: "cart",
@@ -14,7 +21,12 @@ const cartSlice = createSlice({
         ...action.payload.product,
         quantity: action.payload.singleProductQuantity,
       });
-      state.total += Number(action.payload.product.price_list_rate*action.payload.singleProductQuantity);
+      state.total += Number(action.payload.product.price_list_rate * action.payload.singleProductQuantity);
+      saveToCookies({
+        products : state.products,
+        quantity : state.quantity,
+        total : state.total,
+      })
     },
     removeProduct: (state, action) => {
       state.quantity -= 1;
@@ -24,6 +36,11 @@ const cartSlice = createSlice({
         }
       });
       state.total -= action.payload.price;
+      saveToCookies({
+        products : state.products,
+        quantity : state.quantity,
+        total : state.total,
+      })
     },
   },
 });

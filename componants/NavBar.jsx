@@ -51,11 +51,12 @@ import { useRouter } from "next/router";
 // import { useSession } from 'next-auth/client';
 
 const NavBar = props => {
+  const user = useSelector(userState);
   const dispatch = useDispatch()
   useEffect(() => {
+    if(!user.user)
     dispatch(getUser())
   }, [dispatch]);
-  const user = useSelector(userState);
   const router = useRouter()
   // console.log(user)
   // console.log('auth')
