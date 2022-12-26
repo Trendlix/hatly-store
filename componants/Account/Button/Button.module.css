@@ -15,3 +15,13 @@
 .btn.disabled{
   opacity: 0.5;
 }
+@media (max-width: 768px) {
+  .btn{
+    padding: 0.35rem 1rem;
+  }
+}
+/* @media (max-width: 768px) {
+  .btn{
+    padding: 0.35rem 0.75rem;
+  }
+} */

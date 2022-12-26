@@ -13,6 +13,7 @@ import PaymentSlider from "../../PaymentSlider";
 import cashImage from "../../../img/Cash-on-delivery.png";
 import cardImage from "../../../img/Credit-Card.png";
 import instalmentImage from "../../../img/Bank-Installments.png";
+import Image from "next/image";
 
 
 const pStyle = {
@@ -89,6 +90,7 @@ const Checkout = () => {
     axios.post("https://accept.paymob.com/api/acceptance/payment_keys", {
       auth_token: token,
       // amount_cents: `${Number(cart.total) * 100}`,
+      a7a : 12,
       amount_cents: `${100000}`,
       expiration: 3600,
       order_id: orderId,
@@ -112,7 +114,7 @@ const Checkout = () => {
     });
 
   const payment = (data) => {
-    setDisable({ value: true, text: "PLEASE WAIT..." });
+    // setDisable({ value: true, text: "PLEASE WAIT..." });
     getToken().then((response) => {
       localStorage.setItem("token", JSON.stringify(response.data.token));
       sendOrder(response.data.token, data).then((res) => {
@@ -366,13 +368,14 @@ const Checkout = () => {
                     return (
                       <div className="row align-items-center" key={i}>
                         <div className="col-4">
-                          <img
+                          <Image
                             width="100%"
                             src={
                               product.image
                                 ? `${`https://hatlystore.tswsp.net${product.image}`}`
                                 : notFound
                             }
+                            alt="product"
                           />
                         </div>
                         <div className="col-8">
@@ -447,9 +450,10 @@ const Checkout = () => {
                           />
                         </div>
                         <div className="col-3">
-                        <img
+                        <Image
                             width="100%"
                             src={cashImage}
+                            alt="cash payment"
                           />
                         </div>
                         <div className="col">
@@ -475,9 +479,11 @@ const Checkout = () => {
                           />
                         </div>
                         <div className="col-3">
-                        <img
+                        <Image
                             width="100%"
                             src={cardImage}
+                            alt="online payment"
+
                           />
                         </div>
                         <div className="col">
@@ -503,9 +509,11 @@ const Checkout = () => {
                           />
                         </div>
                         <div className="col-3">
-                        <img
+                        <Image
                             width="100%"
                             src={instalmentImage}
+                            alt="instalment payment"
+
                           />
                         </div>
                         <div className="col">
@@ -531,9 +539,10 @@ const Checkout = () => {
                           />
                         </div>
                         <div className="col-3">
-                          <img
+                          <Image
                             width="100%"
                             src="https://accept.paymobsolutions.com/static/img/ValU.png"
+                            alt="ValU"
                           />
                         </div>
                         <div className="col">
@@ -568,7 +577,7 @@ const Checkout = () => {
         </form>
         <div className="row mt-3" >
           <div className="col-12 ps-0 pe-0">
-            <img src={sliderImage5} alt="" width="100%" />
+            <Image src={sliderImage5} alt="" width="100%" />
           </div>
         </div>
       </div >

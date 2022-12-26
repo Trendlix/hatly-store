@@ -116,7 +116,7 @@ const Checkout = () => {
       },
     });
 
-  const getPaymentKeys = (token, orderId, data) =>
+  const getPaymentKeys = (token, orderId, data , more) =>
     axios.post("https://accept.paymob.com/api/acceptance/payment_keys", {
       auth_token: token,
       // amount_cents: `${Number(cart.total) * 100}`,
@@ -137,18 +137,20 @@ const Checkout = () => {
         last_name: data.lastName,
         state: data.state,
       },
+      // token : more.token,
       currency: "EGP",
       integration_id: integrationID,
       lock_order_when_paid: "true",
     });
 
   const payment = (data) => {
-    setDisable({ value: true, text: "PLEASE WAIT..." });
+    // setDisable({ value: true, text: "PLEASE WAIT..." });
     getToken().then((response) => {
       console.log(response)
       // localStorage.setItem("token", JSON.stringify(response.data.token));
       sendOrder(response.token, data).then((res) => {
-        getPaymentKeys(response.token, res.data.id, data).then(
+        
+        getPaymentKeys(response.token, res.data.id, data ,res.data).then(
           (paymentdata) => {
             setPaymentKeys(paymentdata.data.token);
             setTimeout(() => {

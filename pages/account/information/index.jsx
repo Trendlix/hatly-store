@@ -13,12 +13,19 @@ import axios from 'axios';
 import Button from '../../../componants/Account/Button/Button';
 import API_URL from '../../../API/ApiUrl';
 import { toast } from 'react-toastify';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGear } from '@fortawesome/free-solid-svg-icons';
+import { sidebarActions, sidebarState } from '../../../redux/features/user/sidebarSlice';
+import Overlay from '../../../componants/Overlay.jsx/Overlay';
 axios.defaults.withCredentials = true
 const AccountInformation = () => {
   const dispatch = useDispatch();
   const user = useSelector(userState);
+  const {isOpened} = useSelector(sidebarState)
   const [isLoading, setIsLoading] = useState(false);
-
+  const openSidebarHandler = () => {
+    dispatch(sidebarActions.open())
+  }
   useEffect(() => {
     if (!user.user)
       dispatch(getUser())
@@ -215,10 +222,12 @@ const AccountInformation = () => {
     
   return (
     <div className={style.pageContainer}>
+      {isOpened ? <Overlay /> : null}
       <div className={style.headerContainer}>
+      <FontAwesomeIcon className={style.gearIcon} icon={faGear} onClick={openSidebarHandler}/>
         <h2 className={style.header}>General Information</h2>
       </div>
-      <form className={`${style.generalInformation} `} onChange={() => { console.log(1) }}>
+      <div className={`${style.generalInformation} `} >
         <TextField
           className={`${style.TextField} ${firstNameHasError ? style.TextFieldError : ''}`}
           id="firstName"
@@ -264,9 +273,9 @@ const AccountInformation = () => {
           variant="outlined"
         />
 
-      </form>
-      <div className={`${style.headerContainer} ${style.subHeader}`}>
-        <h4 className={style.header}>Address</h4>
+      </div>
+      <div className={`${style.headerContainer2} ${style.subHeader}`}>
+        <h4 className={`${style.header}`}>Address</h4>
       </div>
       <div className={`${style.generalInformation} ${style.addressInformation} `}>
         <TextField

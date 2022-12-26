@@ -1,16 +1,28 @@
 import Image from 'next/image';
 import React from 'react';
+import { useDispatch } from "react-redux";
 
 import style from './Overview.module.css';
 import bitmoji from '../../../img/bitmoji.png';
 import { useSelector } from 'react-redux';
 import { userState } from '../../../redux/features/user/userSlice';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGear } from '@fortawesome/free-solid-svg-icons';
+import { sidebarActions, sidebarState } from '../../../redux/features/user/sidebarSlice';
+import Overlay from '../../Overlay.jsx/Overlay';
 
 const Overview = () => {
   const user = useSelector(userState)
+  const { isOpened } = useSelector(sidebarState)
+  const dispatch = useDispatch()
+  const openSidebarHandler = () => {
+    dispatch(sidebarActions.open())
+  }
   return (
     <div className={style.overview}>
+      {isOpened ? <Overlay /> : null}
       <div className={style.background}>
+        <FontAwesomeIcon onClick={openSidebarHandler} className={style.gearIcon} icon={faGear} />
         <h2 className={style.header}>Account Overview</h2>
       </div>
       <div className={style.accountDataContainer}>
@@ -22,8 +34,8 @@ const Overview = () => {
             width="100%"
           />
         </div>
-          <p className={style.welcome}>Welcome</p>
-          <p className={style.username}>{user?.user?.firstName} {user?.user?.lastName}</p>
+        <p className={style.welcome}>Welcome</p>
+        <p className={style.username}>{user?.user?.firstName} {user?.user?.lastName}</p>
       </div>
       <div className={style.userDataContainer}>
         <div className={style.dataCard}>
