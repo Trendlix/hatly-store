@@ -7,7 +7,7 @@ import style from './Information.module.css'
 import { useState } from 'react';
 import useInput from '../../../hooks/use-input';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUser, userState } from '../../../redux/features/user/userSlice';
+import { getUser, userActions, userState } from '../../../redux/features/user/userSlice';
 import axios from 'axios';
 // import devnull from 'dev-null';
 import Button from '../../../componants/Account/Button/Button';
@@ -158,7 +158,7 @@ const AccountInformation = () => {
     const apartment = enteredApartment
 
     try {
-      await axios.patch(`${API_URL}/users`, {
+      const res = await axios.patch(`${API_URL}/users`, {
         firstName,
         lastName,
         email,
@@ -170,6 +170,10 @@ const AccountInformation = () => {
         floor,
         apartment,
       })
+      const updatedUser = res.data.body
+      dispatch(userActions.setUser({
+        user : updatedUser
+      }))
       toast.update(formToast,
         {
           render: "Your information has been updated",
@@ -266,7 +270,7 @@ const AccountInformation = () => {
           id="phone"
           value={enteredPhone}
           error={phoneHasError}
-          helperText={phoneHasError ? "This field is required" : ""}
+          helperText={phoneHasError ? "Phone number is not valid" : ""}
           onChange={onChangePhoneHandler}
           onBlur={onBlurPhoneHandler}
           label="Phone"
