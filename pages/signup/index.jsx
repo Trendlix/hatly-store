@@ -9,7 +9,6 @@ import LoginLayout from '../../componants/loginLayout/LoginLayout'
 import API_URL from '../../API/ApiUrl'
 import { userActions } from '../../redux/features/user/userSlice';
 import style from '../../styles/loginLayout.module.css'
-import { validate } from '../../../Hatly/back_end/src/models/userModel';
 
 axios.defaults.withCredentials = true
 
