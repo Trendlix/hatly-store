@@ -50,7 +50,7 @@ const AccountInformation = () => {
     onChangeHandler: onChangeLastNameHandler,
     onBlurHandler: onBlurLastNameHandler,
     resetInputHandler: resetLastNameInput
-  } = useInput((value) => value.trim().length > 0, user?.user?.firstName);
+  } = useInput((value) => value.trim().length > 0, user?.user?.lastName);
   const {
     value: enteredEmail,
     isValid: enteredEmailIsValid,
