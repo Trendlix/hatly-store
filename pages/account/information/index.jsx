@@ -60,7 +60,7 @@ const AccountInformation = () => {
     onChangeHandler: onChangeEmailHandler,
     onBlurHandler: onBlurEmailHandler,
     resetInputHandler: resetEmailInput
-  } = useInput((value) => !!value.match(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/), user?.user?.email);
+  } = useInput((value) => !!value.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/), user?.user?.email);
 
   const {
     value: enteredPhone,
@@ -70,7 +70,7 @@ const AccountInformation = () => {
     onChangeHandler: onChangePhoneHandler,
     onBlurHandler: onBlurPhoneHandler,
     resetInputHandler: resetPhoneInput
-  } = useInput((value) => value.trim().length > 0, user?.user?.phone);
+  } = useInput((value) => !!value.match(/^((\+2)?01[0125]\d{8})$/), user?.user?.phone);
   const {
     value: enteredState,
     isValid: enteredStateIsValid,

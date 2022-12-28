@@ -9,6 +9,7 @@ import LoginLayout from '../../componants/loginLayout/LoginLayout'
 import API_URL from '../../API/ApiUrl'
 import { userActions } from '../../redux/features/user/userSlice';
 import style from '../../styles/loginLayout.module.css'
+import { validate } from '../../../Hatly/back_end/src/models/userModel';
 
 axios.defaults.withCredentials = true
 
@@ -38,7 +39,7 @@ const Signup = () => {
     onChangeHandler: onChangePhoneHandler,
     onBlurHandler: onBlurPhoneHandler,
     resetInputHandler: resetPhoneInput
-  } = useInput((value) => value.trim().length > 0);
+  } = useInput((value) => !!value.match(/^((\+2)?01[0125]\d{8})$/));
   const {
     value: enteredEmail,
     isValid: enteredEmailIsValid,
@@ -46,7 +47,7 @@ const Signup = () => {
     onChangeHandler: onChangeEmailHandler,
     onBlurHandler: onBlurEmailHandler,
     resetInputHandler: resetEmailInput
-  } = useInput((value) => !!value.match(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/));
+  } = useInput((value) => !!value.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/));
   const {
     value: enteredPassword,
     isValid: enteredPasswordIsValid,
@@ -104,8 +105,7 @@ const Signup = () => {
         password,
         confirmPassword,
       }).catch(e => { throw new Error(e.response.data.message) })
-      console.log(req.data.body)
-      const name = req.data.body.firstName;
+      const name = req.data.user.firstName;
       toast.success(`Welcome ${name}`, {
         position: "top-right",
         autoClose: 5000,

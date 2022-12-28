@@ -22,7 +22,7 @@ const Login = () => {
     onChangeHandler: onChangeEmailHandler,
     onBlurHandler: onBlurEmailHandler,
     resetInputHandler: resetEmailInput
-  } = useInput((value) => !!value.match(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/));
+  } = useInput((value) => !!value.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/));
   const {
     value: enteredPassword,
     isValid: enteredPasswordIsValid,

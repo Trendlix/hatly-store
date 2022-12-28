@@ -86,7 +86,6 @@ const Checkout = () => {
   const getToken = () => {
     let headersList = {
       "Accept": "*/*",
-      "User-Agent": "Thunder Client (https://www.thunderclient.com)",
       "Content-Type": "application/json"
     }
 
@@ -119,8 +118,9 @@ const Checkout = () => {
   //     }
   //   });
 
-  const sendOrder = (token, data) =>
-    axios.post("https://accept.paymob.com/api/ecommerce/orders", {
+  const sendOrder = (token, data) =>{
+    axios.defaults.withCredentials = false;
+    return axios.post("https://accept.paymob.com/api/ecommerce/orders", {
       auth_token: token,
       delivery_needed: "false",
       // amount_cents: `${Number(cart.total) * 100}`,
@@ -142,6 +142,8 @@ const Checkout = () => {
         state: data.state,
       },
     });
+  }
+
 
   const getPaymentKeys = (token, orderId, data, more) =>
     axios.post("https://accept.paymob.com/api/acceptance/payment_keys", {
@@ -189,32 +191,43 @@ const Checkout = () => {
     });
   };
 
-  const cashRequest = (token) =>
-    axios.post("https://accept.paymob.com/api/acceptance/payments/pay", {
-      source: {
-        identifier: "cash",
-        subtype: "CASH",
-      },
-      payment_token: token,
-    });
-  const paymentCash = (data) => {
-    setDisable({ value: true, text: "PLEASE WAIT..." });
-    getToken().then((response) => {
-      // localStorage.setItem("token", JSON.stringify(response.data.token));
-      sendOrder(response.token, data).then((res) => {
-        getPaymentKeys(response.token, res.data.id, data).then(
-          (paymentdata) => {
-            cashRequest(paymentdata.data.token).then((res) => {
-              router.push(
-                "/payment_response/?" + res.data.redirection_url.split("?")[1]
-              );
-            });
-          }
-        );
-      });
-    });
-  };
-
+  // const cashRequest = (token) =>
+  //   axios.post("https://accept.paymob.com/api/acceptance/payments/pay", {
+  //     source: {
+  //       identifier: "cash",
+  //       subtype: "CASH",
+  //     },
+  //     payment_token: token,
+  //   });
+  // const paymentCash = (data) => {
+  //   setDisable({ value: true, text: "PLEASE WAIT..." });
+  //   getToken().then((response) => {
+  //     // localStorage.setItem("token", JSON.stringify(response.data.token));
+  //     sendOrder(response.token, data).then((res) => {
+  //       getPaymentKeys(response.token, res.data.id, data).then(
+  //         (paymentdata) => {
+  //           cashRequest(paymentdata.data.token).then((res) => {
+  //             router.push(
+  //               "/payment_response/?" + res.data.redirection_url.split("?")[1]
+  //             );
+  //           });
+  //         }
+  //       );
+  //     });
+  //   });
+  // };
+const cashPaymentHandler = async(data)=>{
+  try {
+    const res = await axios.post(`${API_URL}/orders`,{
+      headers : {
+        "Accept": "*/*",
+      }
+    })
+    console.log(res.data)
+  } catch (e) {
+    console.log(e)
+  }
+}
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -229,7 +242,7 @@ const Checkout = () => {
           onSubmit={handleSubmit((data) => {
             console.log(cash)
             if (cash) {
-              paymentCash(data);
+              cashPaymentHandler(data);
             } else {
               payment(data);
             }
