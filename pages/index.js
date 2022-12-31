@@ -121,30 +121,30 @@ const Home = () => {
   // const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState();
 
-  const getProductsMobiles = async () => {
-    try {
-      var res;
-      setLoading(true);
-      res = await fetchProduct.get(`/category/Mobiles`);
-      setProductsMobiles(res.data);
-      setLoading(false);
-    } catch (er) { }
-  };
+  // const getProductsMobiles = async () => {
+  //   try {
+  //     var res;
+  //     setLoading(true);
+  //     res = await fetchProduct.get(`/category/Mobiles`);
+  //     setProductsMobiles(res.data);
+  //     setLoading(false);
+  //   } catch (er) { }
+  // };
 
-  const getProductsWatches = async () => {
-    try {
-      var res;
-      setLoading(true);
-      res = await fetchProduct.get(`/category/Smart Watches`);
-      setProductsWatches(res.data);
-      setLoading(false);
-    } catch (er) { }
-  };
+  // const getProductsWatches = async () => {
+  //   try {
+  //     var res;
+  //     setLoading(true);
+  //     res = await fetchProduct.get(`/category/Smart Watches`);
+  //     setProductsWatches(res.data);
+  //     setLoading(false);
+  //   } catch (er) { }
+  // };
 
-  useEffect(() => {
-    getProductsMobiles();
-    getProductsWatches();
-  }, []);
+  // useEffect(() => {
+  //   getProductsMobiles();
+  //   getProductsWatches();
+  // }, []);
 
   return (
 
