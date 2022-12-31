@@ -22,7 +22,7 @@ const PaymentResponse = ({ token }) => {
   const [loading, setLoading] = useState(true);
 
   // const token = JSON.parse(typeof window !== 'undefined' ? localStorage.getItem("token") : '');
-  const getTransactionById = (transactionId) => {
+  const getTransactionById = () => {
     console.log(router.query.success)
     setSuccess(router.query.success);
     const  transactionId = router.query.id;
