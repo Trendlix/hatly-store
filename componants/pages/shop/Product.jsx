@@ -26,7 +26,7 @@ const Product = (props) => {
         <Link href={`/product/${props.data.id}`} onClick={scrollTop}>
           <Image
             className="productImage"
-            src={props.data.image ? `https://hatlystore.tswsp.net${props.data.image}`:notFound}
+            src={props.data.image ? `https://hatlystore.tswsp.net${props.data.image}` : notFound}
             width={100}
             height={100}
             style={{ width: "100%", height: "100%" }}
@@ -37,7 +37,7 @@ const Product = (props) => {
           <p style={pStyle}>{props.data.item_name}</p>
         </Link>
 
-        <p style={{ fontWeight: "500" }}>{`EGP ${props.data.price_list_rate}`}</p>
+        <p style={{ fontWeight: "500" }}>{`EGP ${parseInt(props?.data?.price_list_rate)}`}</p>
         <Link
           onClick={scrollTop}
           className="btn btn-primary"

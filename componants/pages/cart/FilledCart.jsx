@@ -135,7 +135,7 @@ const FilledCart = (props) => {
           }}
         >
           <div className="col-12">
-            <div className="row">
+            <div className="row ">
               <h6
                 className="pb-3"
                 style={{ borderBottom: "1px solid #ededed" }}
@@ -144,15 +144,39 @@ const FilledCart = (props) => {
               </h6>
             </div>
             <div
-              className="row justify-content-between pt-2 pb-2"
+              className="row justify-content-between pt-2 pb-2 align-items-center"
+              style={{ borderBottom: "1px solid #ededed" }}
+            >
+              <h6 className=" col-4">Total</h6>
+              <p
+                className="col-8 text-end mb-2"
+                style={{ fontWeight: "500", margin: "0", fontSize: "1.25rem" }}
+              >
+                {props.data.total} EGP
+              </p>
+            </div>
+            <div
+              className="row justify-content-between pt-2 pb-2 align-items-center"
+              style={{ borderBottom: "1px solid #ededed" }}
+            >
+              <h6 className=" col-4">Delivery</h6>
+              <p
+                className="col-8 text-end mb-2"
+                style={{ fontWeight: "500", margin: "0", fontSize: "1.25rem" }}
+              >
+                50 EGP
+              </p>
+            </div>
+            <div
+              className="row justify-content-between pt-2 pb-2 align-items-center"
               style={{ borderBottom: "1px solid #ededed" }}
             >
               <h6 className=" col-4">Subtotal</h6>
               <p
-                className="col-8 text-end"
+                className="col-8 text-end mb-2"
                 style={{ fontWeight: "500", margin: "0", fontSize: "1.25rem" }}
               >
-                {props.data.total} EGP
+                {props.data.total + 50} EGP
               </p>
             </div>
             <div className="row">
@@ -163,7 +187,7 @@ const FilledCart = (props) => {
                   behavior: "smooth",
                 });
               }} className="btn btn-primary" href={isAuthenticated ? "/checkout" : "/login"}>
-                {isAuthenticated ? `CHECKOUT (${props.data.total})` : 'Login To Checkout'}
+                {isAuthenticated ? `CHECKOUT (${props.data.total + 50})` : 'Login To Checkout'}
               </Link>
             </div>
           </div>

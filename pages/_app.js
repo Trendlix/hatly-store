@@ -11,6 +11,8 @@ import { getUser, userState } from '../redux/features/user/userSlice';
 
 import store from '../redux/store';
 
+
+
 const NavbarWithNoSSR = dynamic(
   () => import('../componants/NavBar'),
   { ssr: false } // <-- not including this component on server-side

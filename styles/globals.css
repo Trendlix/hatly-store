@@ -339,3 +339,38 @@ a {
 .swiper-button-next:after, .swiper-button-prev:after {
   font-size: 2rem !important;
 }
+.payments{
+  pointer-events: none;
+  position: relative;
+}
+.paymentSlider,
+.slick-track{
+  display: flex !important;
+  align-items: center;
+  max-height: 180px !important;
+
+  /* animation: slider 10s  linear infinite; */
+  /* width: 5700px; */
+}
+.paymentSliderContainer{
+  display: flex;
+  align-items: center;
+}
+.paymentSlideItem{
+  min-width: 170px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* height: 250px; */
+}
+.paymentSlideItem > img{
+  width: 100%;
+}
+@keyframes slider {
+  0%{
+    transform: translateX(0);
+  }
+  100%{
+    transform: translateX(-85%);
+  }
+}

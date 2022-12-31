@@ -16,6 +16,7 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import API_URL from "../../API/ApiUrl";
 import { getUser, userActions, userState } from "../../redux/features/user/userSlice";
+import Cookies from "js-cookie";
 
 axios.defaults.withCredentials = true
 const pStyle = {
@@ -35,32 +36,32 @@ const Checkout = () => {
     setValue,
     formState: { errors },
   } = useForm();
-  const {user} = useSelector(userState);
+  const { user } = useSelector(userState);
   const dispatch = useDispatch()
   useEffect(() => {
-    if(!user)
-    dispatch(getUser())
-    setValue('firstName' , user?.firstName)
+    if (!user)
+      dispatch(getUser())
+    setValue('firstName', user?.firstName)
   }, [dispatch]);
   useEffect(() => {
-    if(user){
-      setValue('firstName' , user?.firstName)
-      setValue('lastName' , user?.lastName)
-      setValue('email' , user?.email)
-      setValue('phone' , user?.phone)
-      setValue('state' , user?.state)
-      setValue('city' , user?.city)
-      setValue('street' , user?.street)
-      setValue('building' , user?.building)
-      setValue('floor' , user?.floor)
-      setValue('apartment' , user?.apartment)
+    if (user) {
+      setValue('firstName', user?.firstName)
+      setValue('lastName', user?.lastName)
+      setValue('email', user?.email)
+      setValue('phone', user?.phone)
+      setValue('state', user?.state)
+      setValue('city', user?.city)
+      setValue('street', user?.street)
+      setValue('building', user?.building)
+      setValue('floor', user?.floor)
+      setValue('apartment', user?.apartment)
     }
   }, [user]);
 
   const [items, setItems] = useState([]);
-  
+
   const cart = useSelector((state) => state.cart);
-  
+
   useEffect(() => {
     const data = cart.products.map((product) => {
       return {
@@ -118,7 +119,7 @@ const Checkout = () => {
   //     }
   //   });
 
-  const sendOrder = (token, data) =>{
+  const sendOrder = (token, data) => {
     axios.defaults.withCredentials = false;
     return axios.post("https://accept.paymob.com/api/ecommerce/orders", {
       auth_token: token,
@@ -149,7 +150,7 @@ const Checkout = () => {
     axios.post("https://accept.paymob.com/api/acceptance/payment_keys", {
       auth_token: token,
       // amount_cents: `${Number(cart.total) * 100}`,
-      amount_cents: `${100000}`,
+      amount_cents: `${1}`,
       expiration: 3600,
       order_id: orderId,
       billing_data: {
@@ -171,12 +172,15 @@ const Checkout = () => {
       integration_id: integrationID,
       lock_order_when_paid: "true",
     });
-
+    const saveToCookies = token => {
+      Cookies.set('_pt_', token);
+    };
   const payment = (data) => {
     // setDisable({ value: true, text: "PLEASE WAIT..." });
     getToken().then((response) => {
       console.log(response)
       // localStorage.setItem("token", JSON.stringify(response.data.token));
+      saveToCookies(response.token)
       sendOrder(response.token, data).then((res) => {
 
         getPaymentKeys(response.token, res.data.id, data, res.data).then(
@@ -190,7 +194,7 @@ const Checkout = () => {
       });
     });
   };
-
+console.log(cart.products)
   // const cashRequest = (token) =>
   //   axios.post("https://accept.paymob.com/api/acceptance/payments/pay", {
   //     source: {
@@ -216,18 +220,36 @@ const Checkout = () => {
   //     });
   //   });
   // };
-const cashPaymentHandler = async(data)=>{
-  try {
-    const res = await axios.post(`${API_URL}/orders`,{
-      headers : {
-        "Accept": "*/*",
-      }
-    })
-    console.log(res.data)
-  } catch (e) {
-    console.log(e)
+  const cashPaymentHandler = async (data) => {
+    try {
+      const res = await axios.post(`${API_URL}/orders`, {
+        headers: {
+          "Accept": "*/*",
+        },
+        userData: {
+          firstName: data.firstName,
+          lastName: data.lastName,
+          email: data.email,
+          phone: data.phone,
+          state: data.state,
+          city: data.city,
+          street: data.street,
+          building: data.building,
+          floor: data.floor,
+          apartment: data.apartment,
+          extraDescription: data.extraDescription,
+        },
+        orderedItems : cart.products,
+        totalPrice : cart.total,
+        delivery: 50,
+        subTotal :  cart.total + 50,
+        paymentMethod : 'Cash'
+      })
+      console.log(res.data)
+    } catch (e) {
+      console.log(e)
+    }
   }
-}
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -467,6 +489,50 @@ const cashPaymentHandler = async(data)=>{
                       </div>
                     );
                   })}
+                                    <div
+                    className="row justify-content-between pt-2 pb-2"
+                    style={{
+                      borderBottom: "1px solid #ededed",
+                      borderTop: "1px solid #ededed",
+                    }}
+                  >
+                    <h6 className="col-4" style={{ margin: "0" }}>
+                      Total
+                    </h6>
+                    <p
+                      className="col-8 text-end"
+                      style={{
+                        margin: "0",
+                        fontSize: "1rem",
+                        color: "#20c997",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      {cart.total}
+                    </p>
+                  </div>
+                  <div
+                    className="row justify-content-between pt-2 pb-2"
+                    style={{
+                      borderBottom: "1px solid #ededed",
+                      borderTop: "1px solid #ededed",
+                    }}
+                  >
+                    <h6 className="col-4" style={{ margin: "0" }}>
+                      Delivery
+                    </h6>
+                    <p
+                      className="col-8 text-end"
+                      style={{
+                        margin: "0",
+                        fontSize: "1rem",
+                        color: "#20c997",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      50
+                    </p>
+                  </div>
                   <div
                     className="row justify-content-between pt-2 pb-2"
                     style={{
@@ -486,7 +552,7 @@ const cashPaymentHandler = async(data)=>{
                         fontWeight: "bold",
                       }}
                     >
-                      {cart.total}
+                      {cart.total + 50}
                     </p>
                   </div>
                 </div>
@@ -534,7 +600,7 @@ const cashPaymentHandler = async(data)=>{
                             className="form-check-label"
                             htmlFor="flexRadioDefault2"
                           >
-                            Cash on deliveryy
+                            Cash on delivery
                           </label>
                         </div>
                       </div>
@@ -543,6 +609,7 @@ const cashPaymentHandler = async(data)=>{
                           <input
                             onClick={() => {
                               setIntegrationID(2810495)
+                              // setIntegrationID(2232880)
                               setIframeID(402130);
                               setCash(false);
                             }}
@@ -701,7 +768,7 @@ export async function getServerSideProps(context) {
   // try {
   //   const req = await axios.get(`${API_URL}/users/me`)
   // } catch (e) {
-    
+
   // }
   const token = context.req.cookies.access_token
   if (!token)

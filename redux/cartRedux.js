@@ -2,17 +2,29 @@ import { createSlice } from "@reduxjs/toolkit";
 import Cookies from 'js-cookie';
 
 const saveToCookies = cartState => {
-  console.log( JSON.stringify(cartState))
+  console.log(JSON.stringify(cartState))
   const strState = JSON.stringify(cartState)
-  Cookies.set('cart',strState );
+  Cookies.set('cart', strState);
 };
+
+let products = []
+let quantity = 0
+let total = 0
+
+if (typeof window !== "undefined") {
+  const cart = JSON.parse(localStorage.getItem('cart'))
+  products = cart.products
+  quantity = cart.quantity
+  total = cart.total
+
+}
 
 const cartSlice = createSlice({
   name: "cart",
   initialState: {
-    products: [],
-    quantity: 0,
-    total: 0,
+    products,
+    quantity,
+    total,
   },
   reducers: {
     addProduct: (state, action) => {
@@ -22,11 +34,18 @@ const cartSlice = createSlice({
         quantity: action.payload.singleProductQuantity,
       });
       state.total += Number(action.payload.product.price_list_rate * action.payload.singleProductQuantity);
-      saveToCookies({
-        products : state.products,
-        quantity : state.quantity,
-        total : state.total,
-      })
+      // saveToCookies({
+      //   products: state.products,
+      //   quantity: state.quantity,
+      //   total: state.total,
+      // })
+      if (typeof window !== "undefined") {
+        localStorage.setItem('cart', JSON.stringify({
+          products: state.products,
+          quantity: state.quantity,
+          total: state.total,
+        }))
+      }
     },
     removeProduct: (state, action) => {
       state.quantity -= 1;
@@ -36,11 +55,18 @@ const cartSlice = createSlice({
         }
       });
       state.total -= action.payload.price;
-      saveToCookies({
-        products : state.products,
-        quantity : state.quantity,
-        total : state.total,
-      })
+      // saveToCookies({
+      //   products: state.products,
+      //   quantity: state.quantity,
+      //   total: state.total,
+      // })
+      if (typeof window !== "undefined") {
+        localStorage.setItem('cart', JSON.stringify({
+          products: state.products,
+          quantity: state.quantity,
+          total: state.total,
+        }))
+      }
     },
   },
 });

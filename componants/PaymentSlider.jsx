@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 // import Swiper core and required modules
 import SwiperCore, { Autoplay } from "swiper";
 
@@ -26,6 +26,10 @@ import NBK from "../img/HATLY NEW PAYMENTS METHODS/NBK.png";
 import valu from "../img/HATLY NEW PAYMENTS METHODS/valu.png";
 import Shahry from "../img/HATLY NEW PAYMENTS METHODS/Shahry-Egypt.png";
 
+import Slider from "react-slick";
+
+import "slick-carousel/slick/slick.css"
+import "slick-carousel/slick/slick-theme.css";
 
 // Import Swiper styles
 import "swiper/css";
@@ -35,85 +39,103 @@ import "swiper/css/scrollbar";
 import Image from "next/image";
 const PaymentSlider = (props) => {
   SwiperCore.use([Autoplay]);
-  // console.log(props.number)
+  const slider = useRef()
+  const settings = {
+    dots: false,
+    infinite: true,
+    slidesToShow: 5,
+    slidesToScroll: 1,
+    autoplay: true,
+    speed: 2000,
+    autoplaySpeed: 2000,
+    cssEase: "linear"
+  };
   return (
-    <Swiper
-      breakpoints={{
-        0 :{
-          slidesPerView : 2
-        },
-        500: {
-          // width: 576,
-          slidesPerView: props.number,
-        },
-        992: {
-          // width: 768,
-          slidesPerView: props.number * 1.5,
-        },
-        1200:{
-          slidesPerView:props.number * 2,
-        }
-      }}
-      // slidesPerView={3}
-      spaceBetween={10}
-      autoplay={{
-        delay: 1000,
-      }}
-    >
-      <SwiperSlide style={{ justifyContent: "center" }} align="center">
-        <Image  src={cairo} alt="cairo bank" width={170} />
-      </SwiperSlide>
-      <SwiperSlide style={{ justifyContent: "center" }} align="center">
-        <Image  src={masary} alt="aman" width={170} />
-      </SwiperSlide>
-      <SwiperSlide style={{ justifyContent: "center" }} align="center">
-        <Image  src={cib} alt="vodafon" width={170} />
-      </SwiperSlide>
-      <SwiperSlide style={{ justifyContent: "center" }} align="center">
-        <Image  src={momkn} alt="masary" width={170} />
-      </SwiperSlide>
-      <SwiperSlide style={{ justifyContent: "center" }} align="center">
-        <Image  src={saib} alt="alahly" width={170} />
-      </SwiperSlide>
-      <SwiperSlide style={{ justifyContent: "center" }} align="center">
-        <Image  src={owda} alt="mmoken" width={170} />
-      </SwiperSlide>
-      <SwiperSlide style={{ justifyContent: "center" }} align="center">
-        <Image  src={vodafon} alt="bank du cairo" width={170} />
-      </SwiperSlide>
-      <SwiperSlide style={{ justifyContent: "center" }} align="center">
-        <Image  src={aman} alt="aman" width={170} />
-      </SwiperSlide>
-      {/* new payments by hamed */}
-      <SwiperSlide style={{ justifyContent: "center" }} align="center">
-        <Image  src={bankAhly} alt="Bank Ahly" width={170} />
-      </SwiperSlide>
-      <SwiperSlide style={{ justifyContent: "center" }} align="center">
-        <Image  src={bankMasr} alt="Bank Masr" width={170} />
-      </SwiperSlide>
-      <SwiperSlide style={{ justifyContent: "center" }} align="center">
-        <Image  src={forsa} alt="Bank Ahly" width={170} />
-      </SwiperSlide>
-      <SwiperSlide style={{ justifyContent: "center" }} align="center">
-        <Image  src={Mashreq} alt="Mashreq" width={170} />
-      </SwiperSlide>
+    // <Swiper
+    //   breakpoints={{
+    //     0 :{
+    //       slidesPerView : 2
+    //     },
+    //     500: {
+    //       // width: 576,
+    //       slidesPerView: props.number,
+    //     },
+    //     992: {
+    //       // width: 768,
+    //       slidesPerView: props.number * 1.5,
+    //     },
+    //     1200:{
+    //       slidesPerView:props.number * 2,
+    //     }
+    //   }}
+    //   // slidesPerView={3}
+    //   spaceBetween={10}
+    //   autoplay={{
+    //     delay: 1000,
+    //   }}
+    // >
+    // <div className="paymentSlider">
+      // <div className="paymentSliderContainer">
+    <Slider ref={slider} {...settings} className="paymentSlider">
+        <div className="paymentSlideItem" style={{ justifyContent: "center" }} align="center">
+          <Image src={cairo} alt="cairo bank" width={cairo.width} />
+        </div>
+        <div className="paymentSlideItem" style={{ justifyContent: "center" }} align="center">
+          <Image src={masary} alt="aman" width={masary.width} />
+        </div>
+        <div className="paymentSlideItem" style={{ justifyContent: "center" }} align="center">
+          <Image src={cib} alt="vodafon" width={cib.width} />
+        </div>
+        <div className="paymentSlideItem" style={{ justifyContent: "center" }} align="center">
+          <Image src={momkn} alt="masary" width={momkn.width} />
+        </div>
+        <div className="paymentSlideItem" style={{ justifyContent: "center" }} align="center">
+          <Image src={saib} alt="alahly" width={saib.width} />
+        </div>
+        <div className="paymentSlideItem" style={{ justifyContent: "center" }} align="center">
+          <Image src={owda} alt="mmoken" width={owda.width} />
+        </div>
+        {/* <div className="paymentSlideItem" style={{ justifyContent: "center" }} align="center">
+          <Image src={vodafon} alt="bank du cairo" width={vodafon.width} />
+        </div>
+        <div className="paymentSlideItem" style={{ justifyContent: "center" }} align="center">
+          <Image src={aman} alt="aman" width={aman.width} />
+        </div> */}
+        {/* new payments by hamed */}
 
-      <SwiperSlide style={{ justifyContent: "center" }} align="center">
-        <Image  src={masterCard} alt="masterCard" width={170} />
-      </SwiperSlide>
-      <SwiperSlide style={{ justifyContent: "center" }} align="center">
-        <Image  src={Meeza} alt="Meeza" width={170} />
-      </SwiperSlide>
-      <SwiperSlide style={{ justifyContent: "center" }} align="center">
-        <Image  src={NBK} alt="NBK" width={170} />
-      </SwiperSlide>
-      <SwiperSlide style={{ justifyContent: "center" }} align="center">
-        <Image  src={valu} alt="valu" width={170} />
-      </SwiperSlide>
-      <SwiperSlide style={{ justifyContent: "center" }} align="center">
-        <Image  src={Shahry} alt="Shahry Egypt" width={170} />
-      </SwiperSlide>
-    </Swiper>
+{/* 
+        <div className="paymentSlideItem" style={{ justifyContent: "center" }} align="center">
+          <Image src={bankAhly} alt="Bank Ahly" width={bankAhly.width} />
+        </div>
+        <div className="paymentSlideItem" style={{ justifyContent: "center" }} align="center">
+          <Image src={bankMasr} alt="Bank Masr" width={bankMasr.width} />
+        </div>
+        <div className="paymentSlideItem" style={{ justifyContent: "center" }} align="center">
+          <Image src={forsa} alt="Bank Ahly" width={forsa.width} />
+        </div>
+        <div className="paymentSlideItem" style={{ justifyContent: "center" }} align="center">
+          <Image src={Mashreq} alt="Mashreq" width={Mashreq.width} />
+        </div>
+
+        <div className="paymentSlideItem" style={{ justifyContent: "center" }} align="center">
+          <Image src={masterCard} alt="masterCard" width={masterCard.width} />
+        </div>
+        <div className="paymentSlideItem" style={{ justifyContent: "center" }} align="center">
+          <Image src={Meeza} alt="Meeza" width={Meeza.width} />
+        </div>
+        <div className="paymentSlideItem" style={{ justifyContent: "center" }} align="center">
+          <Image src={NBK} alt="NBK" width={NBK.width} />
+        </div>
+        <div className="paymentSlideItem" style={{ justifyContent: "center" }} align="center">
+          <Image src={valu} alt="valu" width={valu.width} />
+        </div>
+        <div className="paymentSlideItem" style={{ justifyContent: "center" }} align="center">
+          <Image src={Shahry} alt="Shahry Egypt" width={Shahry.width} />
+        </div> */}
+      </Slider>
+      // </div>
+      // </div>
+    // </Swiper>
   );
 };
 

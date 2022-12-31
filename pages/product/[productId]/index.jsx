@@ -271,7 +271,8 @@ const SingleProduct = () => {
                       </p>
                     </div>
 
-                    {product.actual_qty > 0 && product.actual_qty < 10 ? (
+                    {/* {product.actual_qty > 0 && product.actual_qty < 10 ? ( */}
+                    {product.actual_qty > 0 ? (
                       <div className="row mt-2">
                         <div className="col-12">
                           <button disabled className="text-white btn btn-success">In Stock</button>
@@ -282,7 +283,7 @@ const SingleProduct = () => {
                                 disabled
                               >
                                 {" "}
-                                {product.actual_qty}{" "}
+                                {parseInt(product.actual_qty)}{" "}
                               </button>
                             }{" "}
                             Items remaining
@@ -383,7 +384,7 @@ const SingleProduct = () => {
                         <h4>
                           EGP{" "}
                           <span className="text-success" style={{ fontWeight: "bold" }}>
-                            {product.price_list_rate}
+                            {parseInt(product?.price_list_rate)}
                           </span>
                         </h4>
                         {product.actual_qty > 0 ? (

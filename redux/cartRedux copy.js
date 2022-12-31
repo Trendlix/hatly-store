@@ -15,6 +15,11 @@ const cartSlice = createSlice({
         quantity: action.payload.singleProductQuantity,
       });
       state.total += Number(action.payload.product.price_list_rate*action.payload.singleProductQuantity);
+      console.log(121)
+      console.log(typeof window)
+      if (typeof window !== "undefined") {
+        localStorage.setItem('cart', 'state')
+        }
     },
     removeProduct: (state, action) => {
       state.quantity -= 1;
