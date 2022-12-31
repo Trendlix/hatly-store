@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Image from "next/image";
-
+axios.defaults.withCredentials = true;
 const PaymentResponse = ({ token }) => {
   console.log(token)
   const cart = useSelector((state) => state.cart);
@@ -29,8 +29,8 @@ const PaymentResponse = ({ token }) => {
     // if (transactionId == "") {
     // } else {
       if (router.query.success) {
-        axios.defaults.withCredentials = false
         setTimeout(() => {
+          axios.defaults.withCredentials = false
           axios
             .get(
               `https://accept.paymob.com/api/acceptance/transactions/${transactionId}`,
