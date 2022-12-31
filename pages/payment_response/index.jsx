@@ -22,49 +22,47 @@ const PaymentResponse = ({ token }) => {
   const [loading, setLoading] = useState(true);
 
   // const token = JSON.parse(typeof window !== 'undefined' ? localStorage.getItem("token") : '');
-  const getTransactionById = () => {
+  const getTransactionById = async () => {
     console.log(router.query.success)
     setSuccess(router.query.success);
-    const  transactionId = router.query.id;
+    const transactionId = router.query.id;
     console.log(transactionId)
     // if (transactionId == "") {
     // } else {
-      if (router.query.success) {
-        setTimeout(() => {
-          axios.defaults.withCredentials = false
-          axios
-            .get(
-              `https://accept.paymob.com/api/acceptance/transactions/${transactionId}`,
-              {
-                headers: {
-                  authorization: token,
-                },
-              }
-            )
-            .then((res) => {
-              console.log(res)
-              setOrderID(res.data.order.id);
-              setMessage(res.data.data.txn_response_code);
-              fetchProduct
-                .put("/products/changeQuantity", {
-                  items: cart.products,
-                })
-                .then(() => {
-                  setLoading(false);
-                  fetchProduct.post("/mail", {
-                    to: res.data.billing_data.email,
-                    name: `${res.data.billing_data.first_name} ${res.data.billing_data.last_name}`,
-                    items: res.data.order.items,
-                    orderID: res.data.order.id,
-                  });
-                });
-            })
-            .catch((e) => {
-              setMessage(e.message)
-              setLoading(false)
-            });
-        }, 2000);
+    if (router.query.success) {
+      // setTimeout(async () => {
+      try {
+        axios.defaults.withCredentials = false
+        const res = await axios.get(
+          `https://accept.paymob.com/api/acceptance/transactions/${transactionId}`,
+          {
+            headers: {
+              authorization: token,
+            },
+          }
+        )
+        
+        console.log(res)
+        if(!res.data.success)
+        throw new Error('Your payment credentials is incorrect please try again.')
+        setOrderID(res.data.order.id);
+        setMessage(res.data.data.txn_response_code);
+        // fetchProduct
+        // .put("/products/changeQuantity", {
+        // items: cart.products,
+        // })
+        fetchProduct.post("/mail", {
+          to: res.data.billing_data.email,
+          name: `${res.data.billing_data.first_name} ${res.data.billing_data.last_name}`,
+          items: res.data.order.items,
+          orderID: res.data.order.id,
+        });
+      } catch (e) {
+        setMessage(e.message)
       }
+      // }, 2000);
+      setLoading(false)
+    }
 
     // }
   };
