@@ -138,11 +138,11 @@ const PaymentResponse = ({ token }) => {
                     behavior: "smooth",
                   });
                 }}
-                href="/orders"
+                href="/checkout"
                 className="btn col-6 col-md-2 mt-3 text-white"
                 style={{ backgroundColor: "#20c997" }}
               >
-                Home
+                Go to Checkout
               </Link>
             </div>
           </div>
