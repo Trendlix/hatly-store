@@ -17,7 +17,7 @@ const PaymentResponse = ({ token }) => {
   const router = useRouter()
   const [orderID, setOrderID] = useState("");
   const [success, setSuccess] = useState(false);
-  const [transactionId, seTransactionId] = useState("");
+  // const [transactionId, seTransactionId] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(true);
 
@@ -25,7 +25,7 @@ const PaymentResponse = ({ token }) => {
   const getTransactionById = (transactionId) => {
     console.log(router.query.success)
     setSuccess(router.query.success);
-    seTransactionId(router.query.id);
+    const  transactionId = router.query.id;
     // if (transactionId == "") {
     // } else {
       if (router.query.success) {
@@ -72,8 +72,7 @@ const PaymentResponse = ({ token }) => {
     // if (router.query.success === 'false'){
     //   return
     // }
-    getTransactionById(transactionId);
-    console.log(1)
+    getTransactionById();
   }, []);
 
   return (
