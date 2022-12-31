@@ -157,19 +157,19 @@ const PaymentResponse = ({ token }) => {
 export default PaymentResponse;
 
 export async function getServerSideProps(context) {
-  const accessToken = context.req.cookies.access_token
+  // const accessToken = context.req.cookies.access_token
   const paymentToken = context.req.cookies._pt_
   const successProps = {}
   if (paymentToken)
     successProps.token = paymentToken
-  if (!accessToken)
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
-      props: {},
-    };
+  // if (!accessToken)
+  //   return {
+  //     redirect: {
+  //       destination: "/",
+  //       permanent: false,
+  //     },
+  //     props: {},
+  //   };
   return {
     props: successProps, // will be passed to the page component as props
   }
