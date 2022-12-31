@@ -30,7 +30,7 @@ const PaymentResponse = ({ token }) => {
     // if (transactionId == "") {
     // } else {
     if (router.query.success) {
-      // setTimeout(async () => {
+      setTimeout(async () => {
       try {
         axios.defaults.withCredentials = false
         const res = await axios.get(
@@ -60,8 +60,8 @@ const PaymentResponse = ({ token }) => {
       } catch (e) {
         setMessage(e.message)
       }
-      // }, 2000);
       setLoading(false)
+      }, 2000);
     }
 
     // }
