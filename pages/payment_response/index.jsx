@@ -26,6 +26,7 @@ const PaymentResponse = ({ token }) => {
     console.log(router.query.success)
     setSuccess(router.query.success);
     const  transactionId = router.query.id;
+    console.log(transactionId)
     // if (transactionId == "") {
     // } else {
       if (router.query.success) {
