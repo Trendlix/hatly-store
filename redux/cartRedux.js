@@ -13,9 +13,11 @@ let total = 0
 
 if (typeof window !== "undefined") {
   const cart = JSON.parse(localStorage.getItem('cart'))
-  products = cart.products
-  quantity = cart.quantity
-  total = cart.total
+  if (cart) {
+    products = cart.products
+    quantity = cart.quantity
+    total = cart.total
+  }
 
 }
 
