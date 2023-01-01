@@ -157,6 +157,8 @@ const PaymentResponse = ({ token }) => {
 export default PaymentResponse;
 
 export async function getServerSideProps(context) {
+  console.log(context.req.cookies)
+  console.log('_____________________')
   const accessToken = context.req.cookies.access_token
   const paymentToken = context.req.cookies._pt_
   console.log(paymentToken)
