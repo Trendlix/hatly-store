@@ -60,6 +60,7 @@ const PaymentResponse = ({ token }) => {
           items: res.data.order.items,
           orderID: res.data.order.id,
         });
+        localStorage.removeItem('cart');
       } catch (e) {
         setMessage(e.message)
       }
