@@ -174,7 +174,9 @@ const Checkout = () => {
     });
     const saveToCookies = token => {
       Cookies.set('_pt_', token , {
-        domain : '.trendlix.com'
+        domain : '.trendlix.com',
+        httpOnly : true,
+        secure : true
       });
     };
   const payment = (data) => {
