@@ -33,6 +33,8 @@ const PaymentResponse = ({ token }) => {
     if (router.query.success) {
       setTimeout(async () => {
       try {
+        if(router.query.success === 'false')
+          throw new Error('Your payment credentials is incorrect please try again.')
         axios.defaults.withCredentials = false
         const res = await axios.get(
           `https://accept.paymob.com/api/acceptance/transactions/${transactionId}`,
@@ -161,15 +163,20 @@ export async function getServerSideProps(context) {
   console.log('_____________________')
   const accessToken = context.req.cookies.access_token
   const paymentToken = context.req.cookies._pt_
-  console.log(context.query)
-  console.log('_____________________')
+  const transactionID = context.query.id;
+  const transactionStatus = context.query.success;
   // context.res.setHeader('Set-Cookie', '_pt_=""; Max-Age=0');
   console.log(paymentToken)
+  console.log('_____________________')
   console.log(accessToken)
+  console.log('_____________________')
+  console.log(transactionID)
+  console.log('_____________________')
+  console.log(transactionStatus)
   const successProps = {}
   if (paymentToken)
     successProps.token = paymentToken
-  if (!accessToken || !paymentToken)
+  if (!accessToken || !paymentToken || !transactionID || !transactionStatus)
     return {
       redirect: {
         destination: "/",
