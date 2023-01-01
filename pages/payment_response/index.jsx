@@ -16,6 +16,7 @@ axios.defaults.withCredentials = true;
 const PaymentResponse = ({ token }) => {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
+  const {user} = useSelector((state) => state.user);
   // const [searchParams, setSearchParams] = useSearchParams();
   const router = useRouter()
   const [orderID, setOrderID] = useState("");
@@ -76,7 +77,7 @@ const PaymentResponse = ({ token }) => {
         // })
         fetchProduct.post("/mail", {
           to: res.data.billing_data.email,
-          name: `${res.data.billing_data.first_name} ${res.data.billing_data.last_name}`,
+          name: `${user.firstName} ${user.lastName}`,
           items: res.data.order.items,
           orderID: res.data.order.id,
         });
