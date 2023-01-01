@@ -17,6 +17,7 @@ import Image from "next/image";
 import API_URL from "../../API/ApiUrl";
 import { getUser, userActions, userState } from "../../redux/features/user/userSlice";
 import Cookies from "js-cookie";
+import makeOrder from "../../utils/makeOrder";
 
 axios.defaults.withCredentials = true
 const pStyle = {
@@ -225,34 +226,35 @@ console.log(cart.products)
   //   });
   // };
   const cashPaymentHandler = async (data) => {
-    try {
-      const res = await axios.post(`${API_URL}/orders`, {
-        headers: {
-          "Accept": "*/*",
-        },
-        userData: {
-          firstName: data.firstName,
-          lastName: data.lastName,
-          email: data.email,
-          phone: data.phone,
-          state: data.state,
-          city: data.city,
-          street: data.street,
-          building: data.building,
-          floor: data.floor,
-          apartment: data.apartment,
-          extraDescription: data.extraDescription,
-        },
-        orderedItems : cart.products,
-        totalPrice : cart.total,
-        delivery: 50,
-        subTotal :  cart.total + 50,
-        paymentMethod : 'Cash'
-      })
-      console.log(res.data)
-    } catch (e) {
-      console.log(e)
-    }
+    // try {
+    //   const res = await axios.post(`${API_URL}/orders`, {
+    //     headers: {
+    //       "Accept": "*/*",
+    //     },
+    //     userData: {
+    //       firstName: data.firstName,
+    //       lastName: data.lastName,
+    //       email: data.email,
+    //       phone: data.phone,
+    //       state: data.state,
+    //       city: data.city,
+    //       street: data.street,
+    //       building: data.building,
+    //       floor: data.floor,
+    //       apartment: data.apartment,
+    //       extraDescription: data.extraDescription,
+    //     },
+    //     orderedItems : cart.products,
+    //     totalPrice : cart.total,
+    //     delivery: 50,
+    //     subTotal :  cart.total + 50,
+    //     paymentMethod : 'Cash'
+    //   })
+    //   console.log(res.data)
+    // } catch (e) {
+    //   console.log(e)
+    // }
+    await makeOrder(data,cart,'Cash');
   }
   return (
     <motion.div
