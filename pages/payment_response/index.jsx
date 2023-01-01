@@ -52,6 +52,8 @@ const PaymentResponse = ({ token }) => {
         throw new Error('Your payment credentials is incorrect please try again.')
         // if payment succeeded make order
         const billingData = {...res.data.billing_data}
+        // make request with Credentials to true
+        axios.defaults.withCredentials = true
         const order = await makeOrder({
           ...billingData,
           firstName : billingData.first_name,
@@ -64,7 +66,7 @@ const PaymentResponse = ({ token }) => {
         // remove cart after payment and order done
         dispatch(resetCart());
         localStorage.removeItem('cart');
-        
+
         setOrderID(order.data.body.name)
         // setOrderID(res.data.order.id);
         setMessage(res.data.data.txn_response_code);
