@@ -125,7 +125,7 @@ const Checkout = () => {
       auth_token: token,
       delivery_needed: "false",
       // amount_cents: `${Number(cart.total) * 100}`,
-      amount_cents: `${100 * (cart.total)}`,
+      amount_cents: `${100 * (cart.total + 50)}`,
       currency: "EGP",
       items: items,
       shipping_data: {
@@ -150,7 +150,7 @@ const Checkout = () => {
     axios.post("https://accept.paymob.com/api/acceptance/payment_keys", {
       auth_token: token,
       // amount_cents: `${Number(cart.total) * 100}`,
-      amount_cents: `${100 * (cart.total)}`,
+      amount_cents: `${100 * (cart.total + 50)}`,
       expiration: 3600,
       order_id: orderId,
       billing_data: {
