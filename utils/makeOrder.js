@@ -1,7 +1,7 @@
 import axios from "axios"
 import API_URL from "../API/ApiUrl"
 
-axios.defaults.withCredentials = True;
+axios.defaults.withCredentials = true;
 
 const makeOrder = async (data,cart,paymentMethod) => {
   try {
