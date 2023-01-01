@@ -11,6 +11,7 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import Cookies from "js-cookie";
 import { resetCart } from "../../redux/cartRedux";
+import makeOrder from "../../utils/makeOrder";
 axios.defaults.withCredentials = true;
 const PaymentResponse = ({ token }) => {
   const dispatch = useDispatch();
@@ -45,11 +46,27 @@ const PaymentResponse = ({ token }) => {
             },
           }
         )
-        
         console.log(res)
+        // if payment is failed throw error
         if(!res.data.success)
         throw new Error('Your payment credentials is incorrect please try again.')
-        setOrderID(res.data.order.id);
+        // if payment succeeded make order
+        const billingData = {...res.data.billing_data}
+        const order = await makeOrder({
+          ...billingData,
+          firstName : billingData.first_name,
+          lastName : billingData.last_name,
+          phone : billingData.phone_number
+        },
+        cart,
+        'Paymob'
+        )
+        // remove cart after payment and order done
+        dispatch(resetCart());
+        localStorage.removeItem('cart');
+        
+        setOrderID(order.data.body.name)
+        // setOrderID(res.data.order.id);
         setMessage(res.data.data.txn_response_code);
         // fetchProduct
         // .put("/products/changeQuantity", {
@@ -62,9 +79,7 @@ const PaymentResponse = ({ token }) => {
           orderID: res.data.order.id,
         });
         
-        // remove cart after payment done
-        dispatch(resetCart());
-        localStorage.removeItem('cart');
+        
       } catch (e) {
         setMessage(e.message)
       }

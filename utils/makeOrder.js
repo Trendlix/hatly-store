@@ -29,6 +29,7 @@ const makeOrder = async (data,cart,paymentMethod) => {
       paymentMethod
     })
     console.log(res.data)
+    return res;
   } catch (e) {
     console.log(e)
   }
