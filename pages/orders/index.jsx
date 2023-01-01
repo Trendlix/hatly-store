@@ -1,6 +1,7 @@
 import React from 'react';
 import AccountLayout from '../../Layout/Account';
 
+import { motion } from 'framer-motion';
 import style from './orders.module.css';
 import Link from 'next/link';
 import OrderOverview from '../../componants/OrderOverview/OrderOverview';
@@ -9,23 +10,31 @@ import { faGear } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { sidebarActions, sidebarState } from '../../redux/features/user/sidebarSlice';
 import Overlay from '../../componants/Overlay.jsx/Overlay';
+import dashboardAnimation from '../../utils/dashboardAnimation';
 
 const index = () => {
   const dispatch = useDispatch()
-  const {isOpened} = useSelector(sidebarState)
+  const { isOpened } = useSelector(sidebarState)
   const openSidebarHandler = () => {
     dispatch(sidebarActions.open())
   }
   return (
-    <div className={style.pageContainer}>
+    <motion.div
+      className={style.pageContainer}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      variants={dashboardAnimation.variants}
+      transition={dashboardAnimation.transition}
+    >
       {isOpened ? <Overlay /> : null}
       <Link href="/shop/all" className={style.link} >
         <span className={style.backward}>{'<<'}</span>
         Back to shopping
       </Link>
       <div className={style.headerContainer}>
-      <FontAwesomeIcon className={style.gearIcon} icon={faGear} onClick={openSidebarHandler}/>
-      <h2 className={style.header}>Your Orders</h2>
+        <FontAwesomeIcon className={style.gearIcon} icon={faGear} onClick={openSidebarHandler} />
+        <h2 className={style.header}>Your Orders</h2>
       </div>
       <div className={style.optionsContainer}>
         <div className={style.options}>
@@ -40,7 +49,7 @@ const index = () => {
         <OrderOverview />
         <OrderOverview />
       </div>
-    </div>
+    </motion.div>
   )
 }
 index.PageLayout = AccountLayout;

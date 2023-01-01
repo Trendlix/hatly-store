@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import React from 'react';
 import { useDispatch } from "react-redux";
-
+import { motion } from 'framer-motion';
 import style from './Overview.module.css';
 import bitmoji from '../../../img/bitmoji.png';
 import { useSelector } from 'react-redux';
@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGear } from '@fortawesome/free-solid-svg-icons';
 import { sidebarActions, sidebarState } from '../../../redux/features/user/sidebarSlice';
 import Overlay from '../../Overlay.jsx/Overlay';
+import dashboardAnimation from '../../../utils/dashboardAnimation';
 
 const Overview = () => {
   const user = useSelector(userState)
@@ -19,7 +20,14 @@ const Overview = () => {
     dispatch(sidebarActions.open())
   }
   return (
-    <div className={style.overview}>
+    <motion.div
+    className={style.overview}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      variants={dashboardAnimation.variants}
+      transition={dashboardAnimation.transition}
+    >
       {isOpened ? <Overlay /> : null}
       <div className={style.background}>
         <FontAwesomeIcon onClick={openSidebarHandler} className={style.gearIcon} icon={faGear} />
@@ -48,7 +56,7 @@ const Overview = () => {
           <p className={style.data}>450</p>
         </div>
       </div>
-    </div>
+      </motion.div>
   )
 }
 

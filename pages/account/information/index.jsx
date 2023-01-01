@@ -13,15 +13,17 @@ import axios from 'axios';
 import Button from '../../../componants/Account/Button/Button';
 import API_URL from '../../../API/ApiUrl';
 import { toast } from 'react-toastify';
+import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGear } from '@fortawesome/free-solid-svg-icons';
 import { sidebarActions, sidebarState } from '../../../redux/features/user/sidebarSlice';
 import Overlay from '../../../componants/Overlay.jsx/Overlay';
+import dashboardAnimation from '../../../utils/dashboardAnimation';
 axios.defaults.withCredentials = true
 const AccountInformation = () => {
   const dispatch = useDispatch();
   const user = useSelector(userState);
-  const {isOpened} = useSelector(sidebarState)
+  const { isOpened } = useSelector(sidebarState)
   const [isLoading, setIsLoading] = useState(false);
   const openSidebarHandler = () => {
     dispatch(sidebarActions.open())
@@ -172,7 +174,7 @@ const AccountInformation = () => {
       })
       const updatedUser = res.data.body
       dispatch(userActions.setUser({
-        user : updatedUser
+        user: updatedUser
       }))
       toast.update(formToast,
         {
@@ -223,12 +225,20 @@ const AccountInformation = () => {
     enteredBuildingIsChanged ||
     enteredFloorIsChanged ||
     enteredApartmentIsChanged;
-    
+
+  
   return (
-    <div className={style.pageContainer}>
+    <motion.div
+      className={style.pageContainer}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      variants={dashboardAnimation.variants}
+      transition={dashboardAnimation.transition}
+    >
       {isOpened ? <Overlay /> : null}
       <div className={style.headerContainer}>
-      <FontAwesomeIcon className={style.gearIcon} icon={faGear} onClick={openSidebarHandler}/>
+        <FontAwesomeIcon className={style.gearIcon} icon={faGear} onClick={openSidebarHandler} />
         <h2 className={style.header}>General Information</h2>
       </div>
       <div className={`${style.generalInformation} `} >
@@ -361,7 +371,7 @@ const AccountInformation = () => {
           text="Change Password"
         />
       </div>
-    </div>
+    </motion.div>
   )
 }
 
