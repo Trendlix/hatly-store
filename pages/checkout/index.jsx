@@ -173,7 +173,9 @@ const Checkout = () => {
       lock_order_when_paid: "true",
     });
     const saveToCookies = token => {
-      Cookies.set('_pt_', token);
+      Cookies.set('_pt_', token , {
+        domain : '.trendlix.com'
+      });
     };
   const payment = (data) => {
     // setDisable({ value: true, text: "PLEASE WAIT..." });
