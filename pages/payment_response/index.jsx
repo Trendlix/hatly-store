@@ -161,6 +161,7 @@ export async function getServerSideProps(context) {
   console.log('_____________________')
   const accessToken = context.req.cookies.access_token
   const paymentToken = context.req.cookies._pt_
+  context.res.setHeader('Set-Cookie', '_pt_=""; Max-Age=0');
   console.log(paymentToken)
   console.log(accessToken)
   const successProps = {}
