@@ -612,8 +612,8 @@ console.log(cart.products)
                         <div className="col-2">
                           <input
                             onClick={() => {
-                              // setIntegrationID(2810495)
-                              setIntegrationID(2232880)
+                              setIntegrationID(2810495)
+                              // setIntegrationID(2232880)
                               setIframeID(402130);
                               setCash(false);
                             }}
