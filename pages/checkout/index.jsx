@@ -63,7 +63,7 @@ const Checkout = () => {
   const cart = useSelector((state) => state.cart);
 
   useEffect(() => {
-    const data = cart.products.map((product) => {
+    const data = cart.products.map(product => {
       return {
         name: product.item_name,
         amount_cents: product.price_list_rate * 100,
@@ -125,7 +125,7 @@ const Checkout = () => {
       auth_token: token,
       delivery_needed: "false",
       // amount_cents: `${Number(cart.total) * 100}`,
-      amount_cents: `${100000}`,
+      amount_cents: `${100 * (cart.total)}`,
       currency: "EGP",
       items: items,
       shipping_data: {
@@ -150,7 +150,7 @@ const Checkout = () => {
     axios.post("https://accept.paymob.com/api/acceptance/payment_keys", {
       auth_token: token,
       // amount_cents: `${Number(cart.total) * 100}`,
-      amount_cents: `${1}`,
+      amount_cents: `${100 * (cart.total)}`,
       expiration: 3600,
       order_id: orderId,
       billing_data: {
