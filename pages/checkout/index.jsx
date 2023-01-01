@@ -175,8 +175,8 @@ const Checkout = () => {
     const saveToCookies = token => {
       Cookies.set('_pt_', token , {
         domain : '.trendlix.com',
-        expires: 365,
-        secure : true,
+        // expires: 365,
+        // secure : true,
       });
     };
   const payment = (data) => {
@@ -612,8 +612,8 @@ console.log(cart.products)
                         <div className="col-2">
                           <input
                             onClick={() => {
-                              setIntegrationID(2810495)
-                              // setIntegrationID(2232880)
+                              // setIntegrationID(2810495)
+                              setIntegrationID(2232880)
                               setIframeID(402130);
                               setCash(false);
                             }}
