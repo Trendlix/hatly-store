@@ -5,14 +5,15 @@ import failed from "../../img/faild.png";
 import loadingPic from "../../img/loading.gif";
 import axios from "axios";
 import { fetchProduct } from "../../API/product";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Cookies from "js-cookie";
+import { resetCart } from "../../redux/cartRedux";
 axios.defaults.withCredentials = true;
 const PaymentResponse = ({ token }) => {
-  console.log(token)
+  const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
   // const [searchParams, setSearchParams] = useSearchParams();
   const router = useRouter()
@@ -60,6 +61,9 @@ const PaymentResponse = ({ token }) => {
           items: res.data.order.items,
           orderID: res.data.order.id,
         });
+        
+        // remove cart after payment done
+        dispatch(resetCart());
         localStorage.removeItem('cart');
       } catch (e) {
         setMessage(e.message)
