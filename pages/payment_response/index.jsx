@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import Cookies from "js-cookie";
 axios.defaults.withCredentials = true;
 const PaymentResponse = ({ token }) => {
   console.log(token)
@@ -61,6 +62,7 @@ const PaymentResponse = ({ token }) => {
         setMessage(e.message)
       }
       setLoading(false)
+      Cookies.remove('_pt_')
       }, 2000);
     }
 
@@ -155,19 +157,21 @@ const PaymentResponse = ({ token }) => {
 export default PaymentResponse;
 
 export async function getServerSideProps(context) {
-  // const accessToken = context.req.cookies.access_token
+  const accessToken = context.req.cookies.access_token
   const paymentToken = context.req.cookies._pt_
+  console.log(paymentToken)
+  console.log(accessToken)
   const successProps = {}
   if (paymentToken)
     successProps.token = paymentToken
-  // if (!accessToken)
-  //   return {
-  //     redirect: {
-  //       destination: "/",
-  //       permanent: false,
-  //     },
-  //     props: {},
-  //   };
+  if (!accessToken || !paymentToken)
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+      props: {},
+    };
   return {
     props: successProps, // will be passed to the page component as props
   }
