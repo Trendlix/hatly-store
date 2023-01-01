@@ -175,7 +175,7 @@ const Checkout = () => {
     const saveToCookies = token => {
       Cookies.set('_pt_', token , {
         domain : '.trendlix.com',
-        httpOnly : true,
+        expires: 365,
         secure : true
       });
     };
