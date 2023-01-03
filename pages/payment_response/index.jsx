@@ -76,12 +76,12 @@ const PaymentResponse = ({ token }) => {
         // .put("/products/changeQuantity", {
         // items: cart.products,
         // })
-        fetchProduct.post("/mail", {
-          to: res.data.billing_data.email,
-          name: `${user.firstName} ${user.lastName}`,
-          items: res.data.order.items,
-          orderID: res.data.order.id,
-        });
+        // fetchProduct.post("/mail", {
+        //   to: res.data.billing_data.email,
+        //   name: `${user.firstName} ${user.lastName}`,
+        //   items: res.data.order.items,
+        //   orderID: res.data.order.id,
+        // });
         
         
       } catch (e) {
@@ -147,15 +147,15 @@ const PaymentResponse = ({ token }) => {
                   : `${message}`}
               </h3>
               <p style={{ fontSize: "20px" }}>
-                {success != "false"
+                {success !== "false"
                   ? `Payment done successfully your order ID is ${orderID}`
                   : ""}
               </p>
-              <p style={{ fontSize: "20px" }}>
+              {/* <p style={{ fontSize: "20px" }}>
                 {success != "false"
                   ? `Check your inbox please`
                   : ""}
-              </p>
+              </p> */}
             </div>
             <div className="row justify-content-center">
               <Link
@@ -167,10 +167,10 @@ const PaymentResponse = ({ token }) => {
                   });
                 }}
                 href="/checkout"
-                className="btn col-6 col-md-2 mt-3 text-white"
+                className="btn col-6 col-md-3 mt-3 text-white"
                 style={{ backgroundColor: "#20c997" }}
               >
-                Go to Checkout
+                {success === "true" ? "Check your order" : "Go to Checkout"}
               </Link>
             </div>
           </div>
