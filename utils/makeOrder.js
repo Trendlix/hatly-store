@@ -3,7 +3,7 @@ import API_URL from "../API/ApiUrl"
 
 axios.defaults.withCredentials = true;
 
-const makeOrder = async (data,cart,paymentMethod) => {
+const makeOrder = async (data, cart, paymentMethod, TransactionId) => {
   try {
     const res = await axios.post(`${API_URL}/orders`, {
       headers: {
@@ -22,11 +22,12 @@ const makeOrder = async (data,cart,paymentMethod) => {
         apartment: data.apartment,
         extraDescription: data.extraDescription,
       },
-      orderedItems : cart.products,
-      totalPrice : cart.total,
+      orderedItems: cart.products,
+      totalPrice: cart.total,
       delivery: 50,
-      subTotal :  cart.total + 50,
-      paymentMethod
+      subTotal: cart.total + 50,
+      paymentMethod,
+      TransactionId
     })
     console.log(res.data)
     return res;

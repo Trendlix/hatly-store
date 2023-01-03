@@ -62,7 +62,8 @@ const PaymentResponse = ({ token }) => {
           phone : billingData.phone_number
         },
         cart,
-        'Paymob'
+        'Paymob',
+        transactionId
         )
         // remove cart after payment and order done
         dispatch(resetCart());
