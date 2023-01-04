@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import axios from 'axios'
 import Link from 'next/link'
 import { toast } from 'react-toastify';
@@ -9,12 +9,14 @@ import LoginLayout from '../../componants/loginLayout/LoginLayout'
 import API_URL from '../../API/ApiUrl'
 import { userActions } from '../../redux/features/user/userSlice';
 import style from '../../styles/loginLayout.module.css'
+import LoadingOverlay from '../../componants/LoadingOverlay/LoadingOverlay';
 
 axios.defaults.withCredentials = true
 
 const Signup = () => {
   const dispatch = useDispatch()
   const router = useRouter()
+  const [loading , setLoading] = useState(false);
   const {
     value: enteredFirstName,
     isValid: enteredFirstNameIsValid,
@@ -85,6 +87,7 @@ const Signup = () => {
   }
   const signUpHandler = async () => {
     try {
+      setLoading(true);
       dispatch(userActions.loggingIn())
       const firstName = enteredFirstName;
       const lastName = enteredLastName;
@@ -132,6 +135,7 @@ const Signup = () => {
       });
       throw new Error(e.message);
     }
+    setLoading(false);
   }
   const submitFormHandler = async e => {
     try {
@@ -155,6 +159,7 @@ const Signup = () => {
   }
   return (
     <LoginLayout>
+      {loading && <LoadingOverlay /> }
       <div className={`${style.login_card} ${style.child}`}>
         <h3 className={style.title}>Sign-up</h3>
         <div className={style.form}>

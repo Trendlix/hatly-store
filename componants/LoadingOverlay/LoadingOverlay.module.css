@@ -13,6 +13,9 @@
   display: flex;
   
 }
+.fullPage{
+  position: fixed;
+}
 /* .loading_spinner{
   position: absolute;
 

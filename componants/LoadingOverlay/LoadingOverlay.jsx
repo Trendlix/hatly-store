@@ -5,12 +5,12 @@ import React from 'react';
 import style from './LoadingOverlay.module.css';
 // import { userState } from '../../redux/features/user/userSlice';
 
-const LoadingOverlay = () => {
+const LoadingOverlay = ({ isFullPage }) => {
   // const user = useSelector(userState)
   // console.log(user.loading)
   return (
     // <div className={`${style.overlay_container} ${user.loading ? style.loading : ''}`}>
-    <div className={`${style.overlay_container}`}>
+    <div className={`${style.overlay_container}` `${isFullPage ? style.fullPage : ''}`}>
       <span className={style.loader}></span>
       {/* <DotLoader
       className={style.loading_spinner}
