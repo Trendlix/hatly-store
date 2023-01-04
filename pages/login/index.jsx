@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect,useState } from 'react'
 import axios from 'axios'
 import { toast } from 'react-toastify';
 import { useDispatch ,useSelector} from 'react-redux'
@@ -11,10 +11,12 @@ import { userActions, userState } from '../../redux/features/user/userSlice'
 import API_URL from '../../API/ApiUrl'
 
 import style from '../../styles/loginLayout.module.css'
+import LoadingOverlay from '../../componants/LoadingOverlay/LoadingOverlay';
 axios.defaults.withCredentials = true
 const Login = () => {
   const dispatch = useDispatch()
   const router = useRouter()
+  const [loading , setLoading] = useState(false)
   const {
     value: enteredEmail,
     isValid: enteredEmailIsValid,
@@ -41,6 +43,7 @@ const Login = () => {
   
   const login = async () => {
     try {
+      setLoading(true);
       dispatch(userActions.loggingIn())
       const email = enteredEmail;
       const password = enteredPassword;
@@ -91,6 +94,7 @@ const Login = () => {
       console.log(e)
       throw new Error('Email or password is incorrect')
     }
+    setLoading(false);
   }
   const SubmitLoginHandler = async e => {
     try {
@@ -114,6 +118,7 @@ const Login = () => {
   }
   return (
     <LoginLayout>
+      {loading && <LoadingOverlay /> }
       <div className={`${style.login_card} ${style.child}`}>
         <h3 className={`${style.title}`}>Login</h3>
         <div className={`${style.form}`}>
