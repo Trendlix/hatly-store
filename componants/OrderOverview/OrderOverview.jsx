@@ -5,7 +5,8 @@ import Image from 'next/image';
 // import img from '../../img/image1-1536x1152.png'
 import notFound from "../../img/notFound.png";
 import useMobileDeviceDetection from '../../hooks/useMobileDetection';
-const OrderOverview = ({ img, productName, productCategory, totalPrice }) => {
+import Link from 'next/link';
+const OrderOverview = ({ img, productName, productCategory, totalPrice , orderId }) => {
   const isMobile = useMobileDeviceDetection()
   return (
     <div className={style.componentContainer}>
@@ -23,7 +24,7 @@ const OrderOverview = ({ img, productName, productCategory, totalPrice }) => {
       </div>
       <div className={style.priceContainer}>
         <p className={style.price}>{parseFloat(totalPrice).toFixed(1)}</p>
-        <button className={style.btn} type='button'>View Details</button>
+        <Link href={`/orders/${orderId}`} className={style.btn} type='button'>View Details</Link>
       </div>
     </div>
   )

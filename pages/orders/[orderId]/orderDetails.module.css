@@ -1,0 +1,128 @@
+.pageContainer {
+  /* display: flex; */
+  position: relative;
+  padding: 0;
+  margin-top: 160px;
+  transition: 0.15s ease;
+  color: #414a90;
+}
+
+.link {
+  color: #414a90 !important;
+  display: block;
+  width: max-content;
+  transition: 0.3s ease-in;
+}
+
+.link:hover {
+  color: #414a90 !important;
+  transform: scale(1.06);
+}
+
+.link .backward {
+  letter-spacing: -4px;
+  padding: 0 0.2rem 0;
+}
+
+.headerContainer {
+  /* margin: 0.75rem 0;
+  padding: 0.5rem 1rem;
+  border: 3px solid;
+  border-radius: 1rem; */
+  /* display: flex;
+  align-items: center;
+  gap: 1rem; */
+}
+
+.header {
+  margin: 0.75rem 0;
+  padding: 0.5rem 2rem 0.5rem 1rem;
+  border: 3px solid;
+  border-radius: 1rem;
+  font-size: 1.7rem;
+  font-weight: 400 !important;
+  width: max-content;
+}
+
+.mainOrderDetailsContainer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  width: max-content;
+  column-gap: 5rem;
+}
+
+.mainOrderDetailsContainer>p {
+  margin: 0 0 0.5rem;
+}
+
+.orderItems {
+  margin: 1rem 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 1rem;
+}
+
+.informationContainer .data,
+.informationContainer .dataHeader {
+  margin: 0 0 0.25rem;
+}
+
+.informationContainer .data {
+  color: #777;
+  padding: 0 0 0 0.25rem;
+}
+
+.gridContainer {
+  width: max-content;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 1.5rem;
+}
+
+.contactInformation,
+.deliveryAddress,
+.orderInfo {
+  margin: 0 0 1rem;
+}
+
+.priceGridContainer {
+  width: max-content;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 9rem;
+}
+
+.priceGridContainer .priceTitle {
+  color: #8f8f8f;
+}
+
+.underline {
+  position: relative;
+}
+
+.underline::after {
+  position: absolute;
+  content: "";
+  left: 0;
+  bottom: -14px;
+  width: 200%;
+  height: 2px;
+  background-color: #414a90;
+}
+
+.paymentMethod {
+  color: #777;
+}
+
+@media (max-width: 768px) {
+  .orderItems {
+    grid-template-columns: repeat(1, 1fr);
+    row-gap: 1rem;
+  }
+}
+
+@media (max-width:568px) {
+  .pageContainer {
+    padding: 1rem;
+  }
+}

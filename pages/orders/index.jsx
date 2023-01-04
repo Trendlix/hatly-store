@@ -37,7 +37,7 @@ const index = () => {
     setProducts(data)
     console.log(data)
     if (totalLength !== pages.length)
-      setPages(prev => Array.from({ length: totalLength / 4 }, (_, i) => i + 1))
+      setPages(prev => Array.from({ length: Math.ceil(totalLength / 4) }, (_, i) => i + 1))
     setLoading(false)
     // console.log(res.data)
     // return res.data
@@ -51,31 +51,35 @@ const index = () => {
   }
   console.log(products)
   return (
-      <motion.div
-        className={style.pageContainer}
-        initial="initial"
-        animate="animate"
-        exit="exit"
-        variants={dashboardAnimation.variants}
-        transition={dashboardAnimation.transition}
-      >
-        {isOpened ? <Overlay /> : null}
-        {loading && <LoadingOverlay /> }
-        <Link href="/shop/all" className={style.link} >
-          <span className={style.backward}>{'<<'}</span>
-          Back to shopping
-        </Link>
-        <div className={style.headerContainer}>
-          <FontAwesomeIcon className={style.gearIcon} icon={faGear} onClick={openSidebarHandler} />
-          <h2 className={style.header}>Your Orders</h2>
+    <motion.div
+      className={style.pageContainer}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      variants={dashboardAnimation.variants}
+      transition={dashboardAnimation.transition}
+    >
+      {isOpened ? <Overlay /> : null}
+      {loading && <LoadingOverlay />}
+      <Link href="/shop/all" className={style.link} >
+        <span className={style.backward}>{'<<'}</span>
+        Back to shopping
+      </Link>
+      <div className={style.headerContainer}>
+        <FontAwesomeIcon className={style.gearIcon} icon={faGear} onClick={openSidebarHandler} />
+        <h2 className={style.header}>Your Orders</h2>
+      </div>
+      <div className={style.optionsContainer}>
+        <div className={style.options}>
+          {/* <span className={style.option}>Orders</span> */}
+          {/* <span className={style.option}>Returns</span> */}
         </div>
-        <div className={style.optionsContainer}>
-          <div className={style.options}>
-            <span className={style.option}>Orders</span>
-            <span className={style.option}>Returns</span>
-          </div>
-          <Link className={`${style.link} ${style.help}`} href="/contact">Need Help</Link>
-        </div>
+        <Link className={`${style.link} ${style.help}`} href="/contact">Need Help</Link>
+      </div>
+      {
+        products.length === 0 && loading === false ?
+        <p>Waiting for your orders...</p>
+        :
         <div className={style.orders}>
           {products.map(el =>
             <OrderOverview
@@ -84,31 +88,33 @@ const index = () => {
               productName={el.ordersItems[0].item_name}
               productCategory={el.ordersItems[0].item_group}
               totalPrice={el.grand_total}
+              orderId={el.name}
             />
           )}
         </div>
-        <div aria-label="Page navigation example m-2 ">
-          <ul className="pagination float-end">
-            {pages.map((number) => {
-              return (
-                <li className={`page-item ${currentPage === number ? 'active' : ''}`} key={number}>
-                  <p
-                    className="page-link"
-                    value={number}
-                    onClick={(e) => {
-                      const page = e.target.getAttribute("value");
-                      setCurrentPage(+page)
-                      scrollTop()
-                    }}
-                  >
-                    {number}
-                  </p>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-      </motion.div>
+      }
+      <div aria-label="Page navigation example m-2 ">
+        <ul className="pagination float-end">
+          {pages.map((number) => {
+            return (
+              <li className={`page-item ${currentPage === number ? 'active' : ''}`} key={number}>
+                <p
+                  className="page-link"
+                  value={number}
+                  onClick={(e) => {
+                    const page = e.target.getAttribute("value");
+                    setCurrentPage(+page)
+                    scrollTop()
+                  }}
+                >
+                  {number}
+                </p>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    </motion.div>
   )
 }
 index.PageLayout = AccountLayout;
