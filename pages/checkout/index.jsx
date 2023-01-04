@@ -1,7 +1,6 @@
 import axios from "axios";
-import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Iframe from "react-iframe";
 import { useForm } from "react-hook-form";
 import notFound from "../../img/notFound.png";
@@ -18,8 +17,11 @@ import API_URL from "../../API/ApiUrl";
 import { getUser, userActions, userState } from "../../redux/features/user/userSlice";
 import Cookies from "js-cookie";
 import makeOrder from "../../utils/makeOrder";
+import LoadingOverlay from "../../componants/LoadingOverlay/LoadingOverlay";
+import { toast } from "react-toastify";
 
-axios.defaults.withCredentials = true
+axios.defaults.withCredentials = true;
+
 const pStyle = {
   WebkitBoxOrient: "vertical",
   WebkitLineClamp: "1",
@@ -31,6 +33,7 @@ const pStyle = {
 
 const Checkout = () => {
   const router = useRouter()
+  const [loading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -173,12 +176,14 @@ const Checkout = () => {
       integration_id: integrationID,
       lock_order_when_paid: "true",
     });
-    const saveToCookies = token => {
-      Cookies.set('_pt_', token , {
-        domain : '.trendlix.com',
-      });
-    };
+  const saveToCookies = token => {
+    Cookies.set('_pt_', token, {
+      domain: '.trendlix.com',
+    });
+  };
   const payment = (data) => {
+    setLoading(true)
+    console.log('here')
     // setDisable({ value: true, text: "PLEASE WAIT..." });
     getToken().then((response) => {
       console.log(response)
@@ -191,13 +196,13 @@ const Checkout = () => {
             setPaymentKeys(paymentdata.data.token);
             setTimeout(() => {
               setDisplay("block");
+              setLoading(false);
             }, 1000);
           }
         );
       });
     });
   };
-console.log(cart.products)
   // const cashRequest = (token) =>
   //   axios.post("https://accept.paymob.com/api/acceptance/payments/pay", {
   //     source: {
@@ -252,7 +257,33 @@ console.log(cart.products)
     // } catch (e) {
     //   console.log(e)
     // }
-    await makeOrder(data,cart,'Cash');
+    setLoading(true);
+    const res = await makeOrder(data, cart, 'Cash');
+    if(res.data.ok){
+      toast.success('Your order has been received', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
+        router.push(`/orders/${res.data.body.name}`);
+    }else{
+      toast.error(res.data.message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
+    }
+    setLoading(false);
   }
   return (
     <motion.div
@@ -263,6 +294,7 @@ console.log(cart.products)
       className="pb-5  d-flex justify-content-center"
       style={{ backgroundColor: "#ebeef5", paddingTop: "150px" }}
     >
+      {loading && <LoadingOverlay isFullPage={true} />}
       <div className="container">
         <form
           onSubmit={handleSubmit((data) => {
@@ -493,7 +525,7 @@ console.log(cart.products)
                       </div>
                     );
                   })}
-                                    <div
+                  <div
                     className="row justify-content-between pt-2 pb-2"
                     style={{
                       borderBottom: "1px solid #ededed",
@@ -703,7 +735,7 @@ console.log(cart.products)
                           className="btn btn-primary"
                           disabled={disable.value}
                         >
-                          {disable.text}
+                          {!loading ? disable.text : 'Your order is being prepared...'}
                         </button>
 
 
@@ -750,7 +782,7 @@ console.log(cart.products)
           <div className="col-12 text-end pt-3">
             <span style={{ cursor: 'pointer', fontSize: '20px', fontWeight: 'bold' }} className="text-danger p-4" onClick={() => {
               setDisplay('none');
-              setDisable({ value: false, text: "SAVE AND CONTINUE" })
+              setDisable({ value: false, text: "Checkout" })
             }}>X</span>
           </div>
           <Iframe
