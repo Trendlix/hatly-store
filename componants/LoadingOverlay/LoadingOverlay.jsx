@@ -10,7 +10,7 @@ const LoadingOverlay = ({ isFullPage }) => {
   // console.log(user.loading)
   return (
     // <div className={`${style.overlay_container} ${user.loading ? style.loading : ''}`}>
-    <div className={`${style.overlay_container}` `${isFullPage ? style.fullPage : ''}`}>
+    <div className={`${style.overlay_container} ${isFullPage ? style.fullPage : ''}`}>
       <span className={style.loader}></span>
       {/* <DotLoader
       className={style.loading_spinner}
