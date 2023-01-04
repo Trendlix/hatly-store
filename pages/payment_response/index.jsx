@@ -166,7 +166,7 @@ const PaymentResponse = ({ token }) => {
                     behavior: "smooth",
                   });
                 }}
-                href="/checkout"
+                href={success === "true" ? `/orders/${orderID}` : "Go to Checkout"}
                 className="btn col-6 col-md-3 mt-3 text-white"
                 style={{ backgroundColor: "#20c997" }}
               >
