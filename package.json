@@ -47,6 +47,7 @@
     "slick-carousel": "^1.8.1",
     "styled-components": "^5.3.5",
     "swiper": "^8.4.5",
+    "ua-parser-js": "^1.0.32",
     "url-loader": "^4.1.1",
     "web-streams-polyfill": "^3.2.1"
   }

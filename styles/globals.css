@@ -374,3 +374,9 @@ a {
     transform: translateX(-85%);
   }
 }
+.pagination{
+  margin: 1rem 0 0;
+}
+.page-item{
+  cursor: pointer;
+}

@@ -109,6 +109,9 @@
 }
 
 @media (max-width: 768px) {
+  .orders {
+    padding: 1rem;
+  }
   .pageContainer {
     min-width: 100%;
   }

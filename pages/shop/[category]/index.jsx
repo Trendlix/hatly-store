@@ -323,27 +323,27 @@ const Shop = ({category}) => {
                 <Loading grid="col-12 col-sm-12 col-md-12 col-lg-4 mb-5 bg-white p-3"></Loading>
               )}
             </div>
-            <nav aria-label="Page navigation example">
+            <div aria-label="Page navigation example">
               <ul className="pagination">
                 {pageNumber.map((number, i) => {
                   return (
                     <li className="page-item" key={i}>
-                      <a
+                      <p
                         className="page-link"
-                        href="#"
                         value={number}
                         onClick={(e) => {
                           const number = e.target.getAttribute("value");
                           setCurrentPage(number);
+                          scrollTop()
                         }}
                       >
                         {number}
-                      </a>
+                      </p>
                     </li>
                   );
                 })}
               </ul>
-            </nav>
+            </div>
           </div>
         </div>
       </div>
