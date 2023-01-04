@@ -159,7 +159,7 @@ const Signup = () => {
   }
   return (
     <LoginLayout>
-      {loading && <LoadingOverlay /> }
+      {loading && <LoadingOverlay isFullPage={true}/> }
       <div className={`${style.login_card} ${style.child}`}>
         <h3 className={style.title}>Sign-up</h3>
         <div className={style.form}>
