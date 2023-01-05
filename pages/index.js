@@ -523,8 +523,9 @@ const Home = () => {
           </div>
         </div>
       </section> */}
-      <div className="container overflow-hidden  payments">
-        {/* <PaymentSlider number={3}></PaymentSlider> */}
+      <div className="container overflow-hidden ">
+        {/* asdasdasd */}
+        <PaymentSlider></PaymentSlider>
       </div>
       {/* <section className="container mb-4 w-full">       */}
       <div className="container">
