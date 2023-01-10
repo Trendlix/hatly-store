@@ -19,6 +19,7 @@ import Cookies from "js-cookie";
 import makeOrder from "../../utils/makeOrder";
 import LoadingOverlay from "../../componants/LoadingOverlay/LoadingOverlay";
 import { toast } from "react-toastify";
+import { resetCart } from "../../redux/cartRedux";
 
 axios.defaults.withCredentials = true;
 
@@ -260,6 +261,9 @@ const Checkout = () => {
     setLoading(true);
     const res = await makeOrder(data, cart, 'Cash');
     if(res.data.ok){
+      // remove cart after payment and order done
+      dispatch(resetCart());
+      localStorage.removeItem('cart');
       toast.success('Your order has been received', {
         position: "top-right",
         autoClose: 5000,

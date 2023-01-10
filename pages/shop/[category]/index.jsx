@@ -36,10 +36,10 @@ const scrollTop = () => {
   });
 };
 
-const Shop = ({category}) => {
+const Shop = ({ category }) => {
   // const router = useRouter()
   // const  {category}  = router?.query
-  
+
   // console.log(category)
   // products hooks
   const [products, setProducts] = useState([]);
@@ -57,6 +57,7 @@ const Shop = ({category}) => {
   const [productPerPage, setProductPerPage] = useState(12);
   const indexOfLastProduct = currentPage * productPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productPerPage;
+  console.log(products)
   const currentProducts = products.slice(
     indexOfFirstProduct,
     indexOfLastProduct
@@ -68,46 +69,44 @@ const Shop = ({category}) => {
   }
 
   const getProducts = async (selecterdCategory) => {
+    setLoading(true);
     try {
       let res;
       let resBrand;
+
       if (selecterdCategory == "all") {
         if (selectedBradns != "") {
-          setLoading(true);
           res = await fetchProduct.get(`/products/brand/${selectedBradns}`);
           setProducts(res.data);
-          setLoading(false);
         } else {
-          setLoading(true);
           res = await fetchProduct.get("/products");
           resBrand = await fetchProduct.get("/brand");
           console.log(resBrand)
           console.log(1)
           setProducts(res.data);
           setBrands(resBrand.data);
-          setLoading(false);
         }
       } else {
         if (selectedBradns != "") {
-          setLoading(true);
           res = await fetchProduct.get(`/products/brand/${selectedBradns}`, {
             params: {
               category: selecterdCategory
             }
           });
           setProducts(res.data);
-          setLoading(false);
         } else {
-          setLoading(true);
           res = await fetchProduct.get(`/category/${selecterdCategory}`);
           resBrand = await fetchProduct.get(`/brand/${selecterdCategory}`);
           setBrands(resBrand.data);
           setProducts(res.data);
-          setLoading(false);
         }
       }
+      console.log(res)
       setProducts(res.data);
-    } catch (er) { }
+    } catch (er) {
+      console.log(er)
+    }
+    setLoading(false);
   };
 
   const getCategories = async () => {
@@ -133,9 +132,9 @@ const Shop = ({category}) => {
     >
       <div className="container p-0">
         <div className="row justify-content-md-between justify-content-center ">
-          
-          {category == 'all' ? <Image className="col-11 col-md-12 p-2" src={sliderImage6} alt="hatly store" width="100%"/> :
-            <Image className="col-11 col-md-12 p-2" src={banners[category]} alt="hatly store" width="100%"/>
+
+          {category == 'all' ? <Image className="col-11 col-md-12 p-2" src={sliderImage6} alt="hatly store" width="100%" /> :
+            <Image className="col-11 col-md-12 p-2" src={banners[category]} alt="hatly store" width="100%" />
           }
         </div>
       </div>
@@ -159,7 +158,7 @@ const Shop = ({category}) => {
               </h4>
             </div>
             <div className="row">
-              {brands.length > 0 &&  brands?.map((brand, i) => {
+              {brands.length > 0 && brands?.map((brand, i) => {
                 return (
                   <div className="col-auto" key={i}>
                     <div className="form-check">
@@ -219,7 +218,7 @@ const Shop = ({category}) => {
                 aria-hidden="true"
               ></i>
             </div>
-            {brands.length > 0 &&  brands?.map((brand, i) => {
+            {brands.length > 0 && brands?.map((brand, i) => {
               return (
                 <div key={i}>
                   <div className="row justify-content-between">
@@ -357,7 +356,7 @@ const Shop = ({category}) => {
 };
 
 export async function getServerSideProps(context) {
-  const {category} = context.params
+  const { category } = context.params
   return {
     props: {
       category
