@@ -25,7 +25,8 @@ import sliderImage4 from "../img/slider3.jpg";
 import sliderImage5 from "../img/our-policy-banners.png";
 import sliderImage6 from "../img/slider5.jpg";
 import sliderImage7 from "../img/slider6.jpg";
-import sliderImage8 from "../img/slider7.jpg";
+// import sliderImage8 from "../img/slider7.jpg";
+import sliderImage8 from "../img/contact-banner.png";
 import mobileBanner from '../img/PHONES-BANNER.jpg'
 import watchBanner from '../img/SMART-WATCHES-BANNER.jpg'
 import chargerBanner from '../img/chargers-banner.jpg'
