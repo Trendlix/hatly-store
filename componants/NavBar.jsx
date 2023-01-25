@@ -115,11 +115,10 @@ const NavBar = props => {
           setColor("#3c4d8e");
           setLogos(latestLogo);
         }
-      } else if (y < window.scrollY) {
+      } else if (window.scrollY > 20) {
         setText("#ffffff");
-        setColor("#3c4d8e");
         setLogos(latestLogo);
-        // setTop("-300px");
+        setTop("-300px");
       }
       setY(window.scrollY);
     },
