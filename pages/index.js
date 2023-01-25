@@ -35,7 +35,7 @@ import casesBanner from '../img/CASES-BANNER.jpg'
 import Whatsapp from "../componants/Whatsapp";
 
 import video from '../img/video.mp4'
-import bannerVideo from '../img/banner-video.mp4'
+import bannerVideo from '../img/hatly 13.mp4'
 
 import { useInView } from "react-intersection-observer";
 import CategoryDevider from "../componants/pages/home/CategoryDevider";

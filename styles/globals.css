@@ -417,6 +417,6 @@ a {
 } */
 @media (min-width : 1200px) {
   .main-section{
-    width: 80% !important;
+    width: 70% !important;
   }
 }
