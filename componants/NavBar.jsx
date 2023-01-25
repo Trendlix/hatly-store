@@ -117,8 +117,9 @@ const NavBar = props => {
         }
       } else if (y < window.scrollY) {
         setText("#ffffff");
+        setColor("#3c4d8e");
         setLogos(latestLogo);
-        setTop("-300px");
+        // setTop("-300px");
       }
       setY(window.scrollY);
     },
