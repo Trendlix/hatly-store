@@ -297,14 +297,14 @@ const Footer = () => {
         </div>
         <div className="row justify-content-center">
           <div className="col-10">
-            <p
+            {/* <p
               style={{ textAlign: "center", color: "white", fontSize: "13px" }}
             >
               Hatly is brought to you by Tradeline, the leading Apple Reseller
               in the region. The products categories it is bringing to the
               market comprise of handsets, audio, laptops, wearables, gaming
               consoles and accessories. Hatly is online and in store.
-            </p>
+            </p> */}
             <p style={{ textAlign: "center", color: "white" }}>
               Copyright © {new Date().getFullYear()} Hatly All Rights Reserved
             </p>
