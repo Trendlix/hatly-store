@@ -46,7 +46,7 @@ const Category = (props) => {
               filter: "drop-shadow(0px 0px 40px white)",
             }}
           />
-          <h6 className="pt-3 text-center text-white">{props.category.name}</h6>
+          <p className="pt-3 text-center text-white">{props.category.name}</p>
         </div>
       </Link>
     </motion.div>
