@@ -30,59 +30,59 @@ const PaymentSlider = () => {
     <ParallaxSlider  baseVelocity={-0.5}>
     <div className="paymentSliderContainer" >
       <div className="paymentSlideItem" >
-        <Image src={cairo} alt="cairo bank" width={cairo.width} />
+        <Image blurDataURL={cairo.blurDataURL} src={cairo} alt="cairo bank" width={cairo.width} />
       </div>
       <div className="paymentSlideItem" >
-        <Image src={masary} alt="aman" width={masary.width} />
+        <Image blurDataURL={masary.blurDataURL} src={masary} alt="aman" width={masary.width} />
       </div>
       <div className="paymentSlideItem" >
-        <Image src={cib} alt="vodafon" width={cib.width} />
+        <Image blurDataURL={cib.blurDataURL} src={cib} alt="vodafon" width={cib.width} />
       </div>
       <div className="paymentSlideItem" >
-        <Image src={momkn} alt="masary" width={momkn.width} />
+        <Image blurDataURL={momkn.blurDataURL} src={momkn} alt="masary" width={momkn.width} />
       </div>
       <div className="paymentSlideItem" >
-        <Image src={saib} alt="alahly" width={saib.width} />
+        <Image blurDataURL={saib.blurDataURL} src={saib} alt="alahly" width={saib.width} />
       </div>
       <div className="paymentSlideItem" >
-        <Image src={owda} alt="mmoken" width={owda.width} />
+        <Image blurDataURL={owda.blurDataURL} src={owda} alt="mmoken" width={owda.width} />
       </div>
       <div className="paymentSlideItem">
-        <Image src={vodafon} alt="bank du cairo" width={vodafon.width} />
+        <Image blurDataURL={vodafon.blurDataURL} src={vodafon} alt="bank du cairo" width={vodafon.width} />
       </div>
       <div className="paymentSlideItem">
-        <Image src={aman} alt="aman" width={aman.width} />
+        <Image blurDataURL={aman.blurDataURL} src={aman} alt="aman" width={aman.width} />
       </div>
       {/* new payments by hamed */}
 
       <div className="paymentSlideItem" >
-        <Image src={bankAhly} alt="Bank Ahly" width={bankAhly.width} />
+        <Image blurDataURL={bankAhly.blurDataURL} src={bankAhly} alt="Bank Ahly" width={bankAhly.width} />
       </div>
 
       <div className="paymentSlideItem">
-        <Image src={bankMasr} alt="Bank Masr" width={bankMasr.width} />
+        <Image blurDataURL={bankMasr.blurDataURL} src={bankMasr} alt="Bank Masr" width={bankMasr.width} />
       </div>
       <div className="paymentSlideItem">
-        <Image src={forsa} alt="Bank Ahly" width={forsa.width} />
+        <Image blurDataURL={forsa.blurDataURL} src={forsa} alt="Bank Ahly" width={forsa.width} />
       </div>
       <div className="paymentSlideItem">
-        <Image src={Mashreq} alt="Mashreq" width={Mashreq.width} />
+        <Image blurDataURL={Mashreq.blurDataURL} src={Mashreq} alt="Mashreq" width={Mashreq.width} />
       </div>
 
       <div className="paymentSlideItem">
-        <Image src={masterCard} alt="masterCard" width={masterCard.width} />
+        <Image blurDataURL={masterCard.blurDataURL} src={masterCard} alt="masterCard" width={masterCard.width} />
       </div>
       <div className="paymentSlideItem">
-        <Image src={Meeza} alt="Meeza" width={Meeza.width} />
+        <Image blurDataURL={Meeza.blurDataURL} src={Meeza} alt="Meeza" width={Meeza.width} />
       </div>
       <div className="paymentSlideItem">
-        <Image src={NBK} alt="NBK" width={NBK.width} />
+        <Image blurDataURL={NBK.blurDataURL} src={NBK} alt="NBK" width={NBK.width} />
       </div>
       <div className="paymentSlideItem">
-        <Image src={valu} alt="valu" width={valu.width} />
+        <Image blurDataURL={valu.blurDataURL} src={valu} alt="valu" width={valu.width} />
       </div>
       <div className="paymentSlideItem">
-        <Image src={Shahry} alt="Shahry Egypt" width={Shahry.width} />
+        <Image blurDataURL={Shahry.blurDataURL} src={Shahry} alt="Shahry Egypt" width={Shahry.width} />
       </div>
     </div>
     </ParallaxSlider>
