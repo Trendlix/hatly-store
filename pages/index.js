@@ -203,6 +203,8 @@ const Home = () => {
                       borderRadius: "15px",
                     }}
                     src={sliderImage8}
+                    width={sliderImage8.width}
+                    height={sliderImage8.height}
                     alt="offer"
                   />
                 </motion.div>
