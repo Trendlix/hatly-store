@@ -1,7 +1,7 @@
 import React from "react";
 import Link from 'next/link'
 // import appStore from "../img/appstore.png";
-import playStore from "../img/play-srore.png";
+// import playStore from "../img/play-srore.png";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebook, faInstagram } from "@fortawesome/free-brands-svg-icons";
@@ -276,7 +276,7 @@ const Footer = () => {
               </li>
             </ul>
             <div style={{ display: "flex" }}>
-              <a href="https://www.facebook.com/hatly.store/" target="_blank" rel="noreferrer">
+              <a href="https://www.facebook.com/hatly.store/" aria-label="Facebook" target="_blank" rel="noreferrer">
                 <FontAwesomeIcon
                   style={{ fontSize: "30px", color: "#ebeef5" }}
                   className="p-3 fa fa-facebook"
@@ -284,7 +284,7 @@ const Footer = () => {
                   icon={faFacebook}
                 ></FontAwesomeIcon>
               </a>
-              <a href="https://www.instagram.com/hatlystores/" target="_blank" rel="noreferrer">
+              <a href="https://www.instagram.com/hatlystores/" aria-label="Instagram" target="_blank" rel="noreferrer">
                 <FontAwesomeIcon
                   style={{ fontSize: "30px", color: "#ebeef5" }}
                   className="p-3 fa fa-instagram"
