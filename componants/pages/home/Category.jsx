@@ -39,6 +39,8 @@ const Category = (props) => {
           className="category_img_container"
             loading="lazy"
             src={props.category.img}
+            width={props.category.img.width}
+            height={props.category.img.height}
             alt="category"
             style={{
               width: "100%",

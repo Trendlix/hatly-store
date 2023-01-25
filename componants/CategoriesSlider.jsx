@@ -78,7 +78,7 @@ const CategoriesSlider = (props) => {
     >
 
             {categoryArray.map((category, i) => {
-              return <SwiperSlide key={i}  style={{height: "auto" ,  justifyContent: "center" }} align="center">
+              return <SwiperSlide key={i} >
                 <Category category={category}></Category>
               </SwiperSlide>
             })}
