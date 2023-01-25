@@ -289,11 +289,11 @@ const Home = () => {
           </motion.div>
         </div>
       </section>
-      <div className="container">
+      {/* <div className="container">
         <video src={video} style={{ width: "100%" }} controls>
 
         </video>
-      </div>
+      </div> */}
 
       <CategoryDevider img={mobileBanner} name="Mobiles" url="Mobiles"></CategoryDevider>
       {/* <section ref={ref}>
