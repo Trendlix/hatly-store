@@ -1,0 +1,22 @@
+.wrapper{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 0 0 1rem;
+  
+}
+
+.title{
+  background-color: rgb(56, 74, 140);
+  padding: 0.25rem 5rem 0.25rem 1rem;
+  text-align: left;
+  color: #ffffff;
+  -webkit-width: fit-content;
+  -moz-width: fit-content;
+  width: fit-content;
+  border-radius: 0.75rem;
+}
+
+.description{
+  color: #777;
+}

@@ -21,7 +21,8 @@ import sliderImage1 from "../img/inquiersSlider.png";
 import sliderImage2 from "../img/slider1.jpg";
 import sliderImage3 from "../img/slider2.jpg";
 import sliderImage4 from "../img/slider3.jpg";
-import sliderImage5 from "../img/slider4.jpg";
+// import sliderImage5 from "../img/slider4.jpg";
+import sliderImage5 from "../img/our-policy-banners.png";
 import sliderImage6 from "../img/slider5.jpg";
 import sliderImage7 from "../img/slider6.jpg";
 import sliderImage8 from "../img/slider7.jpg";
@@ -76,7 +77,7 @@ const categoryArray = [
   }
 ];
 
-const slider1 = [{ img: sliderImage2, link: '/payment-methods' }, { img: sliderImage3 }, { img: sliderImage5 }, { img: sliderImage1 , link : '/inquiries'}];
+const slider1 = [{ img: sliderImage2, link: '/payment-methods' }, { img: sliderImage3 }, { img: sliderImage5 , link : '/our-policy' }, { img: sliderImage1 , link : '/inquiries'}];
 const slider2 = [{ img: sliderImage4 }, { img: sliderImage6 }, { img: sliderImage7 }];
 
 const MainSection = styled.section`

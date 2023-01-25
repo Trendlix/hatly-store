@@ -223,7 +223,7 @@ const Footer = () => {
                       behavior: "smooth",
                     });
                   }}
-                  href="/policy"
+                  href="/our-policy"
                   style={{
                     textDecoration: "none",
                     color: "#fff",
