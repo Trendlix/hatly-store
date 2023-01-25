@@ -405,3 +405,18 @@ a {
   display: flex;
   flex-wrap: nowrap;
 }
+
+.paragraph{
+  width: 75%;
+  margin: auto;
+  text-align: center;
+  color: #777;
+}
+/* .main-section{
+  width: 80%;
+} */
+@media (min-width : 1200px) {
+  .main-section{
+    width: 80% !important;
+  }
+}

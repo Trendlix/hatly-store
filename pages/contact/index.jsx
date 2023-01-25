@@ -38,6 +38,9 @@ const ContactUS = () => {
             }}
           >
             <h1 className="text-center">CONTACT US</h1>
+            <p className="paragraph">
+              <span className="d-block">If you need any assistance or have any inquiries</span>
+              feel free to contact us on our hotline at <a href="tel01202222118:">01202222118</a> and you can also contact us through chat from the messenger icon below.</p>
             <div className="row mt-5">
               <div className="col-12 col-md-4">
                 <FontAwesomeIcon
@@ -47,11 +50,9 @@ const ContactUS = () => {
                 ></FontAwesomeIcon>
                 <h5>PHONE</h5>
                 <ul className="description ps-3">
-                  <li>Phone: <a href="tel:01558807773">01558807773</a></li>
-                  <li>Phone: <a href="tel:01062365669">01062365669</a> </li>
-                  <li>Phone: <a href="tel:01200827565">01200827565</a> </li>
-                  <li>Landline Number:  <a href="tel:0224031923">0224031923</a> </li>
-                  <li>PO Box Number:  <a href="tel:11517">11517</a> </li>
+                  <li>Phone: <a href="tel:01202222118">01202222118</a></li>
+                  {/* <li>Landline Number:  <a href="tel:0224031923">0224031923</a> </li> */}
+                  {/* <li>PO Box Number:  <a href="tel:11517">11517</a> </li> */}
                 </ul>
               </div>
               <div className="col-12 col-md-4">
@@ -62,7 +63,7 @@ const ContactUS = () => {
                 ></FontAwesomeIcon>
                 <h5>EMAIL</h5>
                 <p className="description" style={{ width: "90%" }}>
-                <a href="mailto:hatlystore@gmail.com">hatlystore@gmail.com</a>
+                  <a href="mailto:hatlystore@gmail.com">hatlystore@gmail.com</a>
                 </p>
               </div>
               <div className="col-12 col-md-4">

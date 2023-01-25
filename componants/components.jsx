@@ -58,6 +58,11 @@ const NavBar = props => {
     dispatch(getUser())
   }, [dispatch]);
   const router = useRouter()
+  // console.log(user)
+  // console.log('auth')
+  // console.log(props.isAuthenticated)
+  // const { data: session } = useSession()
+  // console.log(session)
 
   const [elementMotion, setElementMotion] = useState({ x: "150%", opacity: 0 });
   const cart = useSelector((state) => state.cart);
@@ -113,11 +118,11 @@ const NavBar = props => {
           setText("#ffffff");
           setTop('0');
           setColor("#3c4d8e");
-          setLogos(latestLogo);
+          setLogos(logo2);
         }
       } else if (y < window.scrollY) {
         setText("#ffffff");
-        setLogos(latestLogo);
+        setLogos(logo2);
         setTop("-300px");
       }
       setY(window.scrollY);
@@ -779,6 +784,7 @@ export default NavBar;
 
 // export const getServerSideProps = async (context)=>{
 //   const session = await getSession({req : context.req})
+//   console.log(1)
 //   if(!session)
 //   return {
 //     props : {

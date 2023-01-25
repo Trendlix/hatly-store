@@ -165,7 +165,7 @@ const Home = () => {
           paddingTop: "150px",
         }}
       >
-        <div className="container" style={{ zIndex: "1" }}>
+        <div className="container main-section" style={{ zIndex: "1" }}>
           <div className="row pt-4">
             <motion.div
               initial={{ y: "-500px" }}
@@ -181,10 +181,10 @@ const Home = () => {
               </div>
             </motion.div>
           </div>
-          <div className="row align-items-center pt-sm-4 pb-5 pb-sm-5 pb-md-0 pb-md-4">
-            <div className="col-md-7">
+          <div className="row align-items-center pt-sm-4 pb-5 pb-sm-5 pb-md-0 pb-md-4 ">
+            <div className="col-md-7 ">
               <div
-                className="row justify-content-center"
+                className="row justify-content-center "
               >
                 <motion.div
                   initial={{ x: "-600px", opacity: 0 }}

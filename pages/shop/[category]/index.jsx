@@ -75,7 +75,7 @@ const Shop = ({ category }) => {
       let resBrand;
 
       if (selecterdCategory == "all") {
-        if (selectedBradns != "") {
+        if (selectedBradns !== "" && selectedBradns !== 'All') {
           res = await fetchProduct.get(`/products/brand/${selectedBradns}`);
           setProducts(res.data);
         } else {
@@ -138,7 +138,7 @@ const Shop = ({ category }) => {
           }
         </div>
       </div>
-      <div className="" style={{ position: 'fixed', bottom: '0', zIndex: '999', width: '100vw' }}>
+      {/* <div className="" style={{ position: 'fixed', bottom: '0', zIndex: '999', width: '100vw' }}>
         <div className="row justify-content-center d-md-none">
           <div
             className="col-12 ps-5 pe-5 pt-2 pb-2"
@@ -189,7 +189,7 @@ const Shop = ({ category }) => {
 
           </div>
         </div>
-      </div>
+      </div> */}
       <div className="container pt-2 pb-3" style={{ position: 'relative' }}>
         <div className="row">
           <div
@@ -262,9 +262,9 @@ const Shop = ({ category }) => {
               style={{ borderBottom: "1px solid #ededed" }}
             >
               <div className="col-3">
-                <h4>Prodcuts</h4>
+                <h4>Products</h4>
               </div>
-              <div className="col-3 mb-2">
+              <div className="col-5 col-sm-8 col-md-4 mb-2 d-flex flex-column flex-sm-row gap-3">
                 <select
                   className="form-select"
                   onChange={(e) => {
@@ -293,6 +293,27 @@ const Shop = ({ category }) => {
                   <option value="1">Default</option>
                   <option value="2">Price: High to Low</option>
                   <option value="3">Price: Low to High</option>
+                </select>
+
+
+                <select
+                  className="form-select d-md-none"
+                  onChange={(e) => {
+
+                    setCurrentPage(1);
+                    setSelectedBradns(e.target.value);
+
+                  }}
+                >
+                  <option defaultValue disabled hidden>
+                    Sort by
+                  </option>
+                  <option value="All">All</option>
+                  {brands.length > 0 && brands?.map((brand, i) => {
+                    return <option key={i} value={brand.brand}>{brand.brand}</option>
+
+                    // <option value={i+2}>1</option>
+                  })}
                 </select>
               </div>
             </div>
@@ -348,7 +369,7 @@ const Shop = ({ category }) => {
       </div>
 
       <div className="container p-0">
-        <PaymentSlider number={3}></PaymentSlider>
+        <PaymentSlider />
         <Image src={sliderImage5} alt="" width="100%" />
       </div>
     </motion.div>

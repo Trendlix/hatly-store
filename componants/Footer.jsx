@@ -104,17 +104,17 @@ const Footer = () => {
                       behavior: "smooth",
                     });
                   }}
-                  href="/shop/Mobiles"
+                  href="/shop/Accessories"
                   style={{
                     textDecoration: "none",
                     color: "#fff",
                     fontWeight: "500",
                   }}
                 >
-                  Power Banks
+                  Accessories
                 </Link>
               </li>
-              <li className="pt-1 " style={{ listStyle: "none" }}>
+              {/* <li className="pt-1 " style={{ listStyle: "none" }}>
                 <Link
                   onClick={() => {
                     window.scroll({
@@ -132,7 +132,7 @@ const Footer = () => {
                 >
                   Cases
                 </Link>
-              </li>
+              </li> */}
             </ul>
           </div>
           <div className="">
@@ -233,7 +233,7 @@ const Footer = () => {
                   Our Policy
                 </Link>
               </li>
-              <li className="pt-1 " style={{ listStyle: "none" }}>
+              {/* <li className="pt-1 " style={{ listStyle: "none" }}>
                 <Link
                   onClick={() => {
                     window.scroll({
@@ -251,41 +251,11 @@ const Footer = () => {
                 >
                   Our Store
                 </Link>
-              </li>
-            </ul>
-          </div>
-          </div>
-          <div className="col-12 col-md-3">
-            <h4>Hatly Mobile App</h4>
-            <ul style={{ padding: "0" }}>
-              {/* <li className="pt-1 " style={{ listStyle: "none" }}>
-                <a
-                  style={{
-                    textDecoration: "none",
-                    color: "#ebeef5",
-                    fontWeight: "500",
-                  }}
-                  href="https://play.google.com/store/apps/details?id=com.sanadstudios.hatly&hl=en&gl=US"
-                >
-                  <img style={{ width: "50%" }} src={appStore}></img>
-                </a>
               </li> */}
-              <li className="pt-2 " style={{ listStyle: "none" }}>
-                <a
-                  style={{
-                    textDecoration: "none",
-                    color: "#ebeef5",
-                    fontWeight: "500",
-                  }}
-                  href="https://play.google.com/store/apps/details?id=com.sanadstudios.hatly&hl=en&gl=US"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <Image style={{ width: "50%" }} src={playStore} alt="Hatly store"></Image>
-                </a>
-              </li>
             </ul>
           </div>
+          </div>
+
           <div className="col-12 col-md-3">
             <h4>Contact Us</h4>
             <ul style={{ padding: "0" }}>

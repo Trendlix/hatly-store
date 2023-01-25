@@ -17,10 +17,10 @@ const AboutUs = () => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 1 }} style={{ backgroundColor: "#ebeef5", paddingTop: '150px' }} className="pb-5">
-        <Head>
+      <Head>
         <title>Hatly | Best Online Shopping Website for Phones, Chargers, Smart watches, Headphones, Powerbanks, Cases & More!</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-        </Head>
+      </Head>
       <div className="container pt-4">
         <div className="row">
           <div
@@ -34,7 +34,7 @@ const AboutUs = () => {
             <h1 className="pb-4 pt-4 text-center">ABOUT US</h1>
             <div className="row">
               <div className="col-12 col-md-6 p-3">
-                <video src={video} style={{width : "100%"}} controls></video>
+                <video src={video} style={{ width: "100%" }} controls></video>
                 {/* <Iframe 
                 url="https://www.youtube.com/embed/E04CJ9NQrKw"
                 allowtransparency="false"
@@ -52,13 +52,22 @@ const AboutUs = () => {
                   justifyContent: "space-evenly",
                 }}
               >
-                <h4>THE STORY</h4>
-                <p className="description">
-                  Hatly Stores was established in 2014 to make it easier for buyers from Egypt to shop abroad safely with cash on delivery payment method.
-                </p>
-                <p className="description">
-                  We are a bunch of passionate experts in different fields who decided to gather our efforts to bring you the best of products shipped from abroad.
-                </p>
+                <div className="">
+                  <h4>ABOUT US</h4>
+                  <p className="description">
+                  Hatly store is one of the biggest stores in Egypt that afford the best flagship and leading smartphones from all brands, it was founded in 2014 until now by a group of ambitious friends to make it easier for you to own any smartphone you want even if it's not available in Egypt.
+                  </p>
+                </div>
+                <div className="">
+                  <h4>THE STORY</h4>
+                  <p className="description">
+                    Hatly Stores was established in 2014 to make it easier for buyers from Egypt to shop abroad safely with cash on delivery payment method.
+                  </p>
+                  <p className="description">
+                    We are a bunch of passionate experts in different fields who decided to gather our efforts to bring you the best of products shipped from abroad.
+                  </p>
+                </div>
+
                 <Link onClick={() => {
                   window.scroll({
                     top: 0,
@@ -102,7 +111,7 @@ const AboutUs = () => {
                 ></i>
                 <h5>Payment Methods</h5>
                 <p className="description" style={{ width: "90%" }}>
-                  Cash On Delivery, Credit Card, Premium Card, 
+                  Cash On Delivery, Credit Card, Premium Card,
                   <Link href="/payment-methods">Installment</Link>
                 </p>
               </div>
