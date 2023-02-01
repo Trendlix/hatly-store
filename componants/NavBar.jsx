@@ -521,7 +521,7 @@ const NavBar = props => {
               Inquiries
             </p>
           </Link>
-          <a href="#1" onClick={() => {
+          <p onClick={() => {
             if (flage === 0) {
               setMotionCatergory({ x: '0', opacity: 1 })
               setFlage(1)
@@ -544,7 +544,7 @@ const NavBar = props => {
               ></FontAwesomeIcon>
               Category
             </p>
-          </a>
+          </p>
           <div className="category" style={{ display: display }}>
 
             <motion.div initial={{ x: "150%", opacity: 0 }}
