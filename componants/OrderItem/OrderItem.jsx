@@ -11,6 +11,7 @@ const OrderItem = ({ image, name, category, price, quantity }) => {
           alt="product"
           width={200}
           height={200}
+          className='w-full h-full object-cover'
         />
       </div>
       <div className="dataContainer">
