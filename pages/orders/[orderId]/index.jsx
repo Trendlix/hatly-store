@@ -136,6 +136,8 @@ export async function getServerSideProps(context) {
     })
     console.log(orderId);
     console.log(req);
+    console.log(req.data)
+    console.log(req.data.data);
     return {
       props: {
         data: req.data.data
