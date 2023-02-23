@@ -479,3 +479,13 @@ a {
     width: 100%;
   }
 } */
+
+.trendlix{
+  color : black;
+  transition: 0.3s;
+  display: inline-block;
+  text-decoration: underline !important;
+}
+.trendlix:hover{
+  transform: scale(1.025);
+}

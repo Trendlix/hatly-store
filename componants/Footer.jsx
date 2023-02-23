@@ -306,7 +306,7 @@ const Footer = () => {
               consoles and accessories. Hatly is online and in store.
             </p> */}
             <p style={{ textAlign: "center", color: "white" }}>
-              Copyright © {new Date().getFullYear()} Hatly All Rights Reserved
+              Copyright © {new Date().getFullYear()} <Link className="trendlix"  href="https://trendlix.com" target="_blank" rel="noreferrer">Trendlix All rights reserved.</Link> 
             </p>
           </div>
         </div>
