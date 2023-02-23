@@ -14,8 +14,8 @@ const Category = (props) => {
           duration: 0.8,
         },
       }}
-      className="col-4 col-md-4  mt-md-3 col-lg mt-lg-0 flex-grow-1 category mt-3 mt-md-0"
-      style={{width : "100%" }}
+      // className="col-4 col-md-4  mt-md-3 col-lg mt-lg-0 flex-grow-1 category mt-3 mt-md-0"
+      style={{width : "85%" , 'margin' : '0' }}
     >
       <Link
         href={`/shop/${props.category.url}`}

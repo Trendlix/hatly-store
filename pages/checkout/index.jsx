@@ -296,7 +296,7 @@ const Checkout = () => {
       exit={{ opacity: 0 }}
       transition={{ duration: 1 }}
       className="pb-5  d-flex justify-content-center"
-      style={{ backgroundColor: "#ebeef5", paddingTop: "150px" }}
+      style={{ backgroundColor: "#ebeef5", paddingTop: "180px" }}
     >
       {loading && <LoadingOverlay isFullPage={true} />}
       <div className="container">

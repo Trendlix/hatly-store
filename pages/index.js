@@ -164,7 +164,7 @@ const Home = () => {
         style={{
           backgroundImage: "linear-gradient(180deg, #ebeef5, #384a8c)",
           position: "relative",
-          paddingTop: "150px",
+          paddingTop: "180px",
         }}
       >
         <div className="container main-section" style={{ zIndex: "1" }}>

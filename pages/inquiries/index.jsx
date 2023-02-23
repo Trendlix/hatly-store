@@ -1,5 +1,8 @@
 import React, { useState } from 'react'
 import { TextField } from '@mui/material';
+import Image from 'next/image';
+
+import banner from "../../img/inquiersSlider.png";
 
 const Inquiries = () => {
   const [formValue, setFormValue] = useState({
@@ -83,14 +86,24 @@ const Inquiries = () => {
         // width : '100%',
         background : "#f2f2f2",
         // zIndex : 5,
-        display : 'flex',
         padding : '12rem 0 0 0',
         // overflow : 'scroll'
-  
       //   // alignItems : 'center',
       //   // justifyContent : 'center'
       }}
       >
+          <div className="container"
+          style={{
+            margin : '0.25rem auto 1rem'
+          }}
+          >
+            <Image 
+            src={banner}
+            alt="inquiries"
+            width={1920}
+            height={1080}
+            />
+        </div>
         <div
         className="container Form__container"
         style={{

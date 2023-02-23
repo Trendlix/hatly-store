@@ -63,7 +63,7 @@ const CategoriesSlider = (props) => {
         // },
         768: {
           // width: 768,
-          slidesPerView: 4,
+          slidesPerView: 5,
         },
         // 1200:{
         //   slidesPerView:props.number * 2,
@@ -78,7 +78,7 @@ const CategoriesSlider = (props) => {
     >
 
             {categoryArray.map((category, i) => {
-              return <SwiperSlide key={i} >
+              return <SwiperSlide key={i} style={{ margin : "0"}} >
                 <Category category={category}></Category>
               </SwiperSlide>
             })}

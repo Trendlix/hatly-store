@@ -16,7 +16,7 @@ const Cart = () => {
       exit={{ opacity: 0 }}
       transition={{ duration: 1 }}
       className=" pb-5"
-      style={{ backgroundColor: "#ebeef5", paddingTop: "150px" }}
+      style={{ backgroundColor: "#ebeef5", paddingTop: "180px" }}
     >
       <div className="container">
         {cart.products.length ? (

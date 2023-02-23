@@ -48,6 +48,7 @@ import { toast } from "react-toastify";
 import Image from "next/image";
 import { signOut, useSession } from 'next-auth/react';
 import { useRouter } from "next/router";
+import InstallmentsSlider from "./InstallmentsSlider/InstallmentsSlider";
 // import { useSession } from 'next-auth/client';
 
 const NavBar = props => {
@@ -144,10 +145,11 @@ const NavBar = props => {
         position: 'fixed',
         width: '100%'
       }}>
+        <InstallmentsSlider />
       <div
         className="container"
       >
-        <div className="row justify-content-between align-items-center  pt-lg-2 pt-2 pb-3 pb-lg-0 d-none d-lg-flex" style={{ borderBottom: `1px solid ${text}45` }}>
+        <div className="row justify-content-between align-items-center d-none d-lg-flex" style={{ borderBottom: `1px solid ${text}45` }}>
           <div className="col-auto">
             <p style={{ color: 'inherit', margin: '0px', fontWeight: 'bold' }}>The Easiest and Fastest instalment system.</p>
           </div>

@@ -16,7 +16,7 @@ const AboutUs = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 1 }} style={{ backgroundColor: "#ebeef5", paddingTop: '150px' }} className="pb-5">
+      transition={{ duration: 1 }} style={{ backgroundColor: "#ebeef5", paddingTop: '180px' }} className="pb-5">
       <Head>
         <title>Hatly | Best Online Shopping Website for Phones, Chargers, Smart watches, Headphones, Powerbanks, Cases & More!</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />

@@ -127,7 +127,7 @@ const Shop = ({ category }) => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 1 }}
-      style={{ backgroundColor: "#ebeef5", paddingTop: "150px" }}
+      style={{ backgroundColor: "#ebeef5", paddingTop: "180px" }}
 
     >
       <div className="container p-0">

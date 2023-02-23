@@ -148,7 +148,7 @@ const SingleProduct = () => {
         exit={{ opacity: 0 }}
         transition={{ duration: 1 }}
         className="pb-5"
-        style={{ backgroundColor: "#ebeef5", paddingTop: "150px" }}
+        style={{ backgroundColor: "#ebeef5", paddingTop: "180px" }}
       >
         {loading ? (
           <div className="container">
@@ -156,7 +156,7 @@ const SingleProduct = () => {
           </div>
         ) : (
           <div className="container">
-            <div className="row justify-content-center flex-wrap">
+            <div className="d-grid custom-grid">
               <motion.div
                 initial={{ y: "-500px", opacity: 0 }}
                 animate={{ y: "0px", opacity: 1 }}
@@ -164,6 +164,7 @@ const SingleProduct = () => {
                   duration: 1,
                   repeatDelay: 1,
                 }}
+                style={{ width: "100%"  , height: "100%" }} 
                 className="col-11 col-lg me-md-3 p-0"
               >
                 <div className="row justify-content-center">
@@ -185,8 +186,13 @@ const SingleProduct = () => {
                       );
                     })}
                   </div>
-                  <div className="col-10 col-md-10 d-flext justify-content-center js">
+                  <div className="col-10  col-lg-8 d-flex justify-content-center js">
                     <ReactImageMagnify
+                      style={{
+                        borderRadius: "5px",
+                        overflow: "hidden",
+                        width: "30%",
+                      }}
                       {...{
                         smallImage: {
                           alt: "Wristwatch by Ted Baker London",
@@ -195,8 +201,8 @@ const SingleProduct = () => {
                         },
                         largeImage: {
                           src: img ? `${img}` : notFound,
-                          width: 1000,
-                          height: 1000,
+                          width: 800,
+                          height: 800,
                         },
                         enlargedImageContainerDimensions: {
                           width: "50%",
@@ -218,6 +224,7 @@ const SingleProduct = () => {
                   ease: "easeInOut",
                   repeatDelay: 1,
                 }}
+                style={{ width: "100%"  , height: "100%" }}
                 className="col-11 col-lg-5 mt-4 mt-lg-0 d-flex align-items-start p-0 flex-column gap-4"
               >
                 <div
@@ -228,6 +235,7 @@ const SingleProduct = () => {
                     borderRadius: "5px",
                     display: "flex",
                     alignItems: "center",
+                    height: "100%",
                   }}
                 >
                   <div
@@ -430,8 +438,16 @@ const SingleProduct = () => {
                     </div>
                   </div>
                 </div>
-                <video src={video} style={{ width: "100%" }} controls></video>
               </motion.div>
+              {/* <video src={video}
+                style={{
+                  width: "100%",
+                  height: "300px",
+                  margin: "1rem 0",
+                }}
+                controls>
+
+              </video> */}
 
             </div>
             <div className="row justify-content-center">

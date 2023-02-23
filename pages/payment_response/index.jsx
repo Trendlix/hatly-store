@@ -103,7 +103,7 @@ const PaymentResponse = ({ token }) => {
   }, []);
 
   return (
-    <div className="container" style={{ paddingTop: "150px" }}>
+    <div className="container" style={{ paddingTop: "180px" }}>
       {loading ? (
         <div className="row justify-content-center">
           <Image className="col-auto" width="100%" src={loadingPic} alt="loading" />
