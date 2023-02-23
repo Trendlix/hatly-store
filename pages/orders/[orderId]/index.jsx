@@ -131,7 +131,8 @@ export async function getServerSideProps(context) {
     const { orderId } = context.params
     const req = await axios.get(`${API_URL}/orders/${orderId}`, {
       headers: {
-        Cookie: context.req.headers.cookie
+        Cookie: context.req.headers.cookie,
+        "Accept-Encoding": "gzip,deflate,compress" 
       }
     })
     console.log(orderId);
