@@ -134,6 +134,8 @@ export async function getServerSideProps(context) {
         Cookie: context.req.headers.cookie
       }
     })
+    console.log(orderId);
+    console.log(req);
     return {
       props: {
         data: req.data.data
