@@ -8,6 +8,7 @@ import {
   faSearch,
 } from "@fortawesome/free-solid-svg-icons";
 import notFound from "../../../img/logo2.png";
+import Image from "next/image";
 const pStyle = {
   WebkitBoxOrient: "vertical",
   WebkitLineClamp: "1",
@@ -40,17 +41,22 @@ const Product = (props) => {
           onClick={scrollTop}
           style={{ textDecoration: "none" }}
         >
-          <img
+          <Image
             loading="lazy"
             src={
               props.data.image
                 ? `https://hatlystore.tswsp.net${props.data.image}`
                 : notFound
             }
+            alt={props.data.item_name}
+            width={120}
+            height={120}
             style={{
               width: "80%",
               height: "80%",
               filter: "drop-shadow(white 0px 0px 70px)",
+              aspectRatio: "1/1",
+              objectFit: "contain",
             }}
           />
         </Link>
@@ -67,7 +73,7 @@ const Product = (props) => {
         <p
           className="text-center mb-2"
           style={{ fontWeight: "600", color: "#20c997" }}
-        >{`EGP ${props.data.price_list_rate}`}</p>
+        >{`${parseInt(props.data.price_list_rate)} EGP`}</p>
         <div className="row">
           <p className="text-center m-0">
             <span className="fa fa-star checked"></span>

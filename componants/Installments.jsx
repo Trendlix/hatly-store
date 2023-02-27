@@ -119,7 +119,7 @@ const Installments = () => {
         }  `}
       >
         <div className="col-11 col-md-6 d-flex justify-content-center">
-          <Image width="75%" src={el.img} alt="" />
+        <Image src={el.img} alt="" width={el.img.width} height={el.img.height} style={{objectFit : 'none'}}/>
         </div>
         <div className="col-11 col-md-6 p-5">
           <div

@@ -93,9 +93,11 @@ h6 {
 }
 
 
+.productImage{
+  transition: 0.3s;
+}
 .productImage:hover {
-  transform: scale(1.03);
-  transition: 0.5s;
+  transform: scale(1.2);
 }
 
 .checked {

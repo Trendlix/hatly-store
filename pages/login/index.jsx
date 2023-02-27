@@ -133,7 +133,7 @@ const Login = () => {
                   onChange={onChangeEmailHandler}
                   value={enteredEmail}
                 />
-                {emailHasError && <p className={`${style.text_error}`}>Enter email is not valid</p>}
+                {emailHasError && <p className={`${style.text_error}`}>Entered email is not valid</p>}
               </div>
               <div className={`${style.input_wrapper} ${passwordHasError ? `${style.error}` : ''}`}>
                 <input

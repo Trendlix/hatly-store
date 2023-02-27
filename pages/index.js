@@ -47,6 +47,7 @@ import CategoriesSlider from "../componants/CategoriesSlider";
 import Image from "next/image";
 import { wrapper } from "../redux/store";
 import { getUser, userState } from "../redux/features/user/userSlice";
+import Link from "next/link";
 
 
 const categoryArray = [
@@ -72,9 +73,9 @@ const categoryArray = [
     url: 'Headphones'
   },
   {
-    name: "Others",
+    name: "Accessories",
     img: otherImage,
-    url: 'Mobiles'
+    url: 'Accessories'
   }
 ];
 
@@ -120,33 +121,66 @@ const Home = () => {
 
   const [productsMobiles, setProductsMobiles] = useState([]);
   const [productsWatches, setProductsWatches] = useState([]);
+  const [chargers, setChargers] = useState([]);
+  const [smartWatches, setSmartWatches] = useState([]);
+  const [headphones, setHeadphones] = useState([]);
+  const [accessories, setAccessories] = useState([]);
+
   // const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState();
 
-  // const getProductsMobiles = async () => {
-  //   try {
-  //     var res;
-  //     setLoading(true);
-  //     res = await fetchProduct.get(`/category/Mobiles`);
-  //     setProductsMobiles(res.data);
-  //     setLoading(false);
-  //   } catch (er) { }
-  // };
+  const getProductsMobiles = async () => {
+    try {
+      
+      setLoading(true);
+      const res = await fetchProduct.get(`/category/Mobiles`);
+      setProductsMobiles(res.data);
+      setLoading(false);
+    } catch (er) { }
+  };
+  const getChargers = async () => {
+    try {
+      
+      setLoading(true);
+      const res = await fetchProduct.get(`/category/Chargers`);
+      setChargers(res.data);
+      setLoading(false);
+    } catch (er) { }
+  };
+  const getSmartWatches = async () => {
+    try {
+      
+      setLoading(true);
+      const res = await fetchProduct.get(`/category/Smart Watches`);
+      setSmartWatches(res.data);
+      setLoading(false);
+    } catch (er) { }
+  };
+  const getHeadphones = async () => {
+    try {
+      setLoading(true);
+      const res = await fetchProduct.get(`/category/Headphones`);
+      setHeadphones(res.data);
+      setLoading(false);
+    } catch (er) { }
+  };
+  const getAccessories = async () => {
+    try {
+      setLoading(true);
+      const res = await fetchProduct.get(`/category/Accessories`);
+      setAccessories(res.data);
+      setLoading(false);
+    } catch (er) { }
+  };
+  useEffect(() => {
 
-  // const getProductsWatches = async () => {
-  //   try {
-  //     var res;
-  //     setLoading(true);
-  //     res = await fetchProduct.get(`/category/Smart Watches`);
-  //     setProductsWatches(res.data);
-  //     setLoading(false);
-  //   } catch (er) { }
-  // };
-
-  // useEffect(() => {
-  //   getProductsMobiles();
-  //   getProductsWatches();
-  // }, []);
+    getProductsMobiles();
+    getChargers();
+    getSmartWatches();
+    getHeadphones();
+    getAccessories();
+    // getProductsWatches();
+  }, []);
 
   return (
 
@@ -167,7 +201,7 @@ const Home = () => {
           paddingTop: "180px",
         }}
       >
-        <div className="container main-section" style={{ zIndex: "1" }}>
+        <div className="container " style={{ zIndex: "1" }}>
           <div className="row pt-4">
             <motion.div
               initial={{ y: "-500px" }}
@@ -299,22 +333,23 @@ const Home = () => {
         </video>
       </div> */}
 
+      {/* mobiles */}
       <CategoryDevider img={mobileBanner} name="Mobiles" url="Mobiles"></CategoryDevider>
-      {/* <section ref={ref}>
+      <section ref={ref}>
         <div className="container">
           <div className="d-flex p-2  justify-content-between mb-3 mt-3" style={{ backgroundColor: '#384a8c' }}>
-            <div className="col-4 d-flex flex-column justify-content-center"><h5 style={{ margin: '0', color: 'white' }}>Mobile</h5></div>
+            <div className="col-4 d-flex flex-column justify-content-center"><h5 style={{ margin: '0', color: 'white' }}>Mobiles</h5></div>
             <div className="col-4 d-flex flex-column justify-content-center"><Link onClick={() => {
               window.scroll({
                 top: 0,
                 left: 0,
                 behavior: "smooth",
               });
-            }} to="/shop/Mobiles"><h6 style={{ textAlign: 'end', margin: '0', color: 'white' }}>SEE ALL {'>'}</h6></Link></div>
+            }} href="/shop/Mobiles"><h6 style={{ textAlign: 'end', margin: '0', color: 'white' }}>SEE ALL {'>'}</h6></Link></div>
           </div>
           <div
             className="row justify-content-center align-items-center"
-            style={{ alignItems: "flex-end", gap: '10px' }}
+            style={{ alignItems: "flex-end", gap: '10px', width: '100%', margin: 'auto' }}
           >
             {!loading ? (
               productsMobiles.map((product, i) => {
@@ -333,11 +368,48 @@ const Home = () => {
             )}
           </div>
         </div>
-      </section> */}
+      </section>
+
+      {/* Chargers */}
       <CategoryDevider url="Chargers"
         img={chargerBanner}
         name="New & Trendly"
       ></CategoryDevider>
+      <section ref={ref}>
+        <div className="container">
+          <div className="d-flex p-2  justify-content-between mb-3 mt-3" style={{ backgroundColor: '#384a8c' }}>
+            <div className="col-4 d-flex flex-column justify-content-center"><h5 style={{ margin: '0', color: 'white' }}>Chargers</h5></div>
+            <div className="col-4 d-flex flex-column justify-content-center"><Link onClick={() => {
+              window.scroll({
+                top: 0,
+                left: 0,
+                behavior: "smooth",
+              });
+            }} href="/shop/Chargers"><h6 style={{ textAlign: 'end', margin: '0', color: 'white' }}>SEE ALL {'>'}</h6></Link></div>
+          </div>
+          <div
+            className="row justify-content-center align-items-center"
+            style={{ alignItems: "flex-end", gap: '10px', width: '100%', margin: 'auto' }}
+          >
+            {!loading ? (
+              chargers.map((product, i) => {
+                if (i < 6) {
+                  return (
+                    <Product
+                      grid="col-5 col-sm-5 col-md-3 col-lg mb-3 p-3 productImage"
+                      key={i}
+                      data={product}
+                    ></Product>
+                  );
+                }
+              })
+            ) : (
+              <Loading grid="col-6 col-sm-6 col-md-6 col-lg mb-5 p-3 productImage" />
+            )}
+          </div>
+        </div>
+      </section>
+
       {/* <section>
         <div className="container">
           <div className="d-flex p-2  justify-content-between mb-3 mt-3" style={{ backgroundColor: '#384a8c' }}>
@@ -372,8 +444,43 @@ const Home = () => {
           </div>
         </div>
       </section> */}
-      <CategoryDevider img={watchBanner} name="Smart Watches" url="Smart Watches"></CategoryDevider>
 
+      {/* Smart Watches */}
+      <CategoryDevider img={watchBanner} name="Smart Watches" url="Smart Watches"></CategoryDevider>
+      <section ref={ref}>
+        <div className="container">
+          <div className="d-flex p-2  justify-content-between mb-3 mt-3" style={{ backgroundColor: '#384a8c' }}>
+            <div className="col-4 d-flex flex-column justify-content-center"><h5 style={{ margin: '0', color: 'white' }}>Smart Watches</h5></div>
+            <div className="col-4 d-flex flex-column justify-content-center"><Link onClick={() => {
+              window.scroll({
+                top: 0,
+                left: 0,
+                behavior: "smooth",
+              });
+            }} href="/shop/Smart Watches"><h6 style={{ textAlign: 'end', margin: '0', color: 'white' }}>SEE ALL {'>'}</h6></Link></div>
+          </div>
+          <div
+            className="row justify-content-center align-items-center"
+            style={{ alignItems: "flex-end", gap: '10px', width: '100%', margin: 'auto' }}
+          >
+            {!loading ? (
+              smartWatches.map((product, i) => {
+                if (i < 6) {
+                  return (
+                    <Product
+                      grid="col-5 col-sm-5 col-md-3 col-lg mb-3 p-3 productImage"
+                      key={i}
+                      data={product}
+                    ></Product>
+                  );
+                }
+              })
+            ) : (
+              <Loading grid="col-6 col-sm-6 col-md-6 col-lg mb-5 p-3 productImage" />
+            )}
+          </div>
+        </div>
+      </section>
 
 
       {/* <section style={{ backgroundColor: "#ebeef5" }}>
@@ -410,11 +517,48 @@ const Home = () => {
           </div>
         </div>
       </section> */}
+
+      {/* Headphones */}
       <CategoryDevider
         url="Headphones"
         img={headphoneBanner}
         name="New & Trendly"
       ></CategoryDevider>
+      <section ref={ref}>
+        <div className="container">
+          <div className="d-flex p-2  justify-content-between mb-3 mt-3" style={{ backgroundColor: '#384a8c' }}>
+            <div className="col-4 d-flex flex-column justify-content-center"><h5 style={{ margin: '0', color: 'white' }}>Headphones</h5></div>
+            <div className="col-4 d-flex flex-column justify-content-center"><Link onClick={() => {
+              window.scroll({
+                top: 0,
+                left: 0,
+                behavior: "smooth",
+              });
+            }} href="/shop/Headphones"><h6 style={{ textAlign: 'end', margin: '0', color: 'white' }}>SEE ALL {'>'}</h6></Link></div>
+          </div>
+          <div
+            className="row justify-content-center align-items-center"
+            style={{ alignItems: "flex-end", gap: '10px', width: '100%', margin: 'auto' }}
+          >
+            {!loading ? (
+              headphones.map((product, i) => {
+                if (i < 6) {
+                  return (
+                    <Product
+                      grid="col-5 col-sm-5 col-md-3 col-lg mb-3 p-3 productImage"
+                      key={i}
+                      data={product}
+                    ></Product>
+                  );
+                }
+              })
+            ) : (
+              <Loading grid="col-6 col-sm-6 col-md-6 col-lg mb-5 p-3 productImage" />
+            )}
+          </div>
+        </div>
+      </section>
+
       {/* <section>
         <div className="container">
           <div className="d-flex p-2  justify-content-between mb-3 mt-3" style={{ backgroundColor: '#384a8c' }}>
@@ -449,11 +593,49 @@ const Home = () => {
           </div>
         </div>
       </section> */}
+
+      {/* Accessories */}
       <CategoryDevider
         url="Accessories"
         img={accessoriesBanner}
         name="New & Trendly"
       ></CategoryDevider>
+    <section ref={ref}>
+        <div className="container">
+          <div className="d-flex p-2  justify-content-between mb-3 mt-3" style={{ backgroundColor: '#384a8c' }}>
+            <div className="col-4 d-flex flex-column justify-content-center"><h5 style={{ margin: '0', color: 'white' }}>Accessories</h5></div>
+            <div className="col-4 d-flex flex-column justify-content-center"><Link onClick={() => {
+              window.scroll({
+                top: 0,
+                left: 0,
+                behavior: "smooth",
+              });
+            }} href="/shop/Accessories"><h6 style={{ textAlign: 'end', margin: '0', color: 'white' }}>SEE ALL {'>'}</h6></Link></div>
+          </div>
+          <div
+            className="row justify-content-center align-items-center"
+            style={{ alignItems: "flex-end", gap: '10px', width: '100%', margin: 'auto' }}
+          >
+            {!loading ? (
+              accessories.map((product, i) => {
+                if (i < 6) {
+                  return (
+                    <Product
+                      grid="col-5 col-sm-5 col-md-3 col-lg mb-3 p-3 productImage"
+                      key={i}
+                      data={product}
+                    ></Product>
+                  );
+                }
+              })
+            ) : (
+              <Loading grid="col-6 col-sm-6 col-md-6 col-lg mb-5 p-3 productImage" />
+            )}
+          </div>
+        </div>
+      </section>
+
+
       {/* <section>
         <div className="container">
           <div className="d-flex p-2  justify-content-between mb-3 mt-3" style={{ backgroundColor: '#384a8c' }}>
