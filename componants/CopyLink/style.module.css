@@ -1,0 +1,29 @@
+.copy_link{
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background-color: #c6c6c661;
+  border-radius: 50%;
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: 0.3s ease;
+  height: 2rem;
+  width: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.copy_link:hover{
+  background-color: #f6b01e;
+}
+.copy_link svg{
+  color: #f6b01e;
+  font-size: 1.5rem;
+}
+.copy_link svg:hover{
+  color: #fff;
+}
+.copy_link svg:active{
+  color: #fff;
+}
+
