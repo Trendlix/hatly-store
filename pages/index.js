@@ -718,10 +718,7 @@ const Home = () => {
         <video src={bannerVideo} controls width="100%"></video>
       </div>
       {/* </section> */}
-      <CategoryDevider
-        url="all"
-        img={sliderImage2}
-      ></CategoryDevider>
+      
       <Whatsapp></Whatsapp>
 
     </motion.div>
