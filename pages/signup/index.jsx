@@ -135,7 +135,6 @@ const Signup = () => {
       });
       throw new Error(e.message);
     }
-    setLoading(false);
   }
   const submitFormHandler = async e => {
     try {
@@ -156,6 +155,8 @@ const Signup = () => {
     } catch (e) {
       console.log(e)
     }
+    setLoading(false);
+
   }
   return (
     <LoginLayout>

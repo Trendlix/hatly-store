@@ -1,7 +1,7 @@
-import React, { useEffect,useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { toast } from 'react-toastify';
-import { useDispatch ,useSelector} from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { getSession, signIn, signOut } from "next-auth/react"
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -16,7 +16,7 @@ axios.defaults.withCredentials = true
 const Login = () => {
   const dispatch = useDispatch()
   const router = useRouter()
-  const [loading , setLoading] = useState(false)
+  const [loading, setLoading] = useState(false)
   const {
     value: enteredEmail,
     isValid: enteredEmailIsValid,
@@ -40,7 +40,7 @@ const Login = () => {
   // console.log(formIsValid)
   // console.log(enteredEmailIsValid)
   // console.log(enteredPasswordIsValid)
-  
+
   const login = async () => {
     try {
       setLoading(true);
@@ -48,22 +48,22 @@ const Login = () => {
       const email = enteredEmail;
       const password = enteredPassword;
       // const req = await axios.post(`/api/login`, {
-        const req = await axios.post(`${API_URL}/users/login`, {
+      const req = await axios.post(`${API_URL}/users/login`, {
         Headers: {
-          "Accept" : "*/*", 
+          "Accept": "*/*",
           "Content-Type": "application/json",
         },
-          email,
-          password
+        email,
+        password
       })
       // const status = await signIn('credentials', {
-        // redirect: false,
-        // email,
-        // password,
-        // callbackUrl: "/"
-    // })
-    
-    // console.log(status)
+      // redirect: false,
+      // email,
+      // password,
+      // callbackUrl: "/"
+      // })
+
+      // console.log(status)
       toast.success('Logged in successfully', {
         position: "top-right",
         autoClose: 5000,
@@ -73,11 +73,11 @@ const Login = () => {
         draggable: true,
         progress: undefined,
         theme: "light",
-        });
-        dispatch(userActions.loginSuccess({user : req.data.body}))
-        router.push('/account/overview')
-        // if(!status.error)
-        // navigate('/',{replace : true})
+      });
+      dispatch(userActions.loginSuccess({ user: req.data.body }))
+      router.push('/account/overview')
+      // if(!status.error)
+      // navigate('/',{replace : true})
       // console.log(req.data)
     } catch (e) {
       dispatch(userActions.loginFailed())
@@ -90,11 +90,10 @@ const Login = () => {
         draggable: true,
         progress: undefined,
         theme: "light",
-        });
+      });
       console.log(e)
       throw new Error('Email or password is incorrect')
     }
-    setLoading(false);
   }
   const SubmitLoginHandler = async e => {
     try {
@@ -111,6 +110,7 @@ const Login = () => {
     } catch (e) {
       console.log(e)
     }
+    setLoading(false);
   }
   const test = async () => {
     const req = await axios.get(`${API_URL}/users/me`)
@@ -118,7 +118,7 @@ const Login = () => {
   }
   return (
     <LoginLayout>
-      {loading && <LoadingOverlay isFullPage={true}/> }
+      {loading && <LoadingOverlay isFullPage={true} />}
       <div className={`${style.login_card} ${style.child}`}>
         <h3 className={`${style.title}`}>Login</h3>
         <div className={`${style.form}`}>
@@ -148,9 +148,9 @@ const Login = () => {
               </div>
             </div>
             <p className={`${style.reset_password}`}>
-              <a className={`${style.reset_password__link}`} href="#1">
+              <Link className={`${style.reset_password__link}`} href="/forget-password">
                 Forgot your password?
-              </a>
+              </Link>
             </p>
             <div className={`${style.btn_wrapper}`}>
               <button
@@ -174,14 +174,14 @@ export async function getServerSideProps(context) {
   // const session = await getSession(context)
   // const auth = await axios.get(API_URL + '/users/auth');
   // const token = auth.data.ok
-  if(token)
-  return{
-    redirect: {
-      destination: "/",
-      permanent: false,
-    },
-    props: {},
-  };
+  if (token)
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+      props: {},
+    };
   return {
     props: {}, // will be passed to the page component as props
   }
