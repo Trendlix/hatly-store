@@ -19,6 +19,9 @@ const nextConfig = {
     domains: ['hatlystore.tswsp.net', 'accept.paymobsolutions.com'],
     unoptimized : false,
   },
+  experimental: {
+    serverlessTraceTarget: 'experimental-serverless-trace',
+  },
 }
 
 module.exports = nextConfig
