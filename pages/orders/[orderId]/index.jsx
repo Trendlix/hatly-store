@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-import {motion} from 'framer-motion'
+import { motion } from 'framer-motion'
 import style from './orderDetails.module.css';
 import Link from 'next/link';
 import OrderItem from '../../../componants/OrderItem/OrderItem';
@@ -21,10 +21,10 @@ const index = ({ data }) => {
   // }, []);
   const getDate = (date) => {
     const newDate = new Date(date)
-    const day = newDate.getDay() + 1;
-    const month = newDate.getMonth() + 1;
-    const year = newDate.getFullYear();
-    return `${day < 10 ? `0${day}` : day}-${month < 10 ? `0${month}` : month}-${year}`
+    const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+
+    const formattedDate = newDate.toLocaleDateString('en-GB', options);
+    return formattedDate
   }
   console.log(data)
   return (
@@ -132,7 +132,7 @@ export async function getServerSideProps(context) {
     const req = await axios.get(`${API_URL}/orders/${orderId}`, {
       headers: {
         Cookie: context.req.headers.cookie,
-        "Accept-Encoding": "gzip,deflate,compress" 
+        "Accept-Encoding": "gzip,deflate,compress"
       }
     })
     return {
