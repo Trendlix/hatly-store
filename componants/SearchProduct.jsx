@@ -81,9 +81,9 @@ const SearchProduct = (props) => {
                                 left: 0,
                                 behavior: "smooth",
                             });
-                        }} to={`/product/${product.id}`}>
+                        }} href={`/product/${product.id}`}>
                             <div className='row align-items-center'>
-                                <Image className='col-2 p-2' src={product.image ? `https://hatlystore.tswsp.net${product.image}` : notFound} alt="" width="100%" />
+                                <Image className='col-2 p-2' src={product.image ? `https://hatlystore.tswsp.net${product.image}` : notFound} alt="" width={100} height={100} />
                                 <h6 style={{ textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden' }} className='col-9'>{product.item_name}</h6>
                             </div>
                         </Link>)
