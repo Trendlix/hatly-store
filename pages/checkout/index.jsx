@@ -399,9 +399,9 @@ const Checkout = () => {
                     </p>
                   </div>
                   <div className="mb-3">
-                    <label className="form-label">State*</label>
+                    <label className="form-label">State</label>
                     <input
-                      {...register("state", { required: "This is required" })}
+                      {...register("state")}
                       type="text"
                       className="form-control"
                     />
@@ -410,9 +410,9 @@ const Checkout = () => {
                     </p>
                   </div>
                   <div className="mb-3">
-                    <label className="form-label">City*</label>
+                    <label className="form-label">City</label>
                     <input
-                      {...register("city", { required: "This is required" })}
+                      {...register("city")}
                       type="text"
                       className="form-control"
                     />
@@ -421,9 +421,9 @@ const Checkout = () => {
                     </p>
                   </div>
                   <div className="mb-3">
-                    <label className="form-label">Street*</label>
+                    <label className="form-label">Street</label>
                     <input
-                      {...register("street", { required: "This is required" })}
+                      {...register("street")}
                       type="text"
                       className="form-control"
                     />
@@ -432,11 +432,9 @@ const Checkout = () => {
                     </p>
                   </div>
                   <div className="mb-3">
-                    <label className="form-label">Building*</label>
+                    <label className="form-label">Building</label>
                     <input
-                      {...register("building", {
-                        required: "This is required",
-                      })}
+                      {...register("building")}
                       type="text"
                       className="form-control"
                     />
@@ -445,9 +443,9 @@ const Checkout = () => {
                     </p>
                   </div>
                   <div className="mb-3">
-                    <label className="form-label">Floor*</label>
+                    <label className="form-label">Floor</label>
                     <input
-                      {...register("floor", { required: "This is required" })}
+                      {...register("floor")}
                       type="text"
                       className="form-control"
                     />
@@ -456,11 +454,9 @@ const Checkout = () => {
                     </p>
                   </div>
                   <div className="mb-3">
-                    <label className="form-label">Apartment*</label>
+                    <label className="form-label">Apartment</label>
                     <input
-                      {...register("apartment", {
-                        required: "This is required",
-                      })}
+                      {...register("apartment")}
                       type="text"
                       className="form-control"
                     />
