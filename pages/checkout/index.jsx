@@ -399,7 +399,7 @@ const Checkout = () => {
                     </p>
                   </div>
                   <div className="mb-3">
-                    <label className="form-label">State</label>
+                    <label className="form-label">Address</label>
                     <input
                       {...register("state")}
                       type="text"
@@ -409,61 +409,7 @@ const Checkout = () => {
                       {errors.state?.message}
                     </p>
                   </div>
-                  <div className="mb-3">
-                    <label className="form-label">City</label>
-                    <input
-                      {...register("city")}
-                      type="text"
-                      className="form-control"
-                    />
-                    <p className="mb-0 pt-2 text-danger">
-                      {errors.city?.message}
-                    </p>
-                  </div>
-                  <div className="mb-3">
-                    <label className="form-label">Street</label>
-                    <input
-                      {...register("street")}
-                      type="text"
-                      className="form-control"
-                    />
-                    <p className="mb-0 pt-2 text-danger">
-                      {errors.street?.message}
-                    </p>
-                  </div>
-                  <div className="mb-3">
-                    <label className="form-label">Building</label>
-                    <input
-                      {...register("building")}
-                      type="text"
-                      className="form-control"
-                    />
-                    <p className="mb-0 pt-2 text-danger">
-                      {errors.building?.message}
-                    </p>
-                  </div>
-                  <div className="mb-3">
-                    <label className="form-label">Floor</label>
-                    <input
-                      {...register("floor")}
-                      type="text"
-                      className="form-control"
-                    />
-                    <p className="mb-0 pt-2 text-danger">
-                      {errors.floor?.message}
-                    </p>
-                  </div>
-                  <div className="mb-3">
-                    <label className="form-label">Apartment</label>
-                    <input
-                      {...register("apartment")}
-                      type="text"
-                      className="form-control"
-                    />
-                    <p className="mb-0 pt-2 text-danger">
-                      {errors.apartment?.message}
-                    </p>
-                  </div>
+                  
 
 
                   <div className="mb-3">
