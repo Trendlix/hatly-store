@@ -55,11 +55,6 @@ const Checkout = () => {
       setValue('email', user?.email)
       setValue('phone', user?.phone)
       setValue('state', user?.state)
-      setValue('city', user?.city)
-      setValue('street', user?.street)
-      setValue('building', user?.building)
-      setValue('floor', user?.floor)
-      setValue('apartment', user?.apartment)
     }
   }, [user]);
 
@@ -134,15 +129,15 @@ const Checkout = () => {
       currency: "EGP",
       items: items,
       shipping_data: {
-        apartment: data.apartment,
+        // apartment: data.apartment,
         email: data.email,
-        floor: data.floor,
+        // floor: data.floor,
         first_name: data.firstName,
-        street: data.street,
-        building: data.building,
+        // street: data.street,
+        // building: data.building,
         phone_number: data.phone,
         extra_description: data.extraDescription,
-        city: data.city,
+        // city: data.city,
         country: "EG",
         last_name: data.lastName,
         state: data.state,
@@ -159,15 +154,15 @@ const Checkout = () => {
       expiration: 3600,
       order_id: orderId,
       billing_data: {
-        apartment: data.apartment,
+        // apartment: data.apartment,
         email: data.email,
-        floor: data.floor,
+        // floor: data.floor,
         first_name: data.firstName,
-        street: data.street,
-        building: data.building,
+        // street: data.street,
+        // building: data.building,
         phone_number: data.phone,
         extra_description: data.extraDescription,
-        city: data.city,
+        // city: data.city,
         country: "EG",
         last_name: data.lastName,
         state: data.state,
