@@ -205,13 +205,6 @@ const NavBar = props => {
                   ></FontAwesomeIcon>Contact Us</Link>
               </div>
               <div className="col-auto p-3">
-                <Link href="/inquiries">
-                  <FontAwesomeIcon
-                    className="col pe-2"
-                    icon={faComment}
-                  ></FontAwesomeIcon>Inquiries</Link>
-              </div>
-              <div className="col-auto p-3">
                 {/* <Link href={`/${user?.isAuthenticated ? 'account': 'login'}`}> */}
                 <div className={style.options_list_container}>
                   <FontAwesomeIcon
@@ -505,22 +498,6 @@ const NavBar = props => {
                 icon={faPhone}
               ></FontAwesomeIcon>
               Contact
-            </p>
-          </Link>
-          <Link onClick={() => {
-            setElementMotion({ x: "150%", opacity: 0 })
-            window.scroll({
-              top: 0,
-              left: 0,
-              behavior: "smooth",
-            });
-          }} href="/inquiries">
-            <p className="text-end" style={{ fontSize: "25px" }}>
-              <FontAwesomeIcon
-                className="col pe-2"
-                icon={faComment}
-              ></FontAwesomeIcon>
-              Inquiries
             </p>
           </Link>
           <p onClick={() => {
