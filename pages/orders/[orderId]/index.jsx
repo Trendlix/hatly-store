@@ -79,9 +79,9 @@ const index = ({ data }) => {
         <div className={style.deliveryAddress}>
           <h4 className={style.sectionHeader}>Delivery Address</h4>
           <div className={style.gridContainer}>
-            <p className={style.dataHeader}>State</p>
+            <p className={style.dataHeader}>Address</p>
             <p className={style.data}>{data.state}</p>
-            <p className={style.dataHeader}>City</p>
+            {/* <p className={style.dataHeader}>City</p>
             <p className={style.data}>{data.city}</p>
             <p className={style.dataHeader}>Street</p>
             <p className={style.data}>{data.street}</p>
@@ -90,7 +90,7 @@ const index = ({ data }) => {
             <p className={style.dataHeader}>Floor</p>
             <p className={style.data}>{data.floor}</p>
             <p className={style.dataHeader}>Apartment</p>
-            <p className={style.data}>{data.apartment}</p>
+            <p className={style.data}>{data.apartment}</p> */}
             {
               data.extraDescription &&
               <p className={style.dataHeader}>Extra Description</p>
