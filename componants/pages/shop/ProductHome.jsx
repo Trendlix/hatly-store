@@ -45,7 +45,7 @@ const Product = (props) => {
             loading="lazy"
             src={
               props.data.image
-                ? `https://hatlystore.tswsp.net${props.data.image}`
+                ? props.data.image
                 : notFound
             }
             alt={props.data.item_name}

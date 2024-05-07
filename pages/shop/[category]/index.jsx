@@ -17,6 +17,12 @@ import smartWatches from "../../../img/smart watch inner banner 1.png2.png";
 import headPhones from "../../../img/HEADPHONES  banner 1.png";
 import accessories from "../../../img/Accessories  inner banner 1.jpeg";
 import Image from "next/image";
+import tablet from "@/../../public/tablet.jpg"
+import laptop from "@/../../public/laptop.png"
+import mobile from "@/../../public/mobile.jpg"
+import headphones from "@/../../public/headphones.jpg"
+import watch from "@/../../public/watch.jpg"
+
 
 
 const banners = {
@@ -36,18 +42,28 @@ const scrollTop = () => {
   });
 };
 
+const dataArray = [
+  { price_list_rate: 20, id: 1, image: mobile, actual_qty: 100, item_group: 'mobiles', description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.", item_name: 'mobile' },
+  { price_list_rate: 30, id: 2, image: laptop, actual_qty: 100, item_group: 'mobiles', description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.", item_name: 'laptop' },
+  { price_list_rate: 15, id: 3, image: tablet, actual_qty: 100, item_group: 'mobiles', description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.", item_name: 'tablet' },
+  { price_list_rate: 25, id: 4, image: watch, actual_qty: 100, item_group: 'mobiles', description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.", item_name: 'smartwatch' },
+  { price_list_rate: 35, id: 5, image: headphones, actual_qty: 100, item_group: 'mobiles', description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.", item_name: 'headphones' }
+];
+
+
+
 const Shop = ({ category }) => {
   // const router = useRouter()
   // const  {category}  = router?.query
 
   // console.log(category)
   // products hooks
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState(dataArray);
   // categories hooks
   const [categories, setCategories] = useState([]);
   const [selecterdCategory, setSelecterdCategory] = useState(category);
   // brand hooks
-  const [brands, setBrands] = useState([]);
+  const [brands, setBrands] = useState([{brand: 'oppo'}, {brand: 'samsung'}]);
   const [selectedBradns, setSelectedBradns] = useState("");
 
   // loading hooks
@@ -68,58 +84,61 @@ const Shop = ({ category }) => {
     pageNumber.push(i);
   }
 
-  const getProducts = async (selecterdCategory) => {
-    setLoading(true);
-    try {
-      let res;
-      let resBrand;
+  // const getProducts = async (selecterdCategory) => {
+  //   setLoading(true);
+  //   try {
+  //     let res;
+  //     let resBrand;
 
-      if (selecterdCategory == "all") {
-        if (selectedBradns !== "" && selectedBradns !== 'All') {
-          res = await fetchProduct.get(`/products/brand/${selectedBradns}`);
-          setProducts(res.data);
-        } else {
-          res = await fetchProduct.get("/products");
-          resBrand = await fetchProduct.get("/brand");
-          console.log(resBrand)
-          console.log(1)
-          setProducts(res.data);
-          setBrands(resBrand.data);
-        }
-      } else {
-        if (selectedBradns != "") {
-          res = await fetchProduct.get(`/products/brand/${selectedBradns}`, {
-            params: {
-              category: selecterdCategory
-            }
-          });
-          setProducts(res.data);
-        } else {
-          res = await fetchProduct.get(`/category/${selecterdCategory}`);
-          resBrand = await fetchProduct.get(`/brand/${selecterdCategory}`);
-          setBrands(resBrand.data);
-          setProducts(res.data);
-        }
-      }
-      console.log(res)
-      setProducts(res.data);
-    } catch (er) {
-      console.log(er)
-    }
-    setLoading(false);
-  };
+  //     if (selecterdCategory == "all") {
+  //       if (selectedBradns !== "" && selectedBradns !== 'All') {
+  //         res = await fetchProduct.get(`/products/brand/${selectedBradns}`);
+  //         setProducts(res.data);
+  //         console.log('if category is all, brands is not all and there is a brand ',res.data);
+  //       } else {
+  //         res = await fetchProduct.get("/products");
+  //         resBrand = await fetchProduct.get("/brand");
+  //         console.log(resBrand)
+  //         console.log(1)
+  //         setProducts(res.data);
+  //         console.log('if category is all, brands is all and there is no brand selected',res.data);
+  //         setBrands(resBrand.data);
+  //         console.log('the all brands returned', resBrand.data)
+  //       }
+  //     } else {
+  //       if (selectedBradns != "") {
+  //         res = await fetchProduct.get(`/products/brand/${selectedBradns}`, {
+  //           params: {
+  //             category: selecterdCategory
+  //           }
+  //         });
+  //         setProducts(res.data);
+  //       } else {
+  //         res = await fetchProduct.get(`/category/${selecterdCategory}`);
+  //         resBrand = await fetchProduct.get(`/brand/${selecterdCategory}`);
+  //         setBrands(resBrand.data);
+  //         setProducts(res.data);
+  //       }
+  //     }
+  //     console.log(res)
+  //     setProducts(res.data);
+  //   } catch (er) {
+  //     console.log(er)
+  //   }
+  //   setLoading(false);
+  // };
 
-  const getCategories = async () => {
-    try {
-      const res = await fetchProduct.get("/category");
-      setCategories(res.data);
-    } catch (er) { }
-  };
+  // const getCategories = async () => {
+  //   try {
+  //     const res = await fetchProduct.get("/category");
+  //     setCategories(res.data);
+  //   } catch (er) { }
+  // };
 
-  useEffect(() => {
-    getProducts(selecterdCategory);
-    getCategories();
-  }, [selectedBradns]);
+  // useEffect(() => {
+  //   getProducts(selecterdCategory);
+  //   getCategories();
+  // }, [selectedBradns]);
 
   return (
     <motion.div

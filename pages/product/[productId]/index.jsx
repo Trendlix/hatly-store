@@ -23,19 +23,22 @@ import { useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import CopyLink from "../../../componants/CopyLink/CopyLink";
+import mobile from "@/../../public/mobile.jpg"
+import headphones from "@/../../public/headphones.jpg"
 
 
 const SingleProduct = () => {
   const [selectedBradns, setSelectedBradns] = useState()
-  const recentlyViewed = useSelector((state) => state.recently);
-  const [img, setimgs] = useState();
-  const [product, setProduct] = useState({});
-  const [productImgs, setProductImgs] = useState([]);
-  const [productCategoey, setProductCategoey] = useState();
-  const [relatedProducts, setRelatedProducts] = useState([]);
+  // const recentlyViewed = useSelector((state) => state.recently);
+  const recentlyViewed = {products: [{ price_list_rate: 20, id: 1, image: mobile, item_name: 'mobile', actual_qty: 100, item_group: 'mobiles', description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." }, { price_list_rate: 20, id: 1, image: mobile, item_name: 'mobile', actual_qty: 100, item_group: 'mobiles', description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." }, { price_list_rate: 20, id: 1, image: mobile, item_name: 'mobile', actual_qty: 100, item_group: 'mobiles', description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." }]}
+  const [img, setimgs] = useState(mobile);
+  const [product, setProduct] = useState({ price_list_rate: 20, id: 1, image: mobile, item_name: 'mobile', actual_qty: 100, item_group: 'mobiles', description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." });
+  const [productImgs, setProductImgs] = useState(mobile);
+  const [productCategoey, setProductCategoey] = useState('mobiles');
+  const [relatedProducts, setRelatedProducts] = useState([{ price_list_rate: 20, id: 1, image: mobile, item_name: 'mobile' }, { price_list_rate: 20, id: 1, image: mobile, item_name: 'mobile' }, { price_list_rate: 20, id: 1, image: mobile, item_name: 'mobile' }]);
   const [singleProductQuantity, setSingleProductQuantity] = useState(1);
-  const [loading, setLoading] = useState(true);
-  const [gallary, setGallary] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [gallary, setGallary] = useState([mobile, headphones, mobile, headphones]);
   const [addCartDisable, setAddCartDisable] = useState({
     on: false,
     discrption: "ADD TO CART",
@@ -60,67 +63,67 @@ const SingleProduct = () => {
     setBook(prev => true);
   }
 
-  const getProduct = async () => {
-    try {
-      const res = await fetchProduct.get(`products/${productId}`)
-      const res2 = await fetchProduct.get(`attactments`, {
-        params: {
-          code: res.data[0].item_code
-        }
-      })
-      setGallary([res.data[0].image, ...res2.data.map((el) => {
-        return el.file_url
-      })])
+  // const getProduct = async () => {
+  //   try {
+  //     const res = await fetchProduct.get(`products/${productId}`)
+  //     const res2 = await fetchProduct.get(`attactments`, {
+  //       params: {
+  //         code: res.data[0].item_code
+  //       }
+  //     })
+  //     setGallary([res.data[0].image, ...res2.data.map((el) => {
+  //       return el.file_url
+  //     })])
 
-      setLoading(false);
-      setProduct(res.data[0]);
-      setimgs(res.data[0].image ? `https://hatlystore.tswsp.net${res.data[0].image}` : notFound);
-      setProductImgs([
-        res.data[0].image ? `https://hatlystore.tswsp.net${res.data[0].image}` : notFound,
-      ]);
-      setProductCategoey(res.data[0].item_group);
-      setSelectedBradns(res.data[0].brand)
-      cart.products.map((item, i) => {
-        if (item.id == res.data[0].id) {
-          setAddCartDisable({ on: true, discrption: "PRODUCT ON THE CART" });
-        }
-      });
-      var recentlyData;
-      if (localStorage.getItem("product") == null) {
-        localStorage.setItem("product", JSON.stringify([res.data[0]]));
-      } else {
-        recentlyData = JSON.parse(localStorage.getItem("product"));
-        if (recentlyData.id) {
-          recentlyData = [res.data[0], ...recentlyData];
-        } else {
-          recentlyData.map((el, i) => {
-            if (el.id == res.data[0].id) {
-              return recentlyData.splice(i, 1);
-            }
-          });
-          recentlyData = [res.data[0], ...recentlyData];
-        }
-        localStorage.setItem("product", JSON.stringify(recentlyData));
-      }
-      dispatch(
-        storeData({
-          recentlyData,
-        })
-      );
-    } catch (er) { }
-  };
+  //     setLoading(false);
+  //     setProduct(res.data[0]);
+  //     setimgs(res.data[0].image ? `https://hatlystore.tswsp.net${res.data[0].image}` : notFound);
+  //     setProductImgs([
+  //       res.data[0].image ? `https://hatlystore.tswsp.net${res.data[0].image}` : notFound,
+  //     ]);
+  //     setProductCategoey(res.data[0].item_group);
+  //     setSelectedBradns(res.data[0].brand)
+  //     cart.products.map((item, i) => {
+  //       if (item.id == res.data[0].id) {
+  //         setAddCartDisable({ on: true, discrption: "PRODUCT ON THE CART" });
+  //       }
+  //     });
+  //     var recentlyData;
+  //     if (localStorage.getItem("product") == null) {
+  //       localStorage.setItem("product", JSON.stringify([res.data[0]]));
+  //     } else {
+  //       recentlyData = JSON.parse(localStorage.getItem("product"));
+  //       if (recentlyData.id) {
+  //         recentlyData = [res.data[0], ...recentlyData];
+  //       } else {
+  //         recentlyData.map((el, i) => {
+  //           if (el.id == res.data[0].id) {
+  //             return recentlyData.splice(i, 1);
+  //           }
+  //         });
+  //         recentlyData = [res.data[0], ...recentlyData];
+  //       }
+  //       localStorage.setItem("product", JSON.stringify(recentlyData));
+  //     }
+  //     dispatch(
+  //       storeData({
+  //         recentlyData,
+  //       })
+  //     );
+  //   } catch (er) { }
+  // };
 
-  const getRelatedProducts = async (selectedBradns) => {
-    try {
-      var res;
-      res = await fetchProduct.get(`/products/brand/${selectedBradns}`, {
-        params: {
-          category: productCategoey
-        }
-      });
-      setRelatedProducts(res.data);
-    } catch (er) { }
-  };
+  // const getRelatedProducts = async (selectedBradns) => {
+  //   try {
+  //     var res;
+  //     res = await fetchProduct.get(`/products/brand/${selectedBradns}`, {
+  //       params: {
+  //         category: productCategoey
+  //       }
+  //     });
+  //     setRelatedProducts(res.data);
+  //   } catch (er) { }
+  // };
 
   // const getRelatedGallary = async (productCategoey) => {
   //   try {
@@ -130,15 +133,15 @@ const SingleProduct = () => {
   //   } catch (er) { }
   // };
 
-  useEffect(() => {
-    getProduct()
-  }, [productId]);
+  // useEffect(() => {
+  //   getProduct()
+  // }, [productId]);
 
-  useEffect(() => {
-    if (productCategoey !== undefined) {
-      getRelatedProducts(selectedBradns);
-    }
-  }, [productCategoey]);
+  // useEffect(() => {
+  //   if (productCategoey !== undefined) {
+  //     getRelatedProducts(selectedBradns);
+  //   }
+  // }, [productCategoey]);
 
   return (
     <>
@@ -177,7 +180,7 @@ const SingleProduct = () => {
                             onClick={(e) => {
                               setimgs(e.target.getAttribute("src"));
                             }}
-                            src={image ? `${`https://hatlystore.tswsp.net${image}`}` : notFound}
+                            src={image ? image : notFound}
                             style={{ width: "100%", cursor: "pointer" }}
                             width="100"
                             height="100"
@@ -198,10 +201,10 @@ const SingleProduct = () => {
                         smallImage: {
                           alt: "Wristwatch by Ted Baker London",
                           isFluidWidth: true,
-                          src: img ? `${img}` : notFound,
+                          src: img ? img : notFound,
                         },
                         largeImage: {
-                          src: img ? `${img}` : notFound,
+                          src: img ? img : notFound,
                           width: 800,
                           height: 800,
                         },

@@ -59,7 +59,7 @@ const FilledCart = (props) => {
                       href={`/product/${data.id}`}
                       className="col-12 col-md-12"
                     >
-                      <Image width="100" height="100" style={{ filter: 'drop-shadow(white 0px 0px 70px)' }} src={data.image ? `https://hatlystore.tswsp.net${data.image}` : notFound} alt="cart"></Image>
+                      <Image width="100" height="100" style={{ filter: 'drop-shadow(white 0px 0px 70px)' }} src={data.image ? data.image : notFound} alt="cart"></Image>
                     </Link>
                     <div className="col-12 col-md-12 mb-0">
                       <p style={pStyle}>

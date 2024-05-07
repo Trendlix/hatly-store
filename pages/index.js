@@ -48,7 +48,11 @@ import Image from "next/image";
 import { wrapper } from "../redux/store";
 import { getUser, userState } from "../redux/features/user/userSlice";
 import Link from "next/link";
-
+import tablet from "@/../../public/tablet.jpg"
+import laptop from "@/../../public/laptop.png"
+import mobile from "@/../../public/mobile.jpg"
+import headphones from "@/../../public/headphones.jpg"
+import watch from "@/../../public/watch.jpg"
 
 const categoryArray = [
   {
@@ -78,6 +82,15 @@ const categoryArray = [
     url: 'Accessories'
   }
 ];
+
+const dataArray = [
+  { price_list_rate: 20, id: 1, image: mobile, actual_qty: 100, item_group: 'mobiles', description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.", item_name: 'mobile' },
+  { price_list_rate: 30, id: 2, image: laptop, actual_qty: 100, item_group: 'mobiles', description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.", item_name: 'laptop' },
+  { price_list_rate: 15, id: 3, image: tablet, actual_qty: 100, item_group: 'mobiles', description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.", item_name: 'tablet' },
+  { price_list_rate: 25, id: 4, image: watch, actual_qty: 100, item_group: 'mobiles', description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.", item_name: 'smartwatch' },
+  { price_list_rate: 35, id: 5, image: headphones, actual_qty: 100, item_group: 'mobiles', description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.", item_name: 'headphones' }
+];
+
 
 const slider1 = [{ img: sliderImage2, link: '/payment-methods' }, { img: sliderImage3 }, { img: sliderImage5 , link : '/our-policy' }, { img: sliderImage1 , link : '/inquiries'}];
 const slider2 = [{ img: sliderImage4 }, { img: sliderImage6 }, { img: sliderImage7 }];
@@ -119,68 +132,68 @@ const Home = () => {
     // }
   }, [inView]);
 
-  const [productsMobiles, setProductsMobiles] = useState([]);
-  const [productsWatches, setProductsWatches] = useState([]);
-  const [chargers, setChargers] = useState([]);
-  const [smartWatches, setSmartWatches] = useState([]);
-  const [headphones, setHeadphones] = useState([]);
-  const [accessories, setAccessories] = useState([]);
+  const [productsMobiles, setProductsMobiles] = useState(dataArray);
+  const [productsWatches, setProductsWatches] = useState(dataArray);
+  const [chargers, setChargers] = useState(dataArray);
+  const [smartWatches, setSmartWatches] = useState(dataArray);
+  const [headphones, setHeadphones] = useState(dataArray);
+  const [accessories, setAccessories] = useState(dataArray);
 
   // const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState();
 
-  const getProductsMobiles = async () => {
-    try {
+  // const getProductsMobiles = async () => {
+  //   try {
       
-      setLoading(true);
-      const res = await fetchProduct.get(`/category/Mobiles`);
-      setProductsMobiles(res.data);
-      setLoading(false);
-    } catch (er) { }
-  };
-  const getChargers = async () => {
-    try {
+  //     setLoading(true);
+  //     const res = await fetchProduct.get(`/category/Mobiles`);
+  //     setProductsMobiles(res.data);
+  //     setLoading(false);
+  //   } catch (er) { }
+  // };
+  // const getChargers = async () => {
+  //   try {
       
-      setLoading(true);
-      const res = await fetchProduct.get(`/category/Chargers`);
-      setChargers(res.data);
-      setLoading(false);
-    } catch (er) { }
-  };
-  const getSmartWatches = async () => {
-    try {
+  //     setLoading(true);
+  //     const res = await fetchProduct.get(`/category/Chargers`);
+  //     setChargers(res.data);
+  //     setLoading(false);
+  //   } catch (er) { }
+  // };
+  // const getSmartWatches = async () => {
+  //   try {
       
-      setLoading(true);
-      const res = await fetchProduct.get(`/category/Smart Watches`);
-      setSmartWatches(res.data);
-      setLoading(false);
-    } catch (er) { }
-  };
-  const getHeadphones = async () => {
-    try {
-      setLoading(true);
-      const res = await fetchProduct.get(`/category/Headphones`);
-      setHeadphones(res.data);
-      setLoading(false);
-    } catch (er) { }
-  };
-  const getAccessories = async () => {
-    try {
-      setLoading(true);
-      const res = await fetchProduct.get(`/category/Accessories`);
-      setAccessories(res.data);
-      setLoading(false);
-    } catch (er) { }
-  };
-  useEffect(() => {
+  //     setLoading(true);
+  //     const res = await fetchProduct.get(`/category/Smart Watches`);
+  //     setSmartWatches(res.data);
+  //     setLoading(false);
+  //   } catch (er) { }
+  // };
+  // const getHeadphones = async () => {
+  //   try {
+  //     setLoading(true);
+  //     const res = await fetchProduct.get(`/category/Headphones`);
+  //     setHeadphones(res.data);
+  //     setLoading(false);
+  //   } catch (er) { }
+  // };
+  // const getAccessories = async () => {
+  //   try {
+  //     setLoading(true);
+  //     const res = await fetchProduct.get(`/category/Accessories`);
+  //     setAccessories(res.data);
+  //     setLoading(false);
+  //   } catch (er) { }
+  // };
+  // useEffect(() => {
 
-    getProductsMobiles();
-    getChargers();
-    getSmartWatches();
-    getHeadphones();
-    getAccessories();
-    // getProductsWatches();
-  }, []);
+  //   getProductsMobiles();
+  //   getChargers();
+  //   getSmartWatches();
+  //   getHeadphones();
+  //   getAccessories();
+  //   // getProductsWatches();
+  // }, []);
 
   return (
 

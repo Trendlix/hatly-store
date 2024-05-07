@@ -26,7 +26,7 @@ const Product = (props) => {
         <Link href={`/product/${props.data.id}`} onClick={scrollTop} style={{height : '100%', display : 'block', backgroundColor: "#8080803b" ,}}>
           <Image
             className="productImage"
-            src={props.data.image ? `https://hatlystore.tswsp.net${props.data.image}` : notFound}
+            src={props.data.image}
             width={125}
             height={125}
             style={{ width: "100%", height: "100%" , mixBlendMode: "multiply" , aspectRatio : '1' , objectFit: "none"}}
