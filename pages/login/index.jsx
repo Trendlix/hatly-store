@@ -48,14 +48,16 @@ const Login = () => {
       const email = enteredEmail;
       const password = enteredPassword;
       // const req = await axios.post(`/api/login`, {
+        console.log(email, password)
       const req = await axios.post(`${API_URL}/users/login`, {
         Headers: {
-          "Accept": "*/*",
+          "Accept": "*/*" ,
           "Content-Type": "application/json",
         },
         email,
         password
       })
+      console.log(req)
       // const status = await signIn('credentials', {
       // redirect: false,
       // email,

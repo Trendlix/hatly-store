@@ -31,9 +31,9 @@ const SingleProduct = () => {
   const [selectedBradns, setSelectedBradns] = useState()
   // const recentlyViewed = useSelector((state) => state.recently);
   const recentlyViewed = {products: [{ price_list_rate: 20, id: 1, image: mobile, item_name: 'mobile', actual_qty: 100, item_group: 'mobiles', description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." }, { price_list_rate: 20, id: 1, image: mobile, item_name: 'mobile', actual_qty: 100, item_group: 'mobiles', description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." }, { price_list_rate: 20, id: 1, image: mobile, item_name: 'mobile', actual_qty: 100, item_group: 'mobiles', description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." }]}
-  const [img, setimgs] = useState(mobile);
+  const [img, setimgs] = useState(mobile.src);
   const [product, setProduct] = useState({ price_list_rate: 20, id: 1, image: mobile, item_name: 'mobile', actual_qty: 100, item_group: 'mobiles', description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." });
-  const [productImgs, setProductImgs] = useState(mobile);
+  const [productImgs, setProductImgs] = useState();
   const [productCategoey, setProductCategoey] = useState('mobiles');
   const [relatedProducts, setRelatedProducts] = useState([{ price_list_rate: 20, id: 1, image: mobile, item_name: 'mobile' }, { price_list_rate: 20, id: 1, image: mobile, item_name: 'mobile' }, { price_list_rate: 20, id: 1, image: mobile, item_name: 'mobile' }]);
   const [singleProductQuantity, setSingleProductQuantity] = useState(1);
@@ -201,10 +201,11 @@ const SingleProduct = () => {
                         smallImage: {
                           alt: "Wristwatch by Ted Baker London",
                           isFluidWidth: true,
-                          src: img ? img : notFound,
+                          src: img ? img : notFound.src,
+                        
                         },
                         largeImage: {
-                          src: img ? img : notFound,
+                          src: img ? img : notFound.src,
                           width: 800,
                           height: 800,
                         },
