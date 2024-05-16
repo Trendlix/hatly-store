@@ -5,13 +5,9 @@ import Product from "./Product";
 import { motion } from "framer-motion";
 import Loading from "../../Loading";
 import { useParams } from "react-router-dom";
-
-
-
 import sliderImage5 from "../../../img/slider4.jpg";
 import sliderImage6 from "../../../img/slider2.jpg";
 import PaymentSlider from "../../PaymentSlider";
-
 import phones from "../../../img/phones   inner banner 1.png";
 import charger from "../../../img/CHARGER banner 1.png";
 import smartWatches from "../../../img/smart watch inner banner 1.png2.png";
