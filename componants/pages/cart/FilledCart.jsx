@@ -7,7 +7,7 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import notFound from "../../../img/notFound.png";
 import Link from "next/link";
 import Image from "next/image";
-import { userState } from "../../../redux/features/user/userSlice";
+import { getUser, userState } from "../../../redux/features/user/userSlice";
 
 const pStyle = {
   WebkitBoxOrient: "vertical",
@@ -19,7 +19,7 @@ const pStyle = {
 };
 
 const FilledCart = (props) => {
-  const {user,isAuthenticated} = useSelector(userState); 
+  const {user, isAuthenticated} = useSelector(userState); 
   const dispatch = useDispatch();
   return (
     <div className="row mt-4">
@@ -101,10 +101,12 @@ const FilledCart = (props) => {
                             });
                             if (props.data.quantity > 0) {
                               dispatch(
-                                removeProduct({
+                                removeFromCart({
                                   id: data.id,
                                   price: data.price_list_rate * data.quantity,
-                                })
+                                },
+                                { getUser }
+                              )
                               );
                             }
                           }}

@@ -26,11 +26,11 @@ import watch from "@/../../public/watch.jpg"
 
 
 const banners = {
-  'Mobiles': phones,
-  'Chargers': charger,
-  'Smart Watches': smartWatches,
-  'Headphones': headPhones,
-  'Accessories': accessories,
+  'phones': phones,
+  'chargers': charger,
+  'smart Watches': smartWatches,
+  'headphones': headPhones,
+  'accessories': accessories,
 }
 
 
@@ -42,28 +42,28 @@ const scrollTop = () => {
   });
 };
 
-const dataArray = [
-  { price_list_rate: 20, id: 1, image: mobile, actual_qty: 100, item_group: 'mobiles', description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.", item_name: 'mobile' },
-  { price_list_rate: 30, id: 2, image: laptop, actual_qty: 100, item_group: 'mobiles', description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.", item_name: 'laptop' },
-  { price_list_rate: 15, id: 3, image: tablet, actual_qty: 100, item_group: 'mobiles', description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.", item_name: 'tablet' },
-  { price_list_rate: 25, id: 4, image: watch, actual_qty: 100, item_group: 'mobiles', description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.", item_name: 'smartwatch' },
-  { price_list_rate: 35, id: 5, image: headphones, actual_qty: 100, item_group: 'mobiles', description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.", item_name: 'headphones' }
-];
+// const dataArray = [
+//   { price_list_rate: 20, id: 1, image: mobile, actual_qty: 100, item_group: 'mobiles', description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.", item_name: 'mobile' },
+//   { price_list_rate: 30, id: 2, image: laptop, actual_qty: 100, item_group: 'mobiles', description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.", item_name: 'laptop' },
+//   { price_list_rate: 15, id: 3, image: tablet, actual_qty: 100, item_group: 'mobiles', description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.", item_name: 'tablet' },
+//   { price_list_rate: 25, id: 4, image: watch, actual_qty: 100, item_group: 'mobiles', description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.", item_name: 'smartwatch' },
+//   { price_list_rate: 35, id: 5, image: headphones, actual_qty: 100, item_group: 'mobiles', description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.", item_name: 'headphones' }
+// ];
 
 
 
 const Shop = ({ category }) => {
-  // const router = useRouter()
-  // const  {category}  = router?.query
-
-  // console.log(category)
+  console.log(category)
+  const router = useRouter()
+  // const {category}  = router?.query
+  
   // products hooks
-  const [products, setProducts] = useState(dataArray);
+  const [products, setProducts] = useState([]);
   // categories hooks
   const [categories, setCategories] = useState([]);
   const [selecterdCategory, setSelecterdCategory] = useState(category);
   // brand hooks
-  const [brands, setBrands] = useState([{brand: 'oppo'}, {brand: 'samsung'}]);
+  const [brands, setBrands] = useState([]);
   const [selectedBradns, setSelectedBradns] = useState("");
 
   // loading hooks
@@ -84,61 +84,57 @@ const Shop = ({ category }) => {
     pageNumber.push(i);
   }
 
-  // const getProducts = async (selecterdCategory) => {
-  //   setLoading(true);
-  //   try {
-  //     let res;
-  //     let resBrand;
+  const getProducts = async (selecterdCategory) => {
+    setLoading(true);
+    try {
+      let res;
+      let resBrand;
 
-  //     if (selecterdCategory == "all") {
-  //       if (selectedBradns !== "" && selectedBradns !== 'All') {
-  //         res = await fetchProduct.get(`/products/brand/${selectedBradns}`);
-  //         setProducts(res.data);
-  //         console.log('if category is all, brands is not all and there is a brand ',res.data);
-  //       } else {
-  //         res = await fetchProduct.get("/products");
-  //         resBrand = await fetchProduct.get("/brand");
-  //         console.log(resBrand)
-  //         console.log(1)
-  //         setProducts(res.data);
-  //         console.log('if category is all, brands is all and there is no brand selected',res.data);
-  //         setBrands(resBrand.data);
-  //         console.log('the all brands returned', resBrand.data)
-  //       }
-  //     } else {
-  //       if (selectedBradns != "") {
-  //         res = await fetchProduct.get(`/products/brand/${selectedBradns}`, {
-  //           params: {
-  //             category: selecterdCategory
-  //           }
-  //         });
-  //         setProducts(res.data);
-  //       } else {
-  //         res = await fetchProduct.get(`/category/${selecterdCategory}`);
-  //         resBrand = await fetchProduct.get(`/brand/${selecterdCategory}`);
-  //         setBrands(resBrand.data);
-  //         setProducts(res.data);
-  //       }
-  //     }
-  //     console.log(res)
-  //     setProducts(res.data);
-  //   } catch (er) {
-  //     console.log(er)
-  //   }
-  //   setLoading(false);
-  // };
+      if (selecterdCategory == "all") {
+        if (selectedBradns !== "" && selectedBradns !== 'all') {
+          res = await fetchProduct.get(`/products/brand/${selectedBradns}`);
+          setProducts(res.data);
+          console.log('if category is all, brands is not all and there is a brand ',res.data);
+        } else {
+          res = await fetchProduct.get("/products");
+          resBrand = await fetchProduct.get("/brand");
+          console.log(resBrand)
+          console.log(1)
+          setProducts(res.data);
+          console.log('if category is all, brands is all and there is no brand selected',res.data);
+          setBrands(resBrand.data);
+          console.log('the all brands returned', resBrand.data)
+        }
+      } else {
+        if (selectedBradns !== "" && selectedBradns !== 'all') {
+          res = await fetchProduct.get(`/products/brand/${selectedBradns}?category=${selecterdCategory}`);
+          setProducts(res.data);
+        } else {
+          res = await fetchProduct.get(`/category/${selecterdCategory}`);
+          resBrand = await fetchProduct.get(`/brand/${selecterdCategory}`);
+          setBrands(resBrand.data);
+          setProducts(res.data);
+        }
+      }
+      console.log(res)
+      setProducts(res.data);
+    } catch (er) {
+      console.log(er)
+    }
+    setLoading(false);
+  };
 
-  // const getCategories = async () => {
-  //   try {
-  //     const res = await fetchProduct.get("/category");
-  //     setCategories(res.data);
-  //   } catch (er) { }
-  // };
+  const getCategories = async () => {
+    try {
+      const res = await fetchProduct.get("/category");
+      setCategories(res.data);
+    } catch (er) { }
+  };
 
-  // useEffect(() => {
-  //   getProducts(selecterdCategory);
-  //   getCategories();
-  // }, [selectedBradns]);
+  useEffect(() => {
+    getProducts(selecterdCategory);
+    getCategories();
+  }, [selectedBradns]);
 
   return (
     <motion.div
@@ -157,7 +153,8 @@ const Shop = ({ category }) => {
           }
         </div>
       </div>
-      {/* <div className="" style={{ position: 'fixed', bottom: '0', zIndex: '999', width: '100vw' }}>
+
+      <div className="" style={{ position: 'fixed', bottom: '0', zIndex: '999', width: '100vw' }}>
         <div className="row justify-content-center d-md-none">
           <div
             className="col-12 ps-5 pe-5 pt-2 pb-2"
@@ -176,6 +173,25 @@ const Shop = ({ category }) => {
                 Brands
               </h4>
             </div>
+             <div className="form-check">
+              <input
+                className="form-check-input"
+                value='all'
+                type="radio"
+                name="brand"
+                id={`brand-all`}
+                onChange={(e) => {
+                  setCurrentPage(1);
+                  setSelectedBradns(e.target.value);
+                }}
+              />
+              <label
+                className="form-check-label"
+                htmlFor={`brand-all`}
+              >
+                All
+              </label>
+            </div>
             <div className="row">
               {brands.length > 0 && brands?.map((brand, i) => {
                 return (
@@ -183,7 +199,7 @@ const Shop = ({ category }) => {
                     <div className="form-check">
                       <input
                         className="form-check-input"
-                        value={brand.brand}
+                        value={brand}
                         type="radio"
                         name="brand"
                         id={`brand${i}`}
@@ -197,7 +213,7 @@ const Shop = ({ category }) => {
                         className="form-check-label"
                         htmlFor={`brand${i}`}
                       >
-                        {brand.brand}
+                        {brand}
                       </label>
                     </div>
 
@@ -208,7 +224,7 @@ const Shop = ({ category }) => {
 
           </div>
         </div>
-      </div> */}
+      </div>
       <div className="container pt-2 pb-3" style={{ position: 'relative' }}>
         <div className="row">
           <div
@@ -237,6 +253,25 @@ const Shop = ({ category }) => {
                 aria-hidden="true"
               ></i>
             </div>
+            <div className="form-check">
+              <input
+                className="form-check-input"
+                value='all'
+                type="radio"
+                name="brand"
+                id={`brand-all`}
+                onChange={(e) => {
+                  setCurrentPage(1);
+                  setSelectedBradns(e.target.value);
+                }}
+              />
+              <label
+                className="form-check-label"
+                htmlFor={`brand-all`}
+              >
+                All
+              </label>
+            </div>
             {brands.length > 0 && brands?.map((brand, i) => {
               return (
                 <div key={i}>
@@ -245,7 +280,7 @@ const Shop = ({ category }) => {
                       <div className="form-check">
                         <input
                           className="form-check-input"
-                          value={brand.brand}
+                          value={brand}
                           type="radio"
                           name="brand"
                           id={`brand${i}`}
@@ -258,7 +293,7 @@ const Shop = ({ category }) => {
                           className="form-check-label"
                           htmlFor={`brand${i}`}
                         >
-                          {brand.brand}
+                          {brand}
                         </label>
                       </div>
                     </div>
@@ -290,16 +325,16 @@ const Shop = ({ category }) => {
                     if (e.target.value == 2) {
                       setProducts([
                         ...products.sort((a, b) => {
-                          if (a.price_list_rate < b.price_list_rate) return 1;
-                          if (a.price_list_rate > b.price_list_rate) return -1;
+                          if (a.price < b.price) return 1;
+                          if (a.price > b.price) return -1;
                           return 0;
                         }),
                       ]);
                     } else if (e.target.value == 3) {
                       setProducts([
                         ...products.sort((a, b) => {
-                          if (a.price_list_rate < b.price_list_rate) return -1;
-                          if (a.price_list_rate > b.price_list_rate) return 1;
+                          if (a.price < b.price) return -1;
+                          if (a.price > b.price) return 1;
                           return 0;
                         }),
                       ]);
@@ -327,9 +362,9 @@ const Shop = ({ category }) => {
                   <option defaultValue disabled hidden>
                     Sort by
                   </option>
-                  <option value="All">All</option>
+                  <option value="all">All</option>
                   {brands.length > 0 && brands?.map((brand, i) => {
-                    return <option key={i} value={brand.brand}>{brand.brand}</option>
+                    return <option key={i} value={brand}>{brand}</option>
 
                     // <option value={i+2}>1</option>
                   })}

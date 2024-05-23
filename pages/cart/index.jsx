@@ -9,6 +9,7 @@ import Image from "next/image";
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
+  console.log(cart);
   return (
     <motion.div
       initial={{ opacity: 0 }}

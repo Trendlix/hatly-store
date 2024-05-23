@@ -16,7 +16,7 @@ const nextConfig = {
     return config;
   },
   images: {
-    domains: ['hatlystore.tswsp.net', 'accept.paymobsolutions.com'],
+    domains: ['hatlystore.tswsp.net', 'accept.paymobsolutions.com', 'encrypted-tbn0.gstatic.com', 'i01.appmifile.com'],
     unoptimized : false,
   },
   experimental: {

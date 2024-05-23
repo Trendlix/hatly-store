@@ -70,6 +70,7 @@ const Shop = () => {
           setLoading(true);
           res = await fetchProduct.get(`/products/brand/${selectedBradns}`);
           setProducts(res.data);
+          console.log(res.data);
           setLoading(false);
         } else {
           setLoading(true);

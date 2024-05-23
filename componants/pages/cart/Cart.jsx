@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
+  console.log(cart);
   return (
     <motion.div
       initial={{ opacity: 0 }}

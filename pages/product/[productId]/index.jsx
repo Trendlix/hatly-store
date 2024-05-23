@@ -8,7 +8,7 @@ import Link from 'next/link'
 
 import { fetchProduct } from "../../../API/product";
 import { useDispatch, useSelector } from "react-redux";
-import { addProduct } from "../../../redux/cartRedux";
+import { addProduct, addToCart } from "../../../redux/cartRedux";
 import { motion } from "framer-motion";
 import ReactImageMagnify from "react-image-magnify";
 import { storeData } from "../../../redux/recentlyRedux";
@@ -25,6 +25,7 @@ import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import CopyLink from "../../../componants/CopyLink/CopyLink";
 import mobile from "@/../../public/mobile.jpg"
 import headphones from "@/../../public/headphones.jpg"
+import { getUser } from "../../../redux/features/user/userSlice";
 
 
 const SingleProduct = () => {
@@ -47,14 +48,17 @@ const SingleProduct = () => {
   const { productId } = router.query
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
+  console.log(cart)
   const handleClick = (e) => {
     setAddCartDisable({ on: true, discrption: "PRODUCT ON THE CART" });
     dispatch(
-      addProduct({
-        product,
-        price: product.price_list_rate,
-        singleProductQuantity: singleProductQuantity,
-      })
+      addToCart({
+        productId,
+        // price: product.price_list_rate,
+        quantity: singleProductQuantity,
+      },
+      { getUser }
+    )
     );
   };
   const [book, setBook] = useState(false);
