@@ -4,7 +4,7 @@ import Product from "../shop/Product";
 import { useParams, Link } from "react-router-dom";
 import { fetchProduct } from "../../../API/product";
 import { useDispatch, useSelector } from "react-redux";
-import { addProduct } from "../../../redux/cartRedux";
+import { addProduct, addToCart } from "../../../redux/cartRedux";
 import { motion } from "framer-motion";
 import ReactImageMagnify from "react-image-magnify";
 import { storeData } from "../../../redux/recentlyRedux";
@@ -38,9 +38,9 @@ const SingleProduct = () => {
   const handleClick = (e) => {
     setAddCartDisable({ on: true, discrption: "PRODUCT ON THE CART" });
     dispatch(
-      addProduct({
+      addToCart({
         product,
-        price: product.price_list_rate,
+        // price: product.price,
         singleProductQuantity: singleProductQuantity,
       })
     );

@@ -54,19 +54,26 @@ const Checkout = () => {
       setValue('lastName', user?.lastName)
       setValue('email', user?.email)
       setValue('phone', user?.phone)
-      setValue('state', user?.state)
+      // setValue('state', user?.state)
+      // setValue('country', user?.country)
+      // setValue('street', user?.street)
+      // setValue('city', user?.city)
+      // setValue('building', user?.building)
+      // setValue('apartment', user?.apartment)
+      // setValue('floor', user?.floor)
     }
   }, [user]);
 
   const [items, setItems] = useState([]);
 
   const cart = useSelector((state) => state.cart);
+  console.log(cart, 'in checkout')
 
   useEffect(() => {
     const data = cart.products.map(product => {
       return {
-        name: product.item_name,
-        amount_cents: product.price_list_rate * 100,
+        name: product.name,
+        amount_cents: product.price,
         quantity: product.quantity,
       };
     });
@@ -84,7 +91,7 @@ const Checkout = () => {
   });
   const iframe = `https://accept.paymob.com/api/acceptance/iframes/${iframeID}?payment_token=`;
 
-  const getToken = () => {
+  const getToken = async() => {
     let headersList = {
       "Accept": "*/*",
       "Content-Type": "application/json"
@@ -125,7 +132,7 @@ const Checkout = () => {
       auth_token: token,
       delivery_needed: "false",
       // amount_cents: `${Number(cart.total) * 100}`,
-      amount_cents: `${100 * (cart.total + 50)}`,
+      amount_cents: `${(cart.total + 50)}`,
       currency: "EGP",
       items: items,
       shipping_data: {
@@ -150,19 +157,19 @@ const Checkout = () => {
     axios.post("https://accept.paymob.com/api/acceptance/payment_keys", {
       auth_token: token,
       // amount_cents: `${Number(cart.total) * 100}`,
-      amount_cents: `${100 * (cart.total + 50)}`,
+      amount_cents: `${(cart.total + 50)}`,
       expiration: 3600,
       order_id: orderId,
       billing_data: {
-        apartment: "temp",
+        apartment: data.apartment,
         email: data.email,
-        floor: "temp",
+        floor: data.floor,
         first_name: data.firstName,
-        street: "temp",
-        building: "temp",
+        street: data.street,
+        building: data.building,
         phone_number: data.phone,
         extra_description: data.extraDescription,
-        city: "temp",
+        city: data.city,
         country: "EG",
         last_name: data.lastName,
         state: data.state,
@@ -269,7 +276,7 @@ const Checkout = () => {
         progress: undefined,
         theme: "light",
         });
-        router.push(`/orders/${res.data.body.name}`);
+        router.push(`/orders/${res.data.order._id}`);
     }else{
       toast.error(res.data.message, {
         position: "top-right",
@@ -393,7 +400,7 @@ const Checkout = () => {
                       {errors.email?.message}
                     </p>
                   </div>
-                  <div className="mb-3">
+                  {/* <div className="mb-3">
                     <label className="form-label">Address</label>
                     <input
                       {...register("state")}
@@ -403,8 +410,8 @@ const Checkout = () => {
                     <p className="mb-0 pt-2 text-danger">
                       {errors.state?.message}
                     </p>
-                  </div>
-                  {/* <div className="mb-3">
+                  </div> */}
+                  <div className="mb-3">
                     <label className="form-label">City</label>
                     <input
                       {...register("city")}
@@ -458,7 +465,7 @@ const Checkout = () => {
                     <p className="mb-0 pt-2 text-danger">
                       {errors.apartment?.message}
                     </p>
-                  </div> */}
+                  </div>
 
 
                   <div className="mb-3">
@@ -497,15 +504,15 @@ const Checkout = () => {
                             width="100"
                             height="100"
                             src={
-                              product.image
-                                ? `${`https://hatlystore.tswsp.net${product.image}`}`
+                              product.images
+                                ? product.images[0]
                                 : notFound
                             }
                             alt="Product"
                           />
                         </div>
                         <div className="col-8">
-                          <p style={pStyle}>{product.item_name}</p>
+                          <p style={pStyle}>{product.name}</p>
                           <p
                             style={{
                               margin: "0",

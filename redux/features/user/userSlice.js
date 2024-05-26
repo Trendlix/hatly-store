@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-// import process.env.API_URL from "../API/ApiUrl";
+import API_URL from "../../../API/ApiUrl";
 
 axios.defaults.withCredentials = true;
 
@@ -52,7 +52,7 @@ export const getUser = () => {
   return async (dispatch) => {
     try {
       dispatch(userSlice.actions.loggingIn());
-      const req = await axios.get(`${process.env.API_URL}/users/me`);
+      const req = await axios.get(`${API_URL}/users/me`);
       dispatch(userSlice.actions.loginSuccess({ user: req.data.body }));
     } catch (e) {
       dispatch(userSlice.actions.loginFailed());
@@ -64,7 +64,7 @@ export const logout = () => {
   return async (dispatch) => {
     try {
       dispatch(userSlice.actions.loggingOut());
-      await axios.get(`${process.env.API_URL}/users/logout`);
+      await axios.get(`${API_URL}/users/logout`);
       dispatch(userSlice.actions.logout());
     } catch (e) {
       dispatch(userSlice.actions.logoutFailed());

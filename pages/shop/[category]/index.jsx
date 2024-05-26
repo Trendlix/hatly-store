@@ -28,7 +28,7 @@ import watch from "@/../../public/watch.jpg"
 const banners = {
   'phones': phones,
   'chargers': charger,
-  'smart Watches': smartWatches,
+  'smart watches': smartWatches,
   'headphones': headPhones,
   'accessories': accessories,
 }

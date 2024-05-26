@@ -21,30 +21,30 @@ import otherImage from "../img/accessories.png";
 
 const categoryArray = [
   {
-    name: "Phones",
+    name: "Mobiles",
     img: phonesImage,
-    url: 'Mobiles'
+    url: 'phones'
   },
   {
     name: "Chargers",
     img: chargerImage,
-    url: 'Chargers'
+    url: 'charges'
   },
   {
     name: "Smart Watches",
     img: wahtchImage,
-    url: 'Smart Watches'
+    url: 'smartWatches'
 
   },
   {
     name: "Headphones",
     img: headphonesImage,
-    url: 'Headphones'
+    url: 'headphones'
   },
   {
-    name: "Others",
+    name: "Accessories",
     img: otherImage,
-    url: 'Mobiles'
+    url: 'accessories'
   }
 ];
 

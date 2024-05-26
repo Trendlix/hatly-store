@@ -1,11 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import Product from "../../../componants/pages/shop/Product";
-
 import Link from 'next/link'
-
-// import { useParams, Link } from "react-router-dom";
-
 import { fetchProduct } from "../../../API/product";
 import { useDispatch, useSelector } from "react-redux";
 import { addProduct, addToCart } from "../../../redux/cartRedux";
@@ -13,7 +9,6 @@ import { motion } from "framer-motion";
 import ReactImageMagnify from "react-image-magnify";
 import { storeData } from "../../../redux/recentlyRedux";
 import notFound from "../../../img/notFound.png";
-import video from "../../../img/video.mp4";
 import LoadingSingle from "../../../componants/LoadingSingle";
 import sliderImage3 from "../../../img/slider2.jpg";
 import sliderImage5 from "../../../img/slider6.jpg";
@@ -23,32 +18,35 @@ import { useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import CopyLink from "../../../componants/CopyLink/CopyLink";
-import mobile from "@/../../public/mobile.jpg"
-import headphones from "@/../../public/headphones.jpg"
 import { getUser } from "../../../redux/features/user/userSlice";
 
 
 const SingleProduct = () => {
+  const router = useRouter()
+  const { productId } = router.query
+  console.log(productId)
+  const dispatch = useDispatch();
+  const recentlyViewed = useSelector((state) => state.recently);
+  const cart = useSelector((state) => state.cart);
+  console.log(cart)
+  const productIndex = cart.products.length > 0 ? cart.products.findIndex(product => product._id == productId) : -1
+  const productQuantity = productIndex > -1 ? cart.products[productIndex].quantity : 1
   const [selectedBradns, setSelectedBradns] = useState()
-  // const recentlyViewed = useSelector((state) => state.recently);
-  const recentlyViewed = {products: [{ price_list_rate: 20, id: 1, image: mobile, item_name: 'mobile', actual_qty: 100, item_group: 'mobiles', description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." }, { price_list_rate: 20, id: 1, image: mobile, item_name: 'mobile', actual_qty: 100, item_group: 'mobiles', description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." }, { price_list_rate: 20, id: 1, image: mobile, item_name: 'mobile', actual_qty: 100, item_group: 'mobiles', description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." }]}
-  const [img, setimgs] = useState(mobile.src);
-  const [product, setProduct] = useState({ price_list_rate: 20, id: 1, image: mobile, item_name: 'mobile', actual_qty: 100, item_group: 'mobiles', description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." });
+  // const recentlyViewed = {products: [{ price_list_rate: 20, id: 1, image: mobile, item_name: 'mobile', actual_qty: 100, item_group: 'mobiles', description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." }, { price_list_rate: 20, id: 1, image: mobile, item_name: 'mobile', actual_qty: 100, item_group: 'mobiles', description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." }, { price_list_rate: 20, id: 1, image: mobile, item_name: 'mobile', actual_qty: 100, item_group: 'mobiles', description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." }]}
+  const [img, setimgs] = useState();
+  const [product, setProduct] = useState({});
   const [productImgs, setProductImgs] = useState();
-  const [productCategoey, setProductCategoey] = useState('mobiles');
-  const [relatedProducts, setRelatedProducts] = useState([{ price_list_rate: 20, id: 1, image: mobile, item_name: 'mobile' }, { price_list_rate: 20, id: 1, image: mobile, item_name: 'mobile' }, { price_list_rate: 20, id: 1, image: mobile, item_name: 'mobile' }]);
-  const [singleProductQuantity, setSingleProductQuantity] = useState(1);
+  const [productCategoey, setProductCategoey] = useState();
+  const [relatedProducts, setRelatedProducts] = useState([]);
+  const [singleProductQuantity, setSingleProductQuantity] = useState(productQuantity);
   const [loading, setLoading] = useState(false);
-  const [gallary, setGallary] = useState([mobile, headphones, mobile, headphones]);
+  const [gallary, setGallary] = useState([]);
   const [addCartDisable, setAddCartDisable] = useState({
     on: false,
     discrption: "ADD TO CART",
   });
-  const router = useRouter()
-  const { productId } = router.query
-  const dispatch = useDispatch();
-  const cart = useSelector((state) => state.cart);
-  console.log(cart)
+ 
+  
   const handleClick = (e) => {
     setAddCartDisable({ on: true, discrption: "PRODUCT ON THE CART" });
     dispatch(
@@ -67,85 +65,86 @@ const SingleProduct = () => {
     setBook(prev => true);
   }
 
-  // const getProduct = async () => {
-  //   try {
-  //     const res = await fetchProduct.get(`products/${productId}`)
-  //     const res2 = await fetchProduct.get(`attactments`, {
-  //       params: {
-  //         code: res.data[0].item_code
-  //       }
-  //     })
-  //     setGallary([res.data[0].image, ...res2.data.map((el) => {
-  //       return el.file_url
-  //     })])
+  const getProduct = async () => {
+    try {
+      const res = await fetchProduct.get(`products/${productId}`)
+      console.log(res)
+      // const res2 = await fetchProduct.get(`attactments`, {
+      //   params: {
+      //     code: res.data[0].item_code
+      //   }
+      // })
+      setGallary(res.data.images.map((el) => {
+        return el
+      }))
 
-  //     setLoading(false);
-  //     setProduct(res.data[0]);
-  //     setimgs(res.data[0].image ? `https://hatlystore.tswsp.net${res.data[0].image}` : notFound);
-  //     setProductImgs([
-  //       res.data[0].image ? `https://hatlystore.tswsp.net${res.data[0].image}` : notFound,
-  //     ]);
-  //     setProductCategoey(res.data[0].item_group);
-  //     setSelectedBradns(res.data[0].brand)
-  //     cart.products.map((item, i) => {
-  //       if (item.id == res.data[0].id) {
-  //         setAddCartDisable({ on: true, discrption: "PRODUCT ON THE CART" });
-  //       }
-  //     });
-  //     var recentlyData;
-  //     if (localStorage.getItem("product") == null) {
-  //       localStorage.setItem("product", JSON.stringify([res.data[0]]));
-  //     } else {
-  //       recentlyData = JSON.parse(localStorage.getItem("product"));
-  //       if (recentlyData.id) {
-  //         recentlyData = [res.data[0], ...recentlyData];
-  //       } else {
-  //         recentlyData.map((el, i) => {
-  //           if (el.id == res.data[0].id) {
-  //             return recentlyData.splice(i, 1);
-  //           }
-  //         });
-  //         recentlyData = [res.data[0], ...recentlyData];
-  //       }
-  //       localStorage.setItem("product", JSON.stringify(recentlyData));
-  //     }
-  //     dispatch(
-  //       storeData({
-  //         recentlyData,
-  //       })
-  //     );
-  //   } catch (er) { }
-  // };
+      setLoading(false);
+      setProduct(res.data);
+      setimgs(res.data.images ? res.data.images[0] : notFound);
+      setProductImgs([
+        res.data.images ? res.data.images[0] : notFound,
+      ]);
+      setProductCategoey(res.data.group);
+      setSelectedBradns(res.data.brand)
+      cart.products.map((item, i) => {
+        if (item._id == res.data._id) {
+          setAddCartDisable({ on: true, discrption: "PRODUCT ON THE CART" });
+        }
+      });
+      var recentlyData;
+      if (localStorage.getItem("product") == null) {
+        localStorage.setItem("product", JSON.stringify([res.data]));
+      } else {
+        recentlyData = JSON.parse(localStorage.getItem("product"));
+        if (recentlyData._id) {
+          recentlyData = [res.data, ...recentlyData];
+        } else {
+          recentlyData.map((el, i) => {
+            if (el._id == res.data._id) {
+              return recentlyData.splice(i, 1);
+            }
+          });
+          recentlyData = [res.data, ...recentlyData];
+        }
+        localStorage.setItem("product", JSON.stringify(recentlyData));
+      }
+      dispatch(
+        storeData({
+          recentlyData,
+        })
+      );
+    } catch (er) { }
+  };
 
-  // const getRelatedProducts = async (selectedBradns) => {
-  //   try {
-  //     var res;
-  //     res = await fetchProduct.get(`/products/brand/${selectedBradns}`, {
-  //       params: {
-  //         category: productCategoey
-  //       }
-  //     });
-  //     setRelatedProducts(res.data);
-  //   } catch (er) { }
-  // };
+  const getRelatedProducts = async (selectedBradns) => {
+    try {
+      var res;
+      res = await fetchProduct.get(`/products/brand/${selectedBradns}`, {
+        params: {
+          category: productCategoey
+        }
+      });
+      setRelatedProducts(res.data);
+    } catch (er) { }
+  };
 
-  // const getRelatedGallary = async (productCategoey) => {
-  //   try {
-  //     var res;
-  //     res = await fetchProduct.get(`/category/${productCategoey}`);
-  //     setRelatedProducts(res.data);
-  //   } catch (er) { }
-  // };
+  const getRelatedGallary = async (productCategoey) => {
+    try {
+      var res;
+      res = await fetchProduct.get(`/category/${productCategoey}`);
+      setRelatedProducts(res.data);
+    } catch (er) { }
+  };
 
-  // useEffect(() => {
-  //   getProduct()
-  // }, [productId]);
+  useEffect(() => {
+    getProduct()
+  }, [productId]);
 
-  // useEffect(() => {
-  //   if (productCategoey !== undefined) {
-  //     getRelatedProducts(selectedBradns);
-  //   }
-  // }, [productCategoey]);
+  useEffect(() => {
+    if (productCategoey !== undefined) {
+      getRelatedProducts(selectedBradns);
+    }
+  }, [productCategoey]);
 
   return (
     <>
@@ -177,7 +176,8 @@ const SingleProduct = () => {
               >
                 <div className="row justify-content-center">
                   <div className="col-2">
-                    {gallary.map((image, i) => {
+                    {gallary?.map((image, i) => {
+                      console.log(image)
                       return (
                         <div key={i} className="col-12 mt-2 col-md-12">
                           <Image
@@ -271,7 +271,7 @@ const SingleProduct = () => {
                           fontWeight: "400",
                         }}
                       >
-                        {product.item_name}
+                        {product.name}
                       </h4>
 
                       <p>
@@ -283,16 +283,16 @@ const SingleProduct = () => {
                             behavior: "smooth",
                           });
                         }}
-                          href={`/shop/${product.item_group}`}
+                          href={`/shop/${product.group}`}
                           style={{ color: "#264996", textDecoration: "none" }}
                         >
-                          {product.item_group}
+                          {product.group}
                         </Link>
                       </p>
                     </div>
 
                     {/* {product.actual_qty > 0 && product.actual_qty < 10 ? ( */}
-                    {product.actual_qty > 0 ? (
+                    {product.inStockQuantity > 0 ? (
                       <div className="row mt-2">
                         <div className="col-12">
                           <button disabled className="text-white btn btn-success">In Stock</button>
@@ -303,7 +303,7 @@ const SingleProduct = () => {
                                 disabled
                               >
                                 {" "}
-                                {parseInt(product.actual_qty)}{" "}
+                                {parseInt(product.inStockQuantity - singleProductQuantity)}{" "}
                               </button>
                             }{" "}
                             Items remaining
@@ -333,7 +333,7 @@ const SingleProduct = () => {
                             onClick={() => {
                               if (
                                 singleProductQuantity > 0 &&
-                                singleProductQuantity < product.actual_qty
+                                singleProductQuantity < product.inStockQuantity
                               ) {
                                 setSingleProductQuantity(
                                   singleProductQuantity + 1
@@ -349,7 +349,7 @@ const SingleProduct = () => {
                           </button>
                         </div>
                       </div>
-                    ) : (product.actual_qty >= 10 ? (
+                    ) : (product.inStockQuantity >= 1 ? (
                       <div className="row mt-2">
                         <div className="col-12">
                           <button disabled className="text-white btn btn-success mb-3">In Stock</button>
@@ -378,7 +378,7 @@ const SingleProduct = () => {
                             onClick={() => {
                               if (
                                 singleProductQuantity > 0 &&
-                                singleProductQuantity < product.actual_qty
+                                singleProductQuantity < product.inStockQuantity
                               ) {
                                 setSingleProductQuantity(
                                   singleProductQuantity + 1
@@ -395,7 +395,7 @@ const SingleProduct = () => {
                         </div>
                       </div>
                     ) : (<button className="btn btn-danger fw-bold" disabled>
-                      Sold out
+                      Sold Out
                     </button>)
                     )}
 
@@ -404,10 +404,10 @@ const SingleProduct = () => {
                         <h4>
                           EGP{" "}
                           <span className="text-success" style={{ fontWeight: "bold" }}>
-                            {parseInt(product?.price_list_rate)}
+                            {parseInt(product?.price)}
                           </span>
                         </h4>
-                        {product.actual_qty > 0 ? (
+                        {product.inStockQuantity > 0 ? (
                           <>
                             <button
                               disabled={addCartDisable.on}

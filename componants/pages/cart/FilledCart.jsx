@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { removeProduct } from "../../../redux/cartRedux";
+import { removeFromCart } from "../../../redux/cartRedux";
 import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
@@ -20,6 +20,7 @@ const pStyle = {
 
 const FilledCart = (props) => {
   const {user, isAuthenticated} = useSelector(userState); 
+  console.log('passed cart', props.data)
   const dispatch = useDispatch();
   return (
     <div className="row mt-4">
@@ -56,10 +57,10 @@ const FilledCart = (props) => {
                         behavior: "smooth",
                       });
                     }}
-                      href={`/product/${data.id}`}
+                      href={`/product/${data._id}`}
                       className="col-12 col-md-12"
                     >
-                      <Image width="100" height="100" style={{ filter: 'drop-shadow(white 0px 0px 70px)' }} src={data.image ? data.image : notFound} alt="cart"></Image>
+                      <Image width="100" height="100" style={{ filter: 'drop-shadow(white 0px 0px 70px)' }} src={data.images ? data.images[0] : notFound} alt="cart"></Image>
                     </Link>
                     <div className="col-12 col-md-12 mb-0">
                       <p style={pStyle}>
@@ -75,7 +76,7 @@ const FilledCart = (props) => {
                         >
                           [{data.quantity}]{" "}
                         </span>
-                        {data.item_name}
+                        {data.name}
                       </p>
                       <div className="row justify-content-between">
                         <p
@@ -87,7 +88,7 @@ const FilledCart = (props) => {
                             margin: "0",
                           }}
                         >
-                          {`EGP ${data.price_list_rate * data.quantity}`}
+                          {`EGP ${data.price * data.quantity}`}
                         </p>
                         <Link
                           className="text-danger col-auto"
@@ -99,15 +100,15 @@ const FilledCart = (props) => {
                               left: 0,
                               behavior: "smooth",
                             });
-                            if (props.data.quantity > 0) {
+                            if (data.quantity > 0) {
                               dispatch(
                                 removeFromCart({
-                                  id: data.id,
-                                  price: data.price_list_rate * data.quantity,
+                                  itemId: data._id,
                                 },
                                 { getUser }
                               )
                               );
+                              
                             }
                           }}
                         >

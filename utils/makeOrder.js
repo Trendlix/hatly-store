@@ -5,16 +5,11 @@ axios.defaults.withCredentials = true;
 
 const makeOrder = async (data, cart, paymentMethod, TransactionId) => {
   try {
-    const res = await axios.post(`${API_URL}/orders`, {
+    const res = await axios.post(`${API_URL}/orders/checkout`, {
       headers: {
         "Accept": "*/*",
       },
-      userData: {
-        firstName: data.firstName,
-        lastName: data.lastName,
-        email: data.email,
-        phone: data.phone,
-        state: data.state,
+      address: {
         city: data.city,
         street: data.street,
         building: data.building,
@@ -22,10 +17,9 @@ const makeOrder = async (data, cart, paymentMethod, TransactionId) => {
         apartment: data.apartment,
         extraDescription: data.extraDescription,
       },
-      orderedItems: cart.products,
-      totalPrice: cart.total,
-      delivery: 50,
-      subTotal: cart.total + 50,
+      // orderedItems: cart.products,
+      // totalPrice: cart.total,
+      deliveryFees: 50,
       paymentMethod,
       TransactionId
     })
