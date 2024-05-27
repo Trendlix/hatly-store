@@ -55,6 +55,7 @@ const NavBar = props => {
   const user = useSelector(userState);
   const dispatch = useDispatch()
   useEffect(() => {
+    console.log(user)
     if(!user.user)
     dispatch(getUser())
   }, [dispatch]);

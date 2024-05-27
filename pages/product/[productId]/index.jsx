@@ -18,10 +18,11 @@ import { useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import CopyLink from "../../../componants/CopyLink/CopyLink";
-import { getUser } from "../../../redux/features/user/userSlice";
+import { getUser, userState } from "../../../redux/features/user/userSlice";
 
 
 const SingleProduct = () => {
+  const user = useSelector(userState)
   const router = useRouter()
   const { productId } = router.query
   console.log(productId)
@@ -54,9 +55,7 @@ const SingleProduct = () => {
         productId,
         // price: product.price_list_rate,
         quantity: singleProductQuantity,
-      },
-      { getUser }
-    )
+      })
     );
   };
   const [book, setBook] = useState(false);

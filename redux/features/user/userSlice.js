@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import API_URL from "../../../API/ApiUrl";
+import { syncCart } from '../../../redux/cartRedux';
 
 axios.defaults.withCredentials = true;
 
@@ -54,6 +55,7 @@ export const getUser = () => {
       dispatch(userSlice.actions.loggingIn());
       const req = await axios.get(`${API_URL}/users/me`);
       dispatch(userSlice.actions.loginSuccess({ user: req.data.body }));
+      await dispatch(syncCart());
     } catch (e) {
       dispatch(userSlice.actions.loginFailed());
     }

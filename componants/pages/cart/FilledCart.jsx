@@ -104,9 +104,7 @@ const FilledCart = (props) => {
                               dispatch(
                                 removeFromCart({
                                   itemId: data._id,
-                                },
-                                { getUser }
-                              )
+                                })
                               );
                               
                             }

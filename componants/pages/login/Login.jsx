@@ -6,9 +6,8 @@ import { useDispatch ,useSelector} from 'react-redux'
 
 import useInput from '../../../hooks/use-input'
 import LoginLayout from '../../loginLayout/LoginLayout'
-import { userActions, userState } from '../../../redux/features/user/userSlice'
+import { getUser, userActions, userState } from '../../../redux/features/user/userSlice'
 import API_URL from '../../../API/ApiUrl'
-import { syncCart } from '../../../redux/cartRedux';
 
 axios.defaults.withCredentials = true
 const Login = () => {
@@ -67,7 +66,7 @@ const Login = () => {
         theme: "light",
         });
         dispatch(userActions.loginSuccess({user : req.data.body}))
-        dispatch(syncCart());
+        await dispatch(syncCart());
         navigate('/' , {replace : true})
         // navigate('/',{replace : true})
       // console.log(req.data)

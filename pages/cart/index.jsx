@@ -1,15 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import EmptyCart from "./EmptyCart";
 import FilledCart from "../../componants/pages/cart/FilledCart";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import sliderImage5 from "../../img/slider2.jpg";
 import { motion } from "framer-motion";
 import Image from "next/image";
-
+import { fetchCart, setCart } from "../../redux/cartRedux";
+import axios from "axios";
+import API_URL from "../../API/ApiUrl";
+import { userState } from "../../redux/features/user/userSlice";
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
-  console.log(cart);
+  const dispatch = useDispatch();
+  const user = useSelector(userState);
+  console.log(user, 'from cart comp')
+  console.log('from cart comppp')
+
+  useEffect(() => {
+    dispatch(fetchCart())
+  }, [dispatch, user.isAuthenticated]);
+
   return (
     <motion.div
       initial={{ opacity: 0 }}

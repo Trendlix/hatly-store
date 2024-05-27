@@ -14,9 +14,11 @@ import LoadingSingle from "../../LoadingSingle";
 import sliderImage3 from "../../../img/slider2.jpg";
 import sliderImage5 from "../../../img/slider6.jpg";
 import BookItem from "../../BookItem/BookItem";
+import { userState } from "../../../redux/features/user/userSlice";
 
 
 const SingleProduct = () => {
+  const user = useSelector(userState)
   const [selectedBradns, setSelectedBradns] = useState()
   const recentlyViewed = useSelector((state) => state.recently);
   const [img, setimgs] = useState();

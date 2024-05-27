@@ -6,10 +6,10 @@ import API_URL from "../API/ApiUrl";
 
 axios.defaults.withCredentials = true;
 
-const saveToCookies = cartState => {
-  const strState = JSON.stringify(cartState);
-  Cookies.set('cart', strState);
-};
+// const saveToCookies = cartState => {
+//   const strState = JSON.stringify(cartState);
+//   Cookies.set('cart', strState);
+// };
 
 let products = [];
 let totalQuantity = 0;
@@ -24,16 +24,19 @@ if (typeof window !== "undefined") {
   }
 }
 
-export const syncCart = createAsyncThunk('cart/syncCart', async (_, { getState }) => {
+export const syncCart = createAsyncThunk('cart/syncCart', async (_, { getState, dispatch }) => {
   const { isAuthenticated } = userState(getState());
   if (isAuthenticated) {
     const localCart = JSON.parse(localStorage.getItem('cart'));
     if (localCart && localCart.products.length > 0) {
       const response = await axios.post(`${API_URL}/cart/sync`, localCart);
       localStorage.removeItem('cart');
-      cart.products = response.data.products.map(product =>{return {...product.productId, quantity: product.quantity }})
-      cart.totalQuantity = response.data.totalQuantity
-      cart.total = response.data.total;
+      const cart = {
+        products: response.data.products.map(product => ({ ...product.productId, quantity: product.quantity })),
+        totalQuantity: response.data.totalQuantity,
+        total: response.data.total,
+      }
+      await dispatch(fetchCart());
       return cart;
     }
   }
@@ -41,28 +44,42 @@ export const syncCart = createAsyncThunk('cart/syncCart', async (_, { getState }
 });
 
 export const fetchCart = createAsyncThunk('cart/fetchCart', async (_, { getState }) => {
-  const { isAuthenticated } = userState(getState());
+  const state = getState();
+  const { isAuthenticated } = state.user;  // Accessing authentication state directly from the Redux state
+  console.log('is authenticated on fetch cart', isAuthenticated);
+
   if (isAuthenticated) {
-    const response = await axios.get(`${API_URL}/cart`);
-    cart.products = response.data.products.map(product =>{return {...product.productId, quantity: product.quantity }})
-    cart.totalQuantity = response.data.totalQuantity
-    cart.total = response.data.total;
-    return cart;
+    try {
+      const response = await axios.get(`${API_URL}/cart`);
+      const cart = {
+        products: response.data.products.map(product => ({
+          ...product.productId,
+          quantity: product.quantity,
+        })),
+        totalQuantity: response.data.totalQuantity,
+        total: response.data.total,
+      };
+      return cart;
+    } catch (error) {
+      console.error('Failed to fetch cart for authenticated user', error);
+      throw error;
+    }
   } else {
     const cart = JSON.parse(localStorage.getItem('cart'));
     return cart ? cart : { products: [], totalQuantity: 0, total: 0 };
   }
 });
 
-export const addToCart = createAsyncThunk('cart/addToCart', async ({ productId, quantity }, { getState }) => {
+export const addToCart = createAsyncThunk('cart/addToCart', async ({ productId, quantity }, { getState, dispatch }) => {
+  console.log('start add to cart');
   const { isAuthenticated } = userState(getState());
+  console.log('is authenticated on add to cart', isAuthenticated);
+  
   if (isAuthenticated) {
     const response = await axios.post(`${API_URL}/cart/add`, { productId, quantity });
     console.log(response.data);
-    cart.products = response.data.products.map(product =>{return {...product.productId, quantity: product.quantity }})
-    cart.totalQuantity = response.data.totalQuantity
-    cart.total = response.data.total;
-    return cart;
+    await dispatch(fetchCart());
+    return response.data;
   } else {
     const cart = JSON.parse(localStorage.getItem('cart')) || { products: [], totalQuantity: 0, total: 0 };
     const itemIndex = cart.products.findIndex(product => product.productId === productId);
@@ -81,22 +98,21 @@ export const addToCart = createAsyncThunk('cart/addToCart', async ({ productId, 
     cart.total += productData.price * quantity;
 
     localStorage.setItem('cart', JSON.stringify(cart));
-    console.log(cart)
+    console.log(cart);
+    await dispatch(fetchCart());
     return cart;
   }
 });
 
 
-export const removeFromCart = createAsyncThunk('cart/removeFromCart', async ({ itemId }, { getState }) => {
+export const removeFromCart = createAsyncThunk('cart/removeFromCart', async ({ itemId }, { getState, dispatch }) => {
   const { isAuthenticated } = userState(getState());
+  
   if (isAuthenticated) {
     const response = await axios.delete(`${API_URL}/cart/${itemId}`);
-    console.log(response)
-    cart.products = response.data.products.map(product =>{return {...product.productId, quantity: product.quantity }})
-    cart.totalQuantity = response.data.totalQuantity
-    cart.total = response.data.total;
-    console.log(cart)
-    return cart;
+    console.log(response.data);
+    await dispatch(fetchCart());
+    return response.data;
   } else {
     const cart = JSON.parse(localStorage.getItem('cart'));
     const itemIndex = cart.products.findIndex(product => product._id === itemId);
@@ -106,7 +122,8 @@ export const removeFromCart = createAsyncThunk('cart/removeFromCart', async ({ i
       cart.totalQuantity -= cart.products[itemIndex].quantity;
       cart.products.splice(itemIndex, 1);
       localStorage.setItem('cart', JSON.stringify(cart));
-      console.log(cart, 'after remove')
+      console.log(cart, 'after remove');
+      await dispatch(fetchCart());
       return cart;
     }
   }
@@ -132,6 +149,11 @@ const cartSlice = createSlice({
     error: null
   },
   reducers: {
+    setCart: (state, action) => {
+      state.products = action.payload.products;
+      state.totalQuantity = action.payload.totalQuantity;
+      state.total = action.payload.total;
+    },
     resetCart: (state) => {
       state.products = [];
       state.totalQuantity = 0;
@@ -156,25 +178,11 @@ const cartSlice = createSlice({
       })
       // Add to cart
       .addCase(addToCart.fulfilled, (state, action) => {
-        state.products = action.payload.products;
-        state.totalQuantity = action.payload.totalQuantity;
-        state.total = action.payload.total;
-        saveToCookies({
-          products: state.products,
-          totalQuantity: state.totalQuantity,
-          total: state.total,
-        });
+        // Handled by fetchCart
       })
       // Remove from cart
       .addCase(removeFromCart.fulfilled, (state, action) => {
-        state.products = action.payload.products;
-        state.totalQuantity = action.payload.totalQuantity;
-        state.total = action.payload.total;
-        saveToCookies({
-          products: state.products,
-          totalQuantity: state.totalQuantity,
-          total: state.total,
-        });
+        // Handled by fetchCart
       })
       // Checkout cart
       .addCase(checkoutCart.fulfilled, (state) => {
@@ -193,5 +201,5 @@ const cartSlice = createSlice({
   },
 });
 
-export const { resetCart } = cartSlice.actions;
+export const { resetCart, setCart } = cartSlice.actions;
 export default cartSlice.reducer;
