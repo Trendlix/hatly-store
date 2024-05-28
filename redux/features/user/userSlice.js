@@ -69,6 +69,7 @@ export const logout = () => {
       await axios.get(`${API_URL}/users/logout`);
       dispatch(userSlice.actions.logout());
     } catch (e) {
+      console.error('Logout failed:', e);
       dispatch(userSlice.actions.logoutFailed());
     }
   }

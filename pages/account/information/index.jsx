@@ -152,7 +152,7 @@ const AccountInformation = () => {
     const lastName = enteredLastName;
     const email = enteredEmail;
     const phone = enteredPhone
-    const state = enteredState
+    const country = enteredState
     const city = enteredCity
     const street = enteredStreet
     const building = enteredBuilding
@@ -165,7 +165,7 @@ const AccountInformation = () => {
         lastName,
         email,
         phone,
-        state,
+        country,
         city,
         street,
         building,
@@ -300,7 +300,7 @@ const AccountInformation = () => {
           helperText={stateHasError ? "This field is required" : ""}
           onChange={onChangeStateHandler}
           onBlur={onBlurStateHandler}
-          label="State"
+          label="Country"
           variant="outlined"
         />
         <TextField

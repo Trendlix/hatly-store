@@ -394,7 +394,7 @@ const Home = () => {
                 left: 0,
                 behavior: "smooth",
               });
-            }} to="/shop/Mobiles"><h6 style={{ textAlign: 'end', margin: '0', color: 'white' }}>SEE ALL {'>'}</h6></Link></div>
+            }} to="/shop/phones"><h6 style={{ textAlign: 'end', margin: '0', color: 'white' }}>SEE ALL {'>'}</h6></Link></div>
           </div>
           <div
             className="row justify-content-center"
@@ -467,7 +467,7 @@ const Home = () => {
                 left: 0,
                 behavior: "smooth",
               });
-            }} to="/shop/Mobiles"><h6 style={{ textAlign: 'end', margin: '0', color: 'white' }}>SEE ALL {'>'}</h6></Link></div>
+            }} to="/shop/phones"><h6 style={{ textAlign: 'end', margin: '0', color: 'white' }}>SEE ALL {'>'}</h6></Link></div>
           </div>
           <div
             className="row justify-content-center"
@@ -543,7 +543,7 @@ const Home = () => {
                 left: 0,
                 behavior: "smooth",
               });
-            }} to="/shop/Headphones"><h6 style={{ textAlign: 'end', margin: '0', color: 'white' }}>SEE ALL {'>'}</h6></Link></div>
+            }} to="/shop/headphones"><h6 style={{ textAlign: 'end', margin: '0', color: 'white' }}>SEE ALL {'>'}</h6></Link></div>
           </div>
           <div
             className="row justify-content-center"
@@ -620,7 +620,7 @@ const Home = () => {
                 left: 0,
                 behavior: "smooth",
               });
-            }} to="/shop/Mobiles"><h6 style={{ textAlign: 'end', margin: '0', color: 'white' }}>SEE ALL {'>'}</h6></Link></div>
+            }} to="/shop/phones"><h6 style={{ textAlign: 'end', margin: '0', color: 'white' }}>SEE ALL {'>'}</h6></Link></div>
           </div>
           <div
             className="row justify-content-center"

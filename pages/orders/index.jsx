@@ -32,7 +32,7 @@ const index = () => {
   const [loading, setLoading] = useState(false)
   const getOrdersHandler = async () => {
     setLoading(true)
-    const res = await axios.get(`${API_URL}/orders?page=${currentPage}`)
+    const res = await axios.get(`${API_URL}/orders`)
     const { totalLength, data } = res.data
     setProducts(data)
     console.log(data)
@@ -77,22 +77,30 @@ const index = () => {
         <Link className={`${style.link} ${style.help}`} href="/contact">Need Help</Link>
       </div>
       {
-        products.length === 0 && loading === false ?
-        <p>Waiting for your orders...</p>
-        :
-        <div className={style.orders}>
-          {products.map(el =>
-            <OrderOverview
-              key={el.name}
-              img={`https://hatlystore.tswsp.net${el.ordersItems[0].image}`}
-              productName={el.ordersItems[0].item_name}
-              productCategory={el.ordersItems[0].item_group}
-              totalPrice={el.grand_total}
-              orderId={el.name}
-            />
-          )}
-        </div>
-      }
+          products.length === 0 && loading === false ?
+          <p>You haven\'t placed any orders yet!</p>
+          :
+          <div className={style.orders}>
+            
+            {products?.map(el =>
+            { console.log(el, 'element in loop of products')
+             return ( el.products.map((productItem)=>{
+                console.log(productItem)
+                return (
+                <OrderOverview
+                  key={productItem.productId._id}
+                  img={productItem.productId.images[0]}
+                  productName={productItem.productId.name}
+                  productCategory={productItem.productId.group}
+                  totalPrice={productItem.productId.price * productItem.quantity}
+                  orderId={el._id}
+                />
+                )
+              }))
+            
+            })}
+          </div>
+        }
       <div aria-label="Page navigation example m-2 ">
         <ul className="pagination float-end">
           {pages.map((number) => {
