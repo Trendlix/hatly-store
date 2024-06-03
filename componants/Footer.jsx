@@ -28,7 +28,7 @@ const Footer = () => {
                       behavior: "smooth",
                     });
                   }}
-                  href="/shop/phones"
+                  href="/shop/Mobiles"
                   style={{
                     textDecoration: "none",
                     color: "#fff",
@@ -47,7 +47,7 @@ const Footer = () => {
                       behavior: "smooth",
                     });
                   }}
-                  href="/shop/phones"
+                  href="/shop/Mobiles"
                   style={{
                     textDecoration: "none",
                     color: "#fff",
@@ -66,7 +66,7 @@ const Footer = () => {
                       behavior: "smooth",
                     });
                   }}
-                  href="/shop/phones"
+                  href="/shop/Mobiles"
                   style={{
                     textDecoration: "none",
                     color: "#fff",
@@ -85,7 +85,7 @@ const Footer = () => {
                       behavior: "smooth",
                     });
                   }}
-                  href="/shop/phones"
+                  href="/shop/Mobiles"
                   style={{
                     textDecoration: "none",
                     color: "#fff",
@@ -104,7 +104,7 @@ const Footer = () => {
                       behavior: "smooth",
                     });
                   }}
-                  href="/shop/accessories"
+                  href="/shop/Accessories"
                   style={{
                     textDecoration: "none",
                     color: "#fff",
@@ -123,7 +123,7 @@ const Footer = () => {
                       behavior: "smooth",
                     });
                   }}
-                  href="/shop/phones"
+                  href="/shop/Mobiles"
                   style={{
                     textDecoration: "none",
                     color: "#fff",

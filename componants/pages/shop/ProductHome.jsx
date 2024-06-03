@@ -45,8 +45,7 @@ const Product = (props) => {
             loading="lazy"
             src={
               props.data.images
-                ? props.data.images[0]
-                : notFound
+                ? props.data.images[0].length > 1 ? props.data.images[0] : notFound : notFound
             }
             alt={props.data.name}
             width={120}

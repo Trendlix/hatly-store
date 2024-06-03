@@ -26,7 +26,7 @@ const Product = (props) => {
         <Link href={`/product/${props.data?._id}`} onClick={scrollTop} style={{height : '100%', display : 'block', backgroundColor: "#8080803b" ,}}>
           <Image
             className="productImage"
-            src={props.data?.images && props.data.images[0]}
+            src={props.data?.images && props.data.images[0].length > 1 ? props.data.images[0] : notFound}
             width={125}
             height={125}
             style={{ width: "100%", height: "100%" , mixBlendMode: "multiply" , aspectRatio : '1' , objectFit: "none"}}

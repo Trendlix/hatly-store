@@ -53,6 +53,8 @@ import laptop from "@/../../public/laptop.png"
 import mobile from "@/../../public/mobile.jpg"
 import headphones from "@/../../public/headphones.jpg"
 import watch from "@/../../public/watch.jpg"
+import axios from "axios";
+import API_URL from "../API/ApiUrl";
 
 
 const slider1 = [{ img: sliderImage2, link: '/payment-methods' }, { img: sliderImage3 }, { img: sliderImage5 , link : '/our-policy' }, { img: sliderImage1 , link : '/inquiries'}];
@@ -95,6 +97,15 @@ const Home = () => {
     // }
   }, [inView]);
 
+  useEffect(()=>{
+    const triggerErpProducts = async () => {
+      const data = await axios.get(`${API_URL}/products/erp`)
+      const products = data.data
+      return products
+    }
+    triggerErpProducts();
+  },[])
+
   const [productsMobiles, setProductsMobiles] = useState([]);
   const [chargers, setChargers] = useState([]);
   const [smartWatches, setSmartWatches] = useState([]);
@@ -107,7 +118,7 @@ const Home = () => {
     try {
       
       setLoading(true);
-      const res = await fetchProduct.get(`/category/phones`);
+      const res = await fetchProduct.get(`/category/Mobiles`);
       setProductsMobiles(res.data);
       setLoading(false);
     } catch (er) { }
@@ -116,7 +127,7 @@ const Home = () => {
     try {
       
       setLoading(true);
-      const res = await fetchProduct.get(`/category/chargers`);
+      const res = await fetchProduct.get(`/category/Chargers`);
       setChargers(res.data);
       setLoading(false);
     } catch (er) { }
@@ -125,7 +136,7 @@ const Home = () => {
     try {
       
       setLoading(true);
-      const res = await fetchProduct.get(`/category/smart watches`);
+      const res = await fetchProduct.get(`/category/Smart Watches`);
       setSmartWatches(res.data);
       setLoading(false);
     } catch (er) { }
@@ -133,7 +144,7 @@ const Home = () => {
   const getHeadphones = async () => {
     try {
       setLoading(true);
-      const res = await fetchProduct.get(`/category/headphones`);
+      const res = await fetchProduct.get(`/category/Headphones`);
       setHeadphones(res.data);
       setLoading(false);
     } catch (er) { }
@@ -141,7 +152,7 @@ const Home = () => {
   const getAccessories = async () => {
     try {
       setLoading(true);
-      const res = await fetchProduct.get(`/category/accessories`);
+      const res = await fetchProduct.get(`/category/Accessories`);
       setAccessories(res.data);
       setLoading(false);
     } catch (er) { }
@@ -319,7 +330,7 @@ const Home = () => {
                 left: 0,
                 behavior: "smooth",
               });
-            }} href="/shop/phones"><h6 style={{ textAlign: 'end', margin: '0', color: 'white' }}>SEE ALL {'>'}</h6></Link></div>
+            }} href="/shop/Mobiles"><h6 style={{ textAlign: 'end', margin: '0', color: 'white' }}>SEE ALL {'>'}</h6></Link></div>
           </div>
           <div
             className="row justify-content-center align-items-center"
@@ -359,7 +370,7 @@ const Home = () => {
                 left: 0,
                 behavior: "smooth",
               });
-            }} href="/shop/chargers"><h6 style={{ textAlign: 'end', margin: '0', color: 'white' }}>SEE ALL {'>'}</h6></Link></div>
+            }} href="/shop/Chargers"><h6 style={{ textAlign: 'end', margin: '0', color: 'white' }}>SEE ALL {'>'}</h6></Link></div>
           </div>
           <div
             className="row justify-content-center align-items-center"
@@ -394,7 +405,7 @@ const Home = () => {
                 left: 0,
                 behavior: "smooth",
               });
-            }} to="/shop/phones"><h6 style={{ textAlign: 'end', margin: '0', color: 'white' }}>SEE ALL {'>'}</h6></Link></div>
+            }} to="/shop/Mobiles"><h6 style={{ textAlign: 'end', margin: '0', color: 'white' }}>SEE ALL {'>'}</h6></Link></div>
           </div>
           <div
             className="row justify-content-center"
@@ -420,7 +431,7 @@ const Home = () => {
       </section> */}
 
       {/* Smart Watches */}
-      <CategoryDevider img={watchBanner} name="Smart Watches" url="smart watches"></CategoryDevider>
+      <CategoryDevider img={watchBanner} name="Smart Watches" url="Smart Watches"></CategoryDevider>
       <section ref={ref}>
         <div className="container">
           <div className="d-flex p-2  justify-content-between mb-3 mt-3" style={{ backgroundColor: '#384a8c' }}>
@@ -431,7 +442,7 @@ const Home = () => {
                 left: 0,
                 behavior: "smooth",
               });
-            }} href="/shop/smart watches"><h6 style={{ textAlign: 'end', margin: '0', color: 'white' }}>SEE ALL {'>'}</h6></Link></div>
+            }} href="/shop/Smart Watches"><h6 style={{ textAlign: 'end', margin: '0', color: 'white' }}>SEE ALL {'>'}</h6></Link></div>
           </div>
           <div
             className="row justify-content-center align-items-center"
@@ -467,7 +478,7 @@ const Home = () => {
                 left: 0,
                 behavior: "smooth",
               });
-            }} to="/shop/phones"><h6 style={{ textAlign: 'end', margin: '0', color: 'white' }}>SEE ALL {'>'}</h6></Link></div>
+            }} to="/shop/Mobiles"><h6 style={{ textAlign: 'end', margin: '0', color: 'white' }}>SEE ALL {'>'}</h6></Link></div>
           </div>
           <div
             className="row justify-content-center"
@@ -508,7 +519,7 @@ const Home = () => {
                 left: 0,
                 behavior: "smooth",
               });
-            }} href="/shop/headphones"><h6 style={{ textAlign: 'end', margin: '0', color: 'white' }}>SEE ALL {'>'}</h6></Link></div>
+            }} href="/shop/Headphones"><h6 style={{ textAlign: 'end', margin: '0', color: 'white' }}>SEE ALL {'>'}</h6></Link></div>
           </div>
           <div
             className="row justify-content-center align-items-center"
@@ -543,7 +554,7 @@ const Home = () => {
                 left: 0,
                 behavior: "smooth",
               });
-            }} to="/shop/headphones"><h6 style={{ textAlign: 'end', margin: '0', color: 'white' }}>SEE ALL {'>'}</h6></Link></div>
+            }} to="/shop/Headphones"><h6 style={{ textAlign: 'end', margin: '0', color: 'white' }}>SEE ALL {'>'}</h6></Link></div>
           </div>
           <div
             className="row justify-content-center"
@@ -584,7 +595,7 @@ const Home = () => {
                 left: 0,
                 behavior: "smooth",
               });
-            }} href="/shop/accessories"><h6 style={{ textAlign: 'end', margin: '0', color: 'white' }}>SEE ALL {'>'}</h6></Link></div>
+            }} href="/shop/Accessories"><h6 style={{ textAlign: 'end', margin: '0', color: 'white' }}>SEE ALL {'>'}</h6></Link></div>
           </div>
           <div
             className="row justify-content-center align-items-center"
@@ -620,7 +631,7 @@ const Home = () => {
                 left: 0,
                 behavior: "smooth",
               });
-            }} to="/shop/phones"><h6 style={{ textAlign: 'end', margin: '0', color: 'white' }}>SEE ALL {'>'}</h6></Link></div>
+            }} to="/shop/Mobiles"><h6 style={{ textAlign: 'end', margin: '0', color: 'white' }}>SEE ALL {'>'}</h6></Link></div>
           </div>
           <div
             className="row justify-content-center"

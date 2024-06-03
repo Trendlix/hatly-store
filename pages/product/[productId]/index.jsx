@@ -79,9 +79,9 @@ const SingleProduct = () => {
 
       setLoading(false);
       setProduct(res.data);
-      setimgs(res.data.images ? res.data.images[0] : notFound);
+      setimgs(res.data.images ? res.data.images[0].length > 1 ? res.data.images[0] : notFound : notFound);
       setProductImgs([
-        res.data.images ? res.data.images[0] : notFound,
+        res.data.images ? res.data.images[0].length > 1 ? res.data.images[0] : notFound : notFound,
       ]);
       setProductCategoey(res.data.group);
       setSelectedBradns(res.data.brand)
@@ -183,7 +183,7 @@ const SingleProduct = () => {
                             onClick={(e) => {
                               setimgs(e.target.getAttribute("src"));
                             }}
-                            src={image ? image : notFound}
+                            src={image.length > 1 ? image : notFound}
                             style={{ width: "100%", cursor: "pointer" }}
                             width="100"
                             height="100"
@@ -204,11 +204,11 @@ const SingleProduct = () => {
                         smallImage: {
                           alt: "Wristwatch by Ted Baker London",
                           isFluidWidth: true,
-                          src: img ? img : notFound.src,
+                          src: img?.length > 1 ? img : notFound.src,
                         
                         },
                         largeImage: {
-                          src: img ? img : notFound.src,
+                          src: img?.length > 1 ? img : notFound.src,
                           width: 800,
                           height: 800,
                         },

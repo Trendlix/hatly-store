@@ -25,28 +25,28 @@ const categoryArray = [
   {
     name: "Mobiles",
     img: phonesImage,
-    url: 'phones'
+    url: 'Mobiles'
   },
   {
     name: "Chargers",
     img: chargerImage,
-    url: 'charges'
+    url: 'Chargers'
   },
   {
     name: "Smart Watches",
     img: wahtchImage,
-    url: 'smartWatches'
+    url: 'Smart Watches'
 
   },
   {
     name: "Headphones",
     img: headphonesImage,
-    url: 'headphones'
+    url: 'Headphones'
   },
   {
     name: "Accessories",
     img: otherImage,
-    url: 'accessories'
+    url: 'Accessories'
   }
 ];
 

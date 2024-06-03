@@ -565,7 +565,7 @@ const NavBar = props => {
                   left: 0,
                   behavior: "smooth",
                 });
-              }} href="/shop/phones">
+              }} href="/shop/Mobiles">
                 <p className="text-end" style={{ fontSize: "25px" }}>
                   <FontAwesomeIcon
                     className="col pe-2"
@@ -588,7 +588,7 @@ const NavBar = props => {
                   left: 0,
                   behavior: "smooth",
                 });
-              }} href="/shop/smart watches">
+              }} href="/shop/Smart Watches">
                 <p className="text-end" style={{ fontSize: "25px" }}>
                   <FontAwesomeIcon
                     className="col pe-2"
@@ -611,7 +611,7 @@ const NavBar = props => {
                   left: 0,
                   behavior: "smooth",
                 });
-              }} href="/shop/chargers">
+              }} href="/shop/Chargers">
                 <p className="text-end" style={{ fontSize: "25px" }}>
                   <FontAwesomeIcon
                     className="col pe-2"
@@ -634,7 +634,7 @@ const NavBar = props => {
                   left: 0,
                   behavior: "smooth",
                 });
-              }} href="/shop/headphones">
+              }} href="/shop/Headphones">
                 <p className="text-end" style={{ fontSize: "25px" }}>
                   <FontAwesomeIcon
                     className="col pe-2"
@@ -657,7 +657,7 @@ const NavBar = props => {
                   left: 0,
                   behavior: "smooth",
                 });
-              }} href="/shop/accessories">
+              }} href="/shop/Accessories">
                 <p className="text-end" style={{ fontSize: "25px" }}>
                   <FontAwesomeIcon
                     className="col pe-2"
@@ -680,7 +680,7 @@ const NavBar = props => {
                   left: 0,
                   behavior: "smooth",
                 });
-              }} href="/shop/phones">
+              }} href="/shop/Mobiles">
                 <p className="text-end" style={{ fontSize: "25px" }}>
                 <FontAwesomeIcon
                 className="col pe-2"

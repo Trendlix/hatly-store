@@ -169,7 +169,7 @@ const SingleProduct = () => {
                           onClick={(e) => {
                             setimgs(e.target.getAttribute("src"));
                           }}
-                          src={image ? `${`https://hatlystore.tswsp.net${image}`}` : notFound}
+                          src={image?.length > 1 ? image : notFound}
                           style={{ width: "100%", cursor: "pointer" }}
                         ></img>
                       </div>

@@ -26,11 +26,11 @@ import watch from "@/../../public/watch.jpg"
 
 
 const banners = {
-  'phones': phones,
-  'chargers': charger,
-  'smart watches': smartWatches,
-  'headphones': headPhones,
-  'accessories': accessories,
+  'Mobiles': phones,
+  'Chargers': charger,
+  'Smart Watches': smartWatches,
+  'Headphones': headPhones,
+  'Accessories': accessories,
 }
 
 
@@ -194,6 +194,7 @@ const Shop = ({ category }) => {
             </div>
             <div className="row">
               {brands.length > 0 && brands?.map((brand, i) => {
+                console.log(brand);
                 return (
                   <div className="col-auto" key={i}>
                     <div className="form-check">
@@ -272,7 +273,7 @@ const Shop = ({ category }) => {
                 All
               </label>
             </div>
-            {brands.length > 0 && brands?.map((brand, i) => {
+            {brands.length > 0 && brands?.slice(1).map((brand, i) => {
               return (
                 <div key={i}>
                   <div className="row justify-content-between">
