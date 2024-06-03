@@ -35,19 +35,23 @@ const pStyle = {
 const Checkout = () => {
   const router = useRouter()
   const [loading, setLoading] = useState(false);
+
   const {
     register,
     handleSubmit,
     setValue,
     formState: { errors },
   } = useForm();
+
   const { user } = useSelector(userState);
   const dispatch = useDispatch()
+
   useEffect(() => {
     if (!user)
       dispatch(getUser())
-    setValue('firstName', user?.firstName)
+      setValue('firstName', user?.firstName)
   }, [dispatch]);
+
   useEffect(() => {
     if (user) {
       setValue('firstName', user?.firstName)
@@ -131,7 +135,7 @@ const Checkout = () => {
       auth_token: token,
       delivery_needed: "false",
       // amount_cents: `${Number(cart.total) * 100}`,
-      amount_cents: `${(cart.total + 50)}`,
+      amount_cents: `${(cart.total + 50) * 100}`,
       currency: "EGP",
       items: items,
       shipping_data: {
@@ -178,6 +182,7 @@ const Checkout = () => {
       integration_id: integrationID,
       lock_order_when_paid: "true",
     });
+
   const saveToCookies = token => {
     Cookies.set('_pt_', token, {
       domain: '.trendlix.com',
@@ -206,6 +211,7 @@ const Checkout = () => {
       });
     });
   };
+
   // const cashRequest = (token) =>
   //   axios.post("https://accept.paymob.com/api/acceptance/payments/pay", {
   //     source: {
@@ -231,6 +237,7 @@ const Checkout = () => {
   //     });
   //   });
   // };
+  
   const cashPaymentHandler = async (data) => {
     // try {
     //   const res = await axios.post(`${API_URL}/orders`, {
@@ -291,6 +298,7 @@ const Checkout = () => {
     }
     setLoading(false);
   }
+  
   return (
     <motion.div
       initial={{ opacity: 0 }}

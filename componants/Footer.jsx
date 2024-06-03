@@ -47,7 +47,7 @@ const Footer = () => {
                       behavior: "smooth",
                     });
                   }}
-                  href="/shop/phones"
+                  href="/shop/smart watches"
                   style={{
                     textDecoration: "none",
                     color: "#fff",
@@ -66,7 +66,7 @@ const Footer = () => {
                       behavior: "smooth",
                     });
                   }}
-                  href="/shop/phones"
+                  href="/shop/chargers"
                   style={{
                     textDecoration: "none",
                     color: "#fff",
@@ -85,7 +85,7 @@ const Footer = () => {
                       behavior: "smooth",
                     });
                   }}
-                  href="/shop/phones"
+                  href="/shop/headphones"
                   style={{
                     textDecoration: "none",
                     color: "#fff",
