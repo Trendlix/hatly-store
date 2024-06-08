@@ -47,7 +47,7 @@ const index = ({ data }) => {
         <p>Order Id:</p>
         <p>#{data._id}</p>
         <p>Date:</p>
-        <p>{getDate(data.creation)}</p>
+        <p>{getDate(data.createdAt)}</p>
         <p>Delivery Status:</p>
         <p>{"Delivered"}</p>
         {/* </div> */}

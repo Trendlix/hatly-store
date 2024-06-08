@@ -47,7 +47,11 @@ const Footer = () => {
                       behavior: "smooth",
                     });
                   }}
+<<<<<<< HEAD
                   href="/shop/Mobiles"
+=======
+                  href="/shop/smart watches"
+>>>>>>> 8b4e6ae78d2c9f6fb1e31b004072265e1841e829
                   style={{
                     textDecoration: "none",
                     color: "#fff",
@@ -66,7 +70,11 @@ const Footer = () => {
                       behavior: "smooth",
                     });
                   }}
+<<<<<<< HEAD
                   href="/shop/Mobiles"
+=======
+                  href="/shop/chargers"
+>>>>>>> 8b4e6ae78d2c9f6fb1e31b004072265e1841e829
                   style={{
                     textDecoration: "none",
                     color: "#fff",
@@ -85,7 +93,11 @@ const Footer = () => {
                       behavior: "smooth",
                     });
                   }}
+<<<<<<< HEAD
                   href="/shop/Mobiles"
+=======
+                  href="/shop/headphones"
+>>>>>>> 8b4e6ae78d2c9f6fb1e31b004072265e1841e829
                   style={{
                     textDecoration: "none",
                     color: "#fff",
