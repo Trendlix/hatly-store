@@ -37,7 +37,7 @@ const Product = (props) => {
       <div align="center">
         <Link
           className="text-center"
-          href={`/product/${props.data._id}`}
+          href={`/product/${props.data.item_code}`}
           onClick={scrollTop}
           style={{ textDecoration: "none" }}
         >
@@ -45,9 +45,9 @@ const Product = (props) => {
             loading="lazy"
             src={
               props.data.images
-                ? props.data.images[0].length > 1 ? props.data.images[0] : notFound : notFound
+                ? props.data.image > 1 ? props.data.image : notFound : notFound
             }
-            alt={props.data.name}
+            alt={props.data.item_name}
             width={120}
             height={120}
             style={{
@@ -61,18 +61,18 @@ const Product = (props) => {
         </Link>
         <Link
           className="text-center"
-          href={`/product/${props.data._id}`}
+          href={`/product/${props.data.item_code}`}
           onClick={scrollTop}
           style={{ textDecoration: "none" }}
         >
           <p style={pStyle} className="mt-2">
-            {props.data.name}
+            {props.data.item_name}
           </p>
         </Link>
-        <p
+        {/* <p
           className="text-center mb-2"
           style={{ fontWeight: "600", color: "#20c997" }}
-        >{`${parseInt(props.data.price)} EGP`}</p>
+        >{`${parseInt(props.data.price)} EGP`}</p> */}
         <div className="row">
           <p className="text-center m-0">
             <span className="fa fa-star checked"></span>
@@ -84,7 +84,7 @@ const Product = (props) => {
         </div>
         <Link
           onClick={scrollTop}
-          href={`/product/${props.data._id}`}
+          href={`/product/${props.data.item_code}`}
           className="btn bg-white col-12 mt-1"
           style={{ color: "#384a8c" }}
         >
