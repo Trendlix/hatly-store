@@ -97,14 +97,14 @@ const Home = () => {
     // }
   }, [inView]);
 
-  useEffect(()=>{
-    const triggerErpProducts = async () => {
-      const data = await axios.get(`${API_URL}/products/erp`)
-      const products = data.data
-      return products
-    }
-    triggerErpProducts();
-  },[])
+  // useEffect(()=>{
+  //   const triggerErpProducts = async () => {
+  //     const data = await axios.get(`${API_URL}/products/erp`)
+  //     const products = data.data
+  //     return products
+  //   }
+  //   triggerErpProducts();
+  // },[])
 
   const [productsMobiles, setProductsMobiles] = useState([]);
   const [chargers, setChargers] = useState([]);

@@ -66,44 +66,44 @@ const SingleProduct = () => {
 
   const getProduct = async () => {
     try {
-      const res = await fetchProduct.get(`products/${productId}`)
+      const res = await fetchProduct.get(`products/erp/${productId}`)
       console.log(res)
       // const res2 = await fetchProduct.get(`attactments`, {
       //   params: {
-      //     code: res.data[0].item_code
+      //     code: res.data[2].item_code
       //   }
       // })
-      setGallary(res.data.images.map((el) => {
+      setGallary(res.data[2]?.image?.map((el) => {
         return el
       }))
 
       setLoading(false);
-      setProduct(res.data);
-      setimgs(res.data.images ? res.data.images[0].length > 1 ? res.data.images[0] : notFound : notFound);
+      setProduct(res.data[2]);
+      setimgs(res.data[2].image ? res.data[2].image[0].length > 1 ? res.data[2].image[0] : notFound : notFound);
       setProductImgs([
-        res.data.images ? res.data.images[0].length > 1 ? res.data.images[0] : notFound : notFound,
+        res.data[2].image ? res.data[2].image[0].length > 1 ? res.data[2].image[0] : notFound : notFound,
       ]);
-      setProductCategoey(res.data.group);
-      setSelectedBradns(res.data.brand)
+      setProductCategoey(res.data[2].item_group);
+      setSelectedBradns(res.data[2].brand)
       cart.products.map((item, i) => {
-        if (item._id == res.data._id) {
+        if (item.item_code == res.data[2].item_code) {
           setAddCartDisable({ on: true, discrption: "PRODUCT ON THE CART" });
         }
       });
       var recentlyData;
       if (localStorage.getItem("product") == null) {
-        localStorage.setItem("product", JSON.stringify([res.data]));
+        localStorage.setItem("product", JSON.stringify([res.data[2]]));
       } else {
         recentlyData = JSON.parse(localStorage.getItem("product"));
         if (recentlyData._id) {
-          recentlyData = [res.data, ...recentlyData];
+          recentlyData = [res.data[2], ...recentlyData];
         } else {
           recentlyData.map((el, i) => {
-            if (el._id == res.data._id) {
+            if (el._id == res.data[2].item_code) {
               return recentlyData.splice(i, 1);
             }
           });
-          recentlyData = [res.data, ...recentlyData];
+          recentlyData = [res.data[2], ...recentlyData];
         }
         localStorage.setItem("product", JSON.stringify(recentlyData));
       }
@@ -282,16 +282,16 @@ const SingleProduct = () => {
                             behavior: "smooth",
                           });
                         }}
-                          href={`/shop/${product.group}`}
+                          href={`/shop/${product.item_group}`}
                           style={{ color: "#264996", textDecoration: "none" }}
                         >
-                          {product.group}
+                          {product.item_group}
                         </Link>
                       </p>
                     </div>
 
                     {/* {product.actual_qty > 0 && product.actual_qty < 10 ? ( */}
-                    {product.inStockQuantity > 0 ? (
+                    {product.stockQty > 0 ? (
                       <div className="row mt-2">
                         <div className="col-12">
                           <button disabled className="text-white btn btn-success">In Stock</button>
@@ -302,7 +302,7 @@ const SingleProduct = () => {
                                 disabled
                               >
                                 {" "}
-                                {parseInt(product.inStockQuantity - singleProductQuantity)}{" "}
+                                {parseInt(product.stockQty - singleProductQuantity)}{" "}
                               </button>
                             }{" "}
                             Items remaining
@@ -332,7 +332,7 @@ const SingleProduct = () => {
                             onClick={() => {
                               if (
                                 singleProductQuantity > 0 &&
-                                singleProductQuantity < product.inStockQuantity
+                                singleProductQuantity < product.stockQty
                               ) {
                                 setSingleProductQuantity(
                                   singleProductQuantity + 1
@@ -348,7 +348,7 @@ const SingleProduct = () => {
                           </button>
                         </div>
                       </div>
-                    ) : (product.inStockQuantity >= 1 ? (
+                    ) : (product.stockQty >= 1 ? (
                       <div className="row mt-2">
                         <div className="col-12">
                           <button disabled className="text-white btn btn-success mb-3">In Stock</button>
@@ -377,7 +377,7 @@ const SingleProduct = () => {
                             onClick={() => {
                               if (
                                 singleProductQuantity > 0 &&
-                                singleProductQuantity < product.inStockQuantity
+                                singleProductQuantity < product.stockQty
                               ) {
                                 setSingleProductQuantity(
                                   singleProductQuantity + 1
@@ -406,7 +406,7 @@ const SingleProduct = () => {
                             {parseInt(product?.price)}
                           </span>
                         </h4>
-                        {product.inStockQuantity > 0 ? (
+                        {product.stockQty > 0 ? (
                           <>
                             <button
                               disabled={addCartDisable.on}
