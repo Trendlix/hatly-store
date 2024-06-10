@@ -123,6 +123,7 @@ const Home = () => {
       setLoading(false);
     } catch (er) { }
   };
+
   const getChargers = async () => {
     try {
       
@@ -132,6 +133,7 @@ const Home = () => {
       setLoading(false);
     } catch (er) { }
   };
+
   const getSmartWatches = async () => {
     try {
       
@@ -141,6 +143,7 @@ const Home = () => {
       setLoading(false);
     } catch (er) { }
   };
+
   const getHeadphones = async () => {
     try {
       setLoading(true);
@@ -149,6 +152,7 @@ const Home = () => {
       setLoading(false);
     } catch (er) { }
   };
+
   const getAccessories = async () => {
     try {
       setLoading(true);
@@ -157,8 +161,8 @@ const Home = () => {
       setLoading(false);
     } catch (er) { }
   };
-  useEffect(() => {
 
+  useEffect(() => {
     getProductsMobiles();
     getChargers();
     getSmartWatches();

@@ -32,7 +32,7 @@ export const syncCart = createAsyncThunk('cart/syncCart', async (_, { getState, 
       const response = await axios.post(`${API_URL}/cart/sync`, localCart);
       localStorage.removeItem('cart');
       const cart = {
-        products: response.data.products.map(product => ({ ...product.productId, quantity: product.quantity })),
+        products: response.data.products.map(product => ({ ...product.product, quantity: product.quantity })),
         totalQuantity: response.data.totalQuantity,
         total: response.data.total,
       }
@@ -70,32 +70,32 @@ export const fetchCart = createAsyncThunk('cart/fetchCart', async (_, { getState
   }
 });
 
-export const addToCart = createAsyncThunk('cart/addToCart', async ({ productId, quantity }, { getState, dispatch }) => {
+export const addToCart = createAsyncThunk('cart/addToCart', async ({ product, quantity }, { getState, dispatch }) => {
   console.log('start add to cart');
   const { isAuthenticated } = userState(getState());
   console.log('is authenticated on add to cart', isAuthenticated);
   
   if (isAuthenticated) {
-    const response = await axios.post(`${API_URL}/cart/add`, { productId, quantity });
+    const response = await axios.post(`${API_URL}/cart/add`, { product, quantity });
     console.log(response.data);
     await dispatch(fetchCart());
     return response.data;
   } else {
     const cart = JSON.parse(localStorage.getItem('cart')) || { products: [], totalQuantity: 0, total: 0 };
-    const itemIndex = cart.products.findIndex(product => product.productId === productId);
+    const itemIndex = cart.products.findIndex(product => product.product.item_code === product.item_code);
 
     let productData;
     if (itemIndex > -1) {
       cart.products[itemIndex].quantity += quantity;
       productData = cart.products[itemIndex];
     } else {
-      const response = await axios.get(`${API_URL}/products/${productId}`);
-      productData = { ...response.data, quantity };
+      // const response = await axios.get(`${API_URL}/products/${productId}`);
+      productData = { product, quantity };
       cart.products.push(productData);
     }
 
     cart.totalQuantity = cart.products.reduce((acc, product) => acc + product.quantity, 0);
-    cart.total += productData.price * quantity;
+    cart.total += product.price * quantity;
 
     localStorage.setItem('cart', JSON.stringify(cart));
     console.log(cart);
@@ -105,20 +105,20 @@ export const addToCart = createAsyncThunk('cart/addToCart', async ({ productId, 
 });
 
 
-export const removeFromCart = createAsyncThunk('cart/removeFromCart', async ({ itemId }, { getState, dispatch }) => {
+export const removeFromCart = createAsyncThunk('cart/removeFromCart', async ({ product }, { getState, dispatch }) => {
   const { isAuthenticated } = userState(getState());
   
   if (isAuthenticated) {
-    const response = await axios.delete(`${API_URL}/cart/${itemId}`);
+    const response = await axios.delete(`${API_URL}/cart/${product}`);
     console.log(response.data);
     await dispatch(fetchCart());
     return response.data;
   } else {
     const cart = JSON.parse(localStorage.getItem('cart'));
-    const itemIndex = cart.products.findIndex(product => product._id === itemId);
+    const itemIndex = cart.products.findIndex(product => product.product.item_code === product.item_code);
     if (itemIndex > -1) {
-      const product = await axios.get(`${API_URL}/products/${itemId}`);
-      cart.total -= product.data.price * cart.products[itemIndex].quantity;
+      // const product = await axios.get(`${API_URL}/products/${itemId}`);
+      cart.total -= product.price * cart.products[itemIndex].quantity;
       cart.totalQuantity -= cart.products[itemIndex].quantity;
       cart.products.splice(itemIndex, 1);
       localStorage.setItem('cart', JSON.stringify(cart));

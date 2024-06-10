@@ -52,7 +52,7 @@ const SingleProduct = () => {
     setAddCartDisable({ on: true, discrption: "PRODUCT ON THE CART" });
     dispatch(
       addToCart({
-        productId,
+        product,
         // price: product.price_list_rate,
         quantity: singleProductQuantity,
       })
@@ -70,40 +70,40 @@ const SingleProduct = () => {
       console.log(res)
       // const res2 = await fetchProduct.get(`attactments`, {
       //   params: {
-      //     code: res.data[2].item_code
+      //     code: res.data[0].item_code
       //   }
       // })
-      setGallary(res.data[2]?.image?.map((el) => {
+      setGallary(res.data[0]?.image?.map((el) => {
         return el
       }))
 
       setLoading(false);
-      setProduct(res.data[2]);
-      setimgs(res.data[2].image ? res.data[2].image[0].length > 1 ? res.data[2].image[0] : notFound : notFound);
+      setProduct(res.data[0]);
+      setimgs(res.data[0].image ? res.data[0].image[0].length > 1 ? res.data[0].image[0] : notFound : notFound);
       setProductImgs([
-        res.data[2].image ? res.data[2].image[0].length > 1 ? res.data[2].image[0] : notFound : notFound,
+        res.data[0].image ? res.data[0].image[0].length > 1 ? res.data[0].image[0] : notFound : notFound,
       ]);
-      setProductCategoey(res.data[2].item_group);
-      setSelectedBradns(res.data[2].brand)
+      setProductCategoey(res.data[0].item_group);
+      setSelectedBradns(res.data[0].brand)
       cart.products.map((item, i) => {
-        if (item.item_code == res.data[2].item_code) {
+        if (item.item_code == res.data[0].item_code) {
           setAddCartDisable({ on: true, discrption: "PRODUCT ON THE CART" });
         }
       });
       var recentlyData;
       if (localStorage.getItem("product") == null) {
-        localStorage.setItem("product", JSON.stringify([res.data[2]]));
+        localStorage.setItem("product", JSON.stringify([res.data[0]]));
       } else {
         recentlyData = JSON.parse(localStorage.getItem("product"));
         if (recentlyData._id) {
-          recentlyData = [res.data[2], ...recentlyData];
+          recentlyData = [res.data[0], ...recentlyData];
         } else {
           recentlyData.map((el, i) => {
-            if (el._id == res.data[2].item_code) {
+            if (el._id == res.data[0].item_code) {
               return recentlyData.splice(i, 1);
             }
           });
-          recentlyData = [res.data[2], ...recentlyData];
+          recentlyData = [res.data[0], ...recentlyData];
         }
         localStorage.setItem("product", JSON.stringify(recentlyData));
       }

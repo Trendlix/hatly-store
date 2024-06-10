@@ -57,10 +57,10 @@ const FilledCart = (props) => {
                         behavior: "smooth",
                       });
                     }}
-                      href={`/product/${data._id}`}
+                      href={`/product/${data.product.item_code}`}
                       className="col-12 col-md-12"
                     >
-                      <Image width="100" height="100" style={{ filter: 'drop-shadow(white 0px 0px 70px)' }} src={data.images ? data.images[0] : notFound} alt="cart"></Image>
+                      <Image width="100" height="100" style={{ filter: 'drop-shadow(white 0px 0px 70px)' }} src={data.product.image ? data.product.image[0] : notFound} alt="cart"></Image>
                     </Link>
                     <div className="col-12 col-md-12 mb-0">
                       <p style={pStyle}>
@@ -76,7 +76,7 @@ const FilledCart = (props) => {
                         >
                           [{data.quantity}]{" "}
                         </span>
-                        {data.name}
+                        {data.product.name}
                       </p>
                       <div className="row justify-content-between">
                         <p
@@ -88,7 +88,7 @@ const FilledCart = (props) => {
                             margin: "0",
                           }}
                         >
-                          {`EGP ${data.price * data.quantity}`}
+                          {`EGP ${data.product.price * data.quantity}`}
                         </p>
                         <Link
                           className="text-danger col-auto"
@@ -103,7 +103,7 @@ const FilledCart = (props) => {
                             if (data.quantity > 0) {
                               dispatch(
                                 removeFromCart({
-                                  itemId: data._id,
+                                  product: data.product
                                 })
                               );
                               

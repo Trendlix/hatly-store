@@ -38,7 +38,7 @@ const Product = (props) => {
         <Link href={`/product/${props.data?.item_code}`} onClick={scrollTop}>
           <p style={{margin : '0.5rem 0',textOverflow : 'ellipsis',maxWidth : '100%','whiteSpace' : 'nowrap' , overflow : 'hidden'}}>{props.data?.name}</p>
         </Link>
-        <p style={{ fontWeight: "500" }}>{`EGP ${parseInt(props.data?.price ? props.data.price : 0)}`}</p>
+        {/* <p style={{ fontWeight: "500" }}>{`EGP ${parseInt(props.data?.price ? props.data.price : 0)}`}</p> */}
         <Link
           onClick={scrollTop}
           className="btn btn-primary"

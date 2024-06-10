@@ -69,10 +69,10 @@ const Product = (props) => {
             {props.data.item_name}
           </p>
         </Link>
-        <p
+        {/* <p
           className="text-center mb-2"
           style={{ fontWeight: "600", color: "#20c997" }}
-        >{`${parseInt(props.data.price ? props.data.price : 0)} EGP`}</p>
+        >{`${parseInt(props.data.price ? props.data.price : 0)} EGP`}</p> */}
         <div className="row">
           <p className="text-center m-0">
             <span className="fa fa-star checked"></span>
