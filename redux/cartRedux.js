@@ -114,8 +114,11 @@ export const removeFromCart = createAsyncThunk('cart/removeFromCart', async ({ p
     await dispatch(fetchCart());
     return response.data;
   } else {
+    console.log('productPassed', product)
     const cart = JSON.parse(localStorage.getItem('cart'));
-    const itemIndex = cart.products.findIndex(product => product.product.item_code === product.item_code);
+    console.log(cart);
+    const itemIndex = cart.products.findIndex(item => item.product.item_code === product.item_code);
+    console.log('itemIndex', itemIndex)
     if (itemIndex > -1) {
       // const product = await axios.get(`${API_URL}/products/${itemId}`);
       cart.total -= product.price * cart.products[itemIndex].quantity;

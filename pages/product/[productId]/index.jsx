@@ -511,7 +511,17 @@ const SingleProduct = () => {
               <h4 className="pb-2" style={{ borderBottom: "1px solid #ededed" }}>
                 RELATED PRODUCTS
               </h4>
-              {relatedProducts.map((data, i) => {
+              {relatedProducts.length>8 && relatedProducts.slice(0,8).map((data, i) => {
+                return (
+                  <Product
+                    grid="col-6 col-sm-6 col-md-4 col-lg-2 mb-5"
+                    key={i}
+                    data={data}
+                  ></Product>
+                );
+              })
+              }
+              {relatedProducts.length< 8 && relatedProducts.map((data, i) => {
                 return (
                   <Product
                     grid="col-6 col-sm-6 col-md-4 col-lg-2 mb-5"
