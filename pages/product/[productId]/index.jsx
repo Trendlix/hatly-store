@@ -86,7 +86,7 @@ const SingleProduct = () => {
       setProductCategoey(res.data[0].item_group);
       setSelectedBradns(res.data[0].brand)
       cart.products.map((item, i) => {
-        if (item.item_code == res.data[0].item_code) {
+        if (item.product.item_code == res.data[0].item_code) {
           setAddCartDisable({ on: true, discrption: "PRODUCT ON THE CART" });
         }
       });

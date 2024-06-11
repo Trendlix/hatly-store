@@ -156,7 +156,8 @@ const Home = () => {
   const getAccessories = async () => {
     try {
       setLoading(true);
-      const res = await fetchProduct.get(`/category/Accessories`);
+      const res = await fetchProduct.get(`/category/Cases`);
+      console.log('res.data', res.data)
       setAccessories(res.data);
       setLoading(false);
     } catch (er) { }
@@ -599,7 +600,7 @@ const Home = () => {
                 left: 0,
                 behavior: "smooth",
               });
-            }} href="/shop/Accessories"><h6 style={{ textAlign: 'end', margin: '0', color: 'white' }}>SEE ALL {'>'}</h6></Link></div>
+            }} href="/shop/Cases"><h6 style={{ textAlign: 'end', margin: '0', color: 'white' }}>SEE ALL {'>'}</h6></Link></div>
           </div>
           <div
             className="row justify-content-center align-items-center"

@@ -30,7 +30,7 @@ const banners = {
   'Chargers': charger,
   'Smart Watches': smartWatches,
   'Headphones': headPhones,
-  'Accessories': accessories,
+  'Cases': accessories,
 }
 
 
