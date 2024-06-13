@@ -104,7 +104,7 @@ const Footer = () => {
                       behavior: "smooth",
                     });
                   }}
-                  href="/shop/Accessories"
+                  href="/shop/Cases"
                   style={{
                     textDecoration: "none",
                     color: "#fff",

@@ -64,7 +64,7 @@ const Shop = ({ category }) => {
   const [selecterdCategory, setSelecterdCategory] = useState(category);
   // brand hooks
   const [brands, setBrands] = useState([]);
-  const [selectedBradns, setSelectedBradns] = useState("");
+  const [selectedBradns, setSelectedBradns] = useState([]);
 
   // loading hooks
   const [loading, setLoading] = useState();
@@ -84,51 +84,64 @@ const Shop = ({ category }) => {
     pageNumber.push(i);
   }
 
-  const getProducts = async (selecterdCategory) => {
+  const getProducts = async (selectedCategory) => {
     setLoading(true);
     try {
       let res;
       let resBrand;
-
-      if (selecterdCategory == "all") {
-        if (selectedBradns !== "" && selectedBradns !== 'all') {
-          res = await fetchProduct.get(`/products/brand/${selectedBradns}`);
+      const brandsQuery = selectedBradns.length > 0 ? selectedBradns.join(',') : '';
+  
+      if (selectedCategory == "all") {
+        if (brandsQuery && brandsQuery !== 'all') {
+          res = await fetchProduct.get(`/products/brand/${brandsQuery}`);
           setProducts(res.data);
-          console.log('if category is all, brands is not all and there is a brand ',res.data);
+          console.log('if category is all, brands is not all and there is a brand ', res.data);
         } else {
           res = await fetchProduct.get("/products");
           resBrand = await fetchProduct.get("/brand");
-          console.log(resBrand)
-          console.log(1)
+          console.log(resBrand);
+          console.log(1);
           setProducts(res.data);
-          console.log('if category is all, brands is all and there is no brand selected',res.data);
+          console.log('if category is all, brands is all and there is no brand selected', res.data);
           setBrands(resBrand.data);
-          console.log('the all brands returned', resBrand.data)
+          console.log('the all brands returned', resBrand.data);
         }
       } else {
-        if (selectedBradns !== "" && selectedBradns !== 'all') {
-          res = await fetchProduct.get(`/products/brand/${selectedBradns}?category=${selecterdCategory}`);
+        if (brandsQuery && brandsQuery !== 'all') {
+          res = await fetchProduct.get(`/products/brand/${brandsQuery}?category=${selectedCategory}`);
           setProducts(res.data);
         } else {
-          res = await fetchProduct.get(`/category/${selecterdCategory}`);
-          resBrand = await fetchProduct.get(`/brand/${selecterdCategory}`);
+          res = await fetchProduct.get(`/category/${selectedCategory}`);
+          resBrand = await fetchProduct.get(`/brand/${selectedCategory}`);
           setBrands(resBrand.data);
           setProducts(res.data);
         }
       }
-      console.log(res)
+      console.log(res);
       setProducts(res.data);
     } catch (er) {
-      console.log(er)
+      console.log(er);
     }
     setLoading(false);
   };
+  
 
   const getCategories = async () => {
     try {
       const res = await fetchProduct.get("/category");
       setCategories(res.data);
     } catch (er) { }
+  };
+
+  const handleBrandChange = (e) => {
+    const value = e.target.value;
+    setCurrentPage(1);
+  
+    setSelectedBradns((prevSelectedBrands) =>
+      prevSelectedBrands.includes(value)
+        ? prevSelectedBrands.filter((brand) => brand !== value)
+        : [...prevSelectedBrands, value]
+    );
   };
 
   useEffect(() => {
@@ -173,7 +186,7 @@ const Shop = ({ category }) => {
                 Brands
               </h4>
             </div>
-             <div className="form-check">
+             {/* <div className="form-check">
               <input
                 className="form-check-input"
                 value='all'
@@ -191,7 +204,7 @@ const Shop = ({ category }) => {
               >
                 All
               </label>
-            </div>
+            </div> */}
             <div className="row">
               {brands.length > 0 && brands?.map((brand, i) => {
                 console.log(brand);
@@ -254,7 +267,7 @@ const Shop = ({ category }) => {
                 aria-hidden="true"
               ></i>
             </div>
-            <div className="form-check">
+            {/* <div className="form-check">
               <input
                 className="form-check-input"
                 value='all'
@@ -272,23 +285,21 @@ const Shop = ({ category }) => {
               >
                 All
               </label>
-            </div>
+            </div> */}
             {brands.length > 0 && brands?.slice(1).map((brand, i) => {
               return (
                 <div key={i}>
                   <div className="row justify-content-between">
                     <div className="col-9">
                       <div className="form-check">
-                        <input
+                      <input
                           className="form-check-input"
                           value={brand}
-                          type="radio"
+                          type="checkbox"
                           name="brand"
                           id={`brand${i}`}
-                          onChange={(e) => {
-                            setCurrentPage(1);
-                            setSelectedBradns(e.target.value);
-                          }}
+                          onChange={handleBrandChange}
+                          checked={selectedBradns.includes(brand)}
                         />
                         <label
                           className="form-check-label"
@@ -363,7 +374,7 @@ const Shop = ({ category }) => {
                   <option defaultValue disabled hidden>
                     Sort by
                   </option>
-                  <option value="all">All</option>
+                  {/* <option value="all">All</option> */}
                   {brands.length > 0 && brands?.map((brand, i) => {
                     return <option key={i} value={brand}>{brand}</option>
 

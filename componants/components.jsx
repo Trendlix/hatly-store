@@ -657,13 +657,13 @@ const NavBar = props => {
                   left: 0,
                   behavior: "smooth",
                 });
-              }} href="/shop/Accessories">
+              }} href="/shop/Cases">
                 <p className="text-end" style={{ fontSize: "25px" }}>
                   <FontAwesomeIcon
                     className="col pe-2"
                     icon={faPlug}
                   ></FontAwesomeIcon>
-                  Accessories
+                  Cases
                 </p>
               </Link>
             </motion.div>

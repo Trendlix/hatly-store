@@ -44,9 +44,9 @@ const categoryArray = [
     url: 'Headphones'
   },
   {
-    name: "Accessories",
+    name: "Cases",
     img: otherImage,
-    url: 'Accessories'
+    url: 'Cases'
   }
 ];
 

@@ -586,14 +586,14 @@ const Home = () => {
 
       {/* Accessories */}
       <CategoryDevider
-        url="Accessories"
+        url="Cases"
         img={accessoriesBanner}
         name="New & Trendly"
       ></CategoryDevider>
     <section ref={ref}>
         <div className="container">
           <div className="d-flex p-2  justify-content-between mb-3 mt-3" style={{ backgroundColor: '#384a8c' }}>
-            <div className="col-4 d-flex flex-column justify-content-center"><h5 style={{ margin: '0', color: 'white' }}>Accessories</h5></div>
+            <div className="col-4 d-flex flex-column justify-content-center"><h5 style={{ margin: '0', color: 'white' }}>Cases</h5></div>
             <div className="col-4 d-flex flex-column justify-content-center"><Link onClick={() => {
               window.scroll({
                 top: 0,

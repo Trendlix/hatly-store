@@ -437,7 +437,7 @@ const Home = () => {
         </div>
       </section> */}
       <CategoryDevider
-        url="Accessories"
+        url="Cases"
         img={accessoriesBanner}
         name="New & Trendly"
       ></CategoryDevider>
