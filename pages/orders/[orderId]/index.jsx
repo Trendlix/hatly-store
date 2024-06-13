@@ -55,12 +55,12 @@ const index = ({ data }) => {
       <div className={style.orderItems}>
         {data.products?.map(el =>
           <OrderItem
-            key={el.productId._id}
-            name={el.productId.name}
-            category={el.productId.group}
-            price={parseFloat(el.productId.price).toFixed(1)}
+            key={el.product.item_code}
+            name={el.product.name}
+            category={el.product.item_group}
+            price={parseFloat(el.product.price).toFixed(1)}
             quantity={parseInt(el.quantity)}
-            image={el.productId.images[0]}
+            image={el.product.image[0]}
           />
         )
         }

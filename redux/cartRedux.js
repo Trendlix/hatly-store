@@ -53,7 +53,7 @@ export const fetchCart = createAsyncThunk('cart/fetchCart', async (_, { getState
       const response = await axios.get(`${API_URL}/cart`);
       const cart = {
         products: response.data.products.map(product => ({
-          ...product.productId,
+          product: product.product,
           quantity: product.quantity,
         })),
         totalQuantity: response.data.totalQuantity,
@@ -109,7 +109,7 @@ export const removeFromCart = createAsyncThunk('cart/removeFromCart', async ({ p
   const { isAuthenticated } = userState(getState());
   
   if (isAuthenticated) {
-    const response = await axios.delete(`${API_URL}/cart/${product}`);
+    const response = await axios.delete(`${API_URL}/cart/${product.item_code}`);
     console.log(response.data);
     await dispatch(fetchCart());
     return response.data;

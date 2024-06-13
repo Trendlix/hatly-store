@@ -66,6 +66,7 @@ const SingleProduct = () => {
 
   const getProduct = async () => {
     try {
+      setLoading(true);
       const res = await fetchProduct.get(`products/erp/${productId}`)
       console.log(res)
       // const res2 = await fetchProduct.get(`attactments`, {
@@ -76,8 +77,6 @@ const SingleProduct = () => {
       setGallary(res.data[0]?.image?.map((el) => {
         return el
       }))
-
-      setLoading(false);
       setProduct(res.data[0]);
       setimgs(res.data[0].image ? res.data[0].image[0].length > 1 ? res.data[0].image[0] : notFound : notFound);
       setProductImgs([
@@ -112,7 +111,10 @@ const SingleProduct = () => {
           recentlyData,
         })
       );
-    } catch (er) { }
+      setLoading(false)
+    } catch (er) { 
+      console.log(er.message)
+    }
   };
 
   const getRelatedProducts = async (selectedBradns) => {

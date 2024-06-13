@@ -81,7 +81,7 @@ const AccountInformation = () => {
     onChangeHandler: onChangeStateHandler,
     onBlurHandler: onBlurStateHandler,
     resetInputHandler: resetStateInput
-  } = useInput((value) => value.trim().length > 0, user?.user?.state);
+  } = useInput((value) => value.trim().length > 0, user?.user?.country);
   const {
     value: enteredCity,
     isValid: enteredCityIsValid,
@@ -366,9 +366,6 @@ const AccountInformation = () => {
           text={isLoading ? 'saving' : 'save'}
           disabled={!formIsValid || isLoading || !isChanged}
           onClickHandler={updateUserHandler}
-        />
-        <Button
-          text="Change Password"
         />
       </div>
     </motion.div>

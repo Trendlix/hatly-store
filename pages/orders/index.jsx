@@ -88,11 +88,11 @@ const index = () => {
                 console.log(productItem)
                 return (
                 <OrderOverview
-                  key={productItem.productId._id}
-                  img={productItem.productId.images[0]}
-                  productName={productItem.productId.name}
-                  productCategory={productItem.productId.group}
-                  totalPrice={productItem.productId.price * productItem.quantity}
+                  key={productItem.product.item_code}
+                  img={productItem.product.image[0]}
+                  productName={productItem.product.item_name}
+                  productCategory={productItem.product.item_group}
+                  totalPrice={productItem.product.price * productItem.quantity}
                   orderId={el._id}
                 />
                 )

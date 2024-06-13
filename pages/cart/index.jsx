@@ -12,6 +12,7 @@ import { userState } from "../../redux/features/user/userSlice";
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
+  console.log('cart', cart)
   const dispatch = useDispatch();
   const user = useSelector(userState);
   console.log(user, 'from cart comp')

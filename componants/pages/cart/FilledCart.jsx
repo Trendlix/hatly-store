@@ -39,6 +39,7 @@ const FilledCart = (props) => {
         </div>
         <div className="row">
           {props.data.products.map((data, i) => {
+            console.log('data', data)
             return (
               <div className="col-6 col-md-6 col-lg-4 col-xl-3 pt-3" key={i}>
                 <div
@@ -60,7 +61,8 @@ const FilledCart = (props) => {
                       href={`/product/${data.product.item_code}`}
                       className="col-12 col-md-12"
                     >
-                      <Image width="100" height="100" style={{ filter: 'drop-shadow(white 0px 0px 70px)' }} src={data.product.image ? data.product.image[0] : notFound} alt="cart"></Image>
+                      {console.log('data.product.image', data.product.image)}
+                      <Image width="100" height="100" style={{ filter: 'drop-shadow(white 0px 0px 70px)' }} src={data?.product.image[0].length > 1 ? data.product.image[0] : notFound} alt="cart"></Image>
                     </Link>
                     <div className="col-12 col-md-12 mb-0">
                       <p style={pStyle}>
