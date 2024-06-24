@@ -46,8 +46,13 @@ const SingleProduct = () => {
     on: false,
     discrption: "ADD TO CART",
   });
- 
-  
+  const [productColors, setProductColors] = useState([])
+  const [productRams, setProductRams] = useState([]);
+  const [productStorages, setProductStorages] = useState([])
+  const [selectedColor, setSelectedColor] = useState('')
+  const [selectedRam, setSelectedRam] = useState('')
+  const [selectedRom, setSelectedRom] = useState('')
+
   const handleClick = (e) => {
     setAddCartDisable({ on: true, discrption: "PRODUCT ON THE CART" });
     dispatch(
@@ -64,6 +69,16 @@ const SingleProduct = () => {
     setBook(prev => true);
   }
 
+  function getAttributeValue(attributes, key) {
+    for (let attribute of attributes) {
+      // Check if the attribute object has the specified key
+      if (key in attribute) {
+        return attribute[key]; // Return the value corresponding to the key
+      }
+    }
+    return null; // Return null if key is not found
+  }
+
   const getProduct = async () => {
     try {
       setLoading(true);
@@ -74,10 +89,31 @@ const SingleProduct = () => {
       //     code: res.data[0].item_code
       //   }
       // })
+      let colors = new Set();
+      let rams = new Set();
+      let storages = new Set();
+
+      res.data.forEach(item => {
+        const color = getAttributeValue(item.attributes, 'Colour');
+        const ram = getAttributeValue(item.attributes, 'Ram');
+        const storage = getAttributeValue(item.attributes, 'Rom');
+
+        if (color) colors.add(color.toLowerCase());
+        if (ram) rams.add(ram);
+        if (storage) storages.add(storage);
+      });
+
+      setProductColors([...colors]);
+      setProductRams([...rams]);
+      setProductStorages([...storages]);
+
       setGallary(res.data[0]?.image?.map((el) => {
         return el
       }))
       setProduct(res.data[0]);
+      setSelectedColor(getAttributeValue(res.data[0].attributes, 'Colour').toLowerCase());
+      setSelectedRam(getAttributeValue(res.data[0].attributes, 'Ram'))
+      setSelectedRom(getAttributeValue(res.data[0].attributes, 'Rom'))
       setimgs(res.data[0].image ? res.data[0].image[0].length > 1 ? res.data[0].image[0] : notFound : notFound);
       setProductImgs([
         res.data[0].image ? res.data[0].image[0].length > 1 ? res.data[0].image[0] : notFound : notFound,
@@ -139,6 +175,9 @@ const SingleProduct = () => {
 
   useEffect(() => {
     getProduct()
+    console.log('productColors', productColors)
+    console.log('productRams', productRams)
+    console.log('productStorages', productStorages)
   }, [productId]);
 
   useEffect(() => {
@@ -176,51 +215,44 @@ const SingleProduct = () => {
                 className="col-11 col-lg me-md-3 p-0"
               >
                 <div className="row justify-content-center">
-                  <div className="col-2">
-                    {gallary?.map((image, i) => {
-                      console.log(image)
-                      return (
-                        <div key={i} className="col-12 mt-2 col-md-12">
-                          <Image
-                            onClick={(e) => {
-                              setimgs(e.target.getAttribute("src"));
-                            }}
-                            src={image.length > 1 ? image : notFound}
-                            style={{ width: "100%", cursor: "pointer" }}
-                            width="100"
-                            height="100"
-                            alt="Product"
-                          ></Image>
-                        </div>
-                      );
-                    })}
-                  </div>
-                  <div className="col-10  col-lg-8 d-flex justify-content-center js">
+                  {/* Main Image */}
+                  <div className="col-12 col-md-10 d-flex justify-content-center mt-3">
                     <ReactImageMagnify
-                      style={{
-                        borderRadius: "5px",
-                        overflow: "hidden",
-                        width: "30%",
+                      style={{ borderRadius: "5px", overflow: "hidden", width: "70%" }}
+                      smallImage={{
+                        alt: "Wristwatch by Ted Baker London",
+                        isFluidWidth: true,
+                        src: img?.length > 1 ? img : notFound.src,
                       }}
-                      {...{
-                        smallImage: {
-                          alt: "Wristwatch by Ted Baker London",
-                          isFluidWidth: true,
-                          src: img?.length > 1 ? img : notFound.src,
-                        
-                        },
-                        largeImage: {
-                          src: img?.length > 1 ? img : notFound.src,
-                          width: 800,
-                          height: 800,
-                        },
-                        enlargedImageContainerDimensions: {
-                          width: "50%",
-                          height: "50%",
-                        },
-                        enlargedImagePosition: "over",
+                      largeImage={{
+                        src: img?.length > 1 ? img : notFound.src,
+                        width: 800,
+                        height: 800,
                       }}
+                      enlargedImageContainerDimensions={{
+                        width: "50%",
+                        height: "50%",
+                      }}
+                      enlargedImagePosition="over"
                     />
+                  </div>
+
+                  {/* Gallery Images */}
+                  <div className="col-12 col-md-10 d-flex align-items-start ">
+                    {gallary?.map((image, i) => (
+                      <div key={i} className="p-2">
+                        <Image
+                          onClick={(e) => {
+                            setimgs(e.target.getAttribute("src"));
+                          }}
+                          src={image.length > 1 ? image : notFound}
+                          style={{ width: "100%", cursor: "pointer" }}
+                          width="100"
+                          height="100"
+                          alt="Product"
+                        />
+                      </div>
+                    ))}
                   </div>
                 </div>
               </motion.div>
@@ -244,9 +276,10 @@ const SingleProduct = () => {
                     boxShadow: "0 13px 86px rgb(0 0 0 / 10%)",
                     borderRadius: "5px",
                     display: "flex",
-                    alignItems: "center",
+                    alignItems: "start",
                     height: "100%",
                     position: "relative",
+                    gap: 6,
                   }}
                 >
                 <CopyLink link={productId}/>
@@ -294,8 +327,154 @@ const SingleProduct = () => {
 
                     {/* {product.actual_qty > 0 && product.actual_qty < 10 ? ( */}
                     {product.stockQty > 0 ? (
-                      <div className="row mt-2">
+                      <div className="row mt-4">
                         <div className="col-12">
+                          
+                         <div style={{display: "flex", flexDirection: "column", gap: 25, marginBottom: 20}}>
+                          
+                          <div style={{
+                              display: "flex",
+                              flexDirection: "row",
+                              alignItems: "center",
+                              gap: 20,
+                            }}>
+                              <p style={{
+                                fontSize: 16,
+                                fontWeight: "bold",
+                                color: "#737373",
+                                margin: 0,
+                              }}>Select Color:</p>
+                              <div style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                alignItems: "center",
+                                gap: 8,
+                              }}>
+                                {productColors.map(color => (
+                                  <div style={{border: color === selectedColor ? "2px solid black" : "none", width: "53px", height: "53px", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center"}}>
+                                    <div style={{
+                                      width: "45px",
+                                      height: "45px",
+                                      borderRadius: "50%",
+                                      backgroundColor: color,
+                                      cursor: "pointer",
+                                      
+                                    }}
+                                    onClick={()=>setSelectedColor(color)}
+                                    ></div>
+                                  </div>                               
+                                  ))}
+                                <p style={{
+                                  fontSize: 14,
+                                  color: "#737373",
+                                  fontWeight: "bold",
+                                  textTransform: "capitalize",
+                                  margin: 0,  // Ensure there's no margin affecting the alignment
+                                  height: "40px",  // Match the height of the RAM squares
+                                  display: "flex",
+                                  alignItems: "center"
+                                  }}>{selectedColor}</p>
+                              </div>
+                            </div>
+
+                            <div style={{
+                              display: "flex",
+                              flexDirection: "row",
+                              alignItems: "center",
+                              gap: 20,
+                            }}>
+                              <p style={{
+                                fontSize: 16,
+                                fontWeight: "bold",
+                                color: "#737373",
+                                margin: 0,  // Ensure there's no margin affecting the alignment
+                              }}>Select Ram:</p>
+                              <div style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                alignItems: "center",
+                                gap: 8,
+                              }}>
+                                {productRams.map(ram => (
+                                  <div key={ram} style={{
+                                    padding: 6,
+                                    border: selectedRam === ram ? "2px solid rgba(0, 0, 0)" : "1px solid #737373",
+                                    cursor: "pointer",
+                                    color: "black",
+                                    fontWeight: "bold",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",  // Center the text within the square
+                                    height: "40px",  // Ensure a consistent height
+                                    minWidth: "40px",  // Ensure a consistent width
+                                    boxSizing: "border-box",  // Include padding and border in the element's total width and height
+                                  }}
+                                  onClick={() => setSelectedRam(ram)}
+                                  >{ram} GB</div>
+                                ))}
+                                <p style={{
+                                  fontSize: 14,
+                                  color: "#737373",
+                                  fontWeight: "bold",
+                                  textTransform: "capitalize",
+                                  margin: 0,  // Ensure there's no margin affecting the alignment
+                                  height: "40px",  // Match the height of the RAM squares
+                                  display: "flex",
+                                  alignItems: "center",
+                                }}>{selectedRam} GB</p>
+                              </div>
+                            </div>
+
+                            <div style={{
+                              display: "flex",
+                              flexDirection: "row",
+                              alignItems: "center",
+                              gap: 20,
+                            }}>
+                              <p style={{
+                                fontSize: 16,
+                                fontWeight: "bold",
+                                color: "#737373",
+                                margin: 0,  // Ensure there's no margin affecting the alignment
+                              }}>Select Rom:</p>
+                              <div style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                alignItems: "center",
+                                gap: 8,
+                              }}>
+                                {productStorages.map(rom => (
+                                  <div key={rom} style={{
+                                    padding: 6,
+                                    border: selectedRom === rom ? "2px solid rgba(0, 0, 0)" : "1px solid #737373",
+                                    cursor: "pointer",
+                                    color: "black",
+                                    fontWeight: "bold",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",  // Center the text within the square
+                                    height: "40px",  // Ensure a consistent height
+                                    minWidth: "40px",  // Ensure a consistent width
+                                    boxSizing: "border-box",  // Include padding and border in the element's total width and height
+                                  }}
+                                  onClick={() => selectedRom(rom)}
+                                  >{rom} GB</div>
+                                ))}
+                                <p style={{
+                                  fontSize: 14,
+                                  color: "#737373",
+                                  fontWeight: "bold",
+                                  textTransform: "capitalize",
+                                  margin: 0,  // Ensure there's no margin affecting the alignment
+                                  height: "40px",  // Match the height of the RAM squares
+                                  display: "flex",
+                                  alignItems: "center",
+                                }}>{selectedRom} GB</p>
+                              </div>
+                            </div>
+
+                         </div>
+
                           <button disabled className="text-white btn btn-success">In Stock</button>
                           <p className="pt-3">
                             {
