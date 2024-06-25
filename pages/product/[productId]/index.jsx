@@ -21,7 +21,7 @@ import CopyLink from "../../../componants/CopyLink/CopyLink";
 import { getUser, userState } from "../../../redux/features/user/userSlice";
 
 
-const SingleProduct = () => {
+const SingleProduct = () => { 
   const user = useSelector(userState)
   const router = useRouter()
   const { productId } = router.query
@@ -245,15 +245,15 @@ const SingleProduct = () => {
                 <div className="row justify-content-center">
                   {/* Main Image */}
                   <div className="col-12 col-md-10 d-flex justify-content-center mt-3">
-                    <ReactImageMagnify
+                    {/* <ReactImageMagnify
                       style={{ borderRadius: "5px", overflow: "hidden", width: "70%" }}
                       smallImage={{
                         alt: "Wristwatch by Ted Baker London",
                         isFluidWidth: true,
-                        src: img?.length > 1 ? img : notFound.src,
+                        src: img?.length > 1 ? img.src : notFound.src,
                       }}
                       largeImage={{
-                        src: img?.length > 1 ? img : notFound.src,
+                        src: img?.length > 1 ? img.src : notFound.src,
                         width: 800,
                         height: 800,
                       }}
@@ -262,7 +262,8 @@ const SingleProduct = () => {
                         height: "50%",
                       }}
                       enlargedImagePosition="over"
-                    />
+                    /> */}
+                    <Image src={img ? img?.length > 1 ? img : notFound : notFound} width={900} height={500} />
                   </div>
 
                   {/* Gallery Images */}
