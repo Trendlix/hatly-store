@@ -48,36 +48,14 @@ import Image from "next/image";
 import { wrapper } from "../redux/store";
 import { getUser, userState } from "../redux/features/user/userSlice";
 import Link from "next/link";
+import tablet from "@/../../public/tablet.jpg"
+import laptop from "@/../../public/laptop.png"
+import mobile from "@/../../public/mobile.jpg"
+import headphones from "@/../../public/headphones.jpg"
+import watch from "@/../../public/watch.jpg"
+import axios from "axios";
+import API_URL from "../API/ApiUrl";
 
-
-const categoryArray = [
-  {
-    name: "Phones",
-    img: phonesImage,
-    url: 'Mobiles'
-  },
-  {
-    name: "Chargers",
-    img: chargerImage,
-    url: 'Chargers'
-  },
-  {
-    name: "Smart Watches",
-    img: wahtchImage,
-    url: 'Smart Watches'
-
-  },
-  {
-    name: "Headphones",
-    img: headphonesImage,
-    url: 'Headphones'
-  },
-  {
-    name: "Accessories",
-    img: otherImage,
-    url: 'Accessories'
-  }
-];
 
 const slider1 = [{ img: sliderImage2, link: '/payment-methods' }, { img: sliderImage3 }, { img: sliderImage5 , link : '/our-policy' }, { img: sliderImage1 , link : '/inquiries'}];
 const slider2 = [{ img: sliderImage4 }, { img: sliderImage6 }, { img: sliderImage7 }];
@@ -119,14 +97,21 @@ const Home = () => {
     // }
   }, [inView]);
 
+  // useEffect(()=>{
+  //   const triggerErpProducts = async () => {
+  //     const data = await axios.get(`${API_URL}/products/erp`)
+  //     const products = data.data
+  //     return products
+  //   }
+  //   triggerErpProducts();
+  // },[])
+
   const [productsMobiles, setProductsMobiles] = useState([]);
-  const [productsWatches, setProductsWatches] = useState([]);
   const [chargers, setChargers] = useState([]);
   const [smartWatches, setSmartWatches] = useState([]);
   const [headphones, setHeadphones] = useState([]);
   const [accessories, setAccessories] = useState([]);
 
-  // const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState();
 
   const getProductsMobiles = async () => {
@@ -138,6 +123,7 @@ const Home = () => {
       setLoading(false);
     } catch (er) { }
   };
+
   const getChargers = async () => {
     try {
       
@@ -147,6 +133,7 @@ const Home = () => {
       setLoading(false);
     } catch (er) { }
   };
+
   const getSmartWatches = async () => {
     try {
       
@@ -156,6 +143,7 @@ const Home = () => {
       setLoading(false);
     } catch (er) { }
   };
+
   const getHeadphones = async () => {
     try {
       setLoading(true);
@@ -164,16 +152,18 @@ const Home = () => {
       setLoading(false);
     } catch (er) { }
   };
+
   const getAccessories = async () => {
     try {
       setLoading(true);
-      const res = await fetchProduct.get(`/category/Accessories`);
+      const res = await fetchProduct.get(`/category/Cases`);
+      console.log('res.data', res.data)
       setAccessories(res.data);
       setLoading(false);
     } catch (er) { }
   };
-  useEffect(() => {
 
+  useEffect(() => {
     getProductsMobiles();
     getChargers();
     getSmartWatches();
@@ -334,7 +324,7 @@ const Home = () => {
       </div> */}
 
       {/* mobiles */}
-      <CategoryDevider img={mobileBanner} name="Mobiles" url="Mobiles"></CategoryDevider>
+      <CategoryDevider img={mobileBanner} name="Mobiles" url="phones"></CategoryDevider>
       <section ref={ref}>
         <div className="container">
           <div className="d-flex p-2  justify-content-between mb-3 mt-3" style={{ backgroundColor: '#384a8c' }}>
@@ -371,7 +361,7 @@ const Home = () => {
       </section>
 
       {/* Chargers */}
-      <CategoryDevider url="Chargers"
+      <CategoryDevider url="chargers"
         img={chargerBanner}
         name="New & Trendly"
       ></CategoryDevider>
@@ -520,7 +510,7 @@ const Home = () => {
 
       {/* Headphones */}
       <CategoryDevider
-        url="Headphones"
+        url="headphones"
         img={headphoneBanner}
         name="New & Trendly"
       ></CategoryDevider>
@@ -596,21 +586,21 @@ const Home = () => {
 
       {/* Accessories */}
       <CategoryDevider
-        url="Accessories"
+        url="Cases"
         img={accessoriesBanner}
         name="New & Trendly"
       ></CategoryDevider>
     <section ref={ref}>
         <div className="container">
           <div className="d-flex p-2  justify-content-between mb-3 mt-3" style={{ backgroundColor: '#384a8c' }}>
-            <div className="col-4 d-flex flex-column justify-content-center"><h5 style={{ margin: '0', color: 'white' }}>Accessories</h5></div>
+            <div className="col-4 d-flex flex-column justify-content-center"><h5 style={{ margin: '0', color: 'white' }}>Cases</h5></div>
             <div className="col-4 d-flex flex-column justify-content-center"><Link onClick={() => {
               window.scroll({
                 top: 0,
                 left: 0,
                 behavior: "smooth",
               });
-            }} href="/shop/Accessories"><h6 style={{ textAlign: 'end', margin: '0', color: 'white' }}>SEE ALL {'>'}</h6></Link></div>
+            }} href="/shop/Cases"><h6 style={{ textAlign: 'end', margin: '0', color: 'white' }}>SEE ALL {'>'}</h6></Link></div>
           </div>
           <div
             className="row justify-content-center align-items-center"

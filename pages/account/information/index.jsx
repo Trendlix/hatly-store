@@ -81,7 +81,7 @@ const AccountInformation = () => {
     onChangeHandler: onChangeStateHandler,
     onBlurHandler: onBlurStateHandler,
     resetInputHandler: resetStateInput
-  } = useInput((value) => value.trim().length > 0, user?.user?.state);
+  } = useInput((value) => value.trim().length > 0, user?.user?.country);
   const {
     value: enteredCity,
     isValid: enteredCityIsValid,
@@ -152,7 +152,7 @@ const AccountInformation = () => {
     const lastName = enteredLastName;
     const email = enteredEmail;
     const phone = enteredPhone
-    const state = enteredState
+    const country = enteredState
     const city = enteredCity
     const street = enteredStreet
     const building = enteredBuilding
@@ -165,7 +165,7 @@ const AccountInformation = () => {
         lastName,
         email,
         phone,
-        state,
+        country,
         city,
         street,
         building,
@@ -300,7 +300,7 @@ const AccountInformation = () => {
           helperText={stateHasError ? "This field is required" : ""}
           onChange={onChangeStateHandler}
           onBlur={onBlurStateHandler}
-          label="State"
+          label="Country"
           variant="outlined"
         />
         <TextField
@@ -366,9 +366,6 @@ const AccountInformation = () => {
           text={isLoading ? 'saving' : 'save'}
           disabled={!formIsValid || isLoading || !isChanged}
           onClickHandler={updateUserHandler}
-        />
-        <Button
-          text="Change Password"
         />
       </div>
     </motion.div>

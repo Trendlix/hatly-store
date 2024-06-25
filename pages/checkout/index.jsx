@@ -35,38 +35,48 @@ const pStyle = {
 const Checkout = () => {
   const router = useRouter()
   const [loading, setLoading] = useState(false);
+
   const {
     register,
     handleSubmit,
     setValue,
     formState: { errors },
   } = useForm();
+
   const { user } = useSelector(userState);
   const dispatch = useDispatch()
+
   useEffect(() => {
     if (!user)
       dispatch(getUser())
-    setValue('firstName', user?.firstName)
+      setValue('firstName', user?.firstName)
   }, [dispatch]);
+
   useEffect(() => {
     if (user) {
       setValue('firstName', user?.firstName)
       setValue('lastName', user?.lastName)
       setValue('email', user?.email)
       setValue('phone', user?.phone)
-      setValue('state', user?.state)
+      setValue('country', user?.country)
+      setValue('street', user?.street)
+      setValue('city', user?.city)
+      setValue('building', user?.building)
+      setValue('apartment', user?.apartment)
+      setValue('floor', user?.floor)
     }
   }, [user]);
 
   const [items, setItems] = useState([]);
 
   const cart = useSelector((state) => state.cart);
+  console.log(cart, 'in checkout')
 
   useEffect(() => {
     const data = cart.products.map(product => {
       return {
-        name: product.item_name,
-        amount_cents: product.price_list_rate * 100,
+        name: product.name,
+        amount_cents: product.price * 100,
         quantity: product.quantity,
       };
     });
@@ -84,7 +94,7 @@ const Checkout = () => {
   });
   const iframe = `https://accept.paymob.com/api/acceptance/iframes/${iframeID}?payment_token=`;
 
-  const getToken = () => {
+  const getToken = async() => {
     let headersList = {
       "Accept": "*/*",
       "Content-Type": "application/json"
@@ -125,22 +135,22 @@ const Checkout = () => {
       auth_token: token,
       delivery_needed: "false",
       // amount_cents: `${Number(cart.total) * 100}`,
-      amount_cents: `${100 * (cart.total + 50)}`,
+      amount_cents: `${(cart.total + 50) * 100}`,
       currency: "EGP",
       items: items,
       shipping_data: {
-        apartment: "temp",
+        apartment: data.apartment,
         email: data.email,
-        floor: "temp",
+        floor: data.floor,
         first_name: data.firstName,
-        street: "temp",
-        building: "temp",
+        street: data.street,
+        building: data.building,
         phone_number: data.phone,
         extra_description: data.extraDescription,
-        city: "temp",
+        city: data.city,
         country: "EG",
         last_name: data.lastName,
-        state: data.state,
+        state: data.country,
       },
     });
   }
@@ -154,29 +164,31 @@ const Checkout = () => {
       expiration: 3600,
       order_id: orderId,
       billing_data: {
-        apartment: "temp",
+        apartment: data.apartment,
         email: data.email,
-        floor: "temp",
+        floor: data.floor,
         first_name: data.firstName,
-        street: "temp",
-        building: "temp",
+        street: data.street,
+        building: data.building,
         phone_number: data.phone,
         extra_description: data.extraDescription,
-        city: "temp",
+        city: data.city,
         country: "EG",
         last_name: data.lastName,
-        state: data.state,
+        state: "temp",
       },
       // token : more.token,
       currency: "EGP",
       integration_id: integrationID,
       lock_order_when_paid: "true",
     });
+
   const saveToCookies = token => {
     Cookies.set('_pt_', token, {
       domain: '.trendlix.com',
     });
   };
+
   const payment = (data) => {
     setLoading(true)
     console.log('here')
@@ -199,6 +211,7 @@ const Checkout = () => {
       });
     });
   };
+
   // const cashRequest = (token) =>
   //   axios.post("https://accept.paymob.com/api/acceptance/payments/pay", {
   //     source: {
@@ -224,6 +237,7 @@ const Checkout = () => {
   //     });
   //   });
   // };
+  
   const cashPaymentHandler = async (data) => {
     // try {
     //   const res = await axios.post(`${API_URL}/orders`, {
@@ -235,7 +249,7 @@ const Checkout = () => {
     //       lastName: data.lastName,
     //       email: data.email,
     //       phone: data.phone,
-    //       state: data.state,
+    //       state: "temp",
     //       city: data.city,
     //       street: data.street,
     //       building: data.building,
@@ -254,8 +268,8 @@ const Checkout = () => {
     //   console.log(e)
     // }
     setLoading(true);
-    const res = await makeOrder(data, cart, 'Cash');
-    if(res.data.ok){
+    const res = await makeOrder(data, 'Cash', integrationID);
+    if(res?.data.ok){
       // remove cart after payment and order done
       dispatch(resetCart());
       localStorage.removeItem('cart');
@@ -269,7 +283,7 @@ const Checkout = () => {
         progress: undefined,
         theme: "light",
         });
-        router.push(`/orders/${res.data.body.name}`);
+        router.push(`/orders/${res.data.order._id}`);
     }else{
       toast.error(res.data.message, {
         position: "top-right",
@@ -284,6 +298,7 @@ const Checkout = () => {
     }
     setLoading(false);
   }
+  
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -394,9 +409,9 @@ const Checkout = () => {
                     </p>
                   </div>
                   <div className="mb-3">
-                    <label className="form-label">Address</label>
+                    <label className="form-label">Country</label>
                     <input
-                      {...register("state")}
+                      {...register("country")}
                       type="text"
                       className="form-control"
                     />
@@ -404,7 +419,7 @@ const Checkout = () => {
                       {errors.state?.message}
                     </p>
                   </div>
-                  {/* <div className="mb-3">
+                  <div className="mb-3">
                     <label className="form-label">City</label>
                     <input
                       {...register("city")}
@@ -458,7 +473,7 @@ const Checkout = () => {
                     <p className="mb-0 pt-2 text-danger">
                       {errors.apartment?.message}
                     </p>
-                  </div> */}
+                  </div>
 
 
                   <div className="mb-3">
@@ -497,15 +512,15 @@ const Checkout = () => {
                             width="100"
                             height="100"
                             src={
-                              product.image
-                                ? `${`https://hatlystore.tswsp.net${product.image}`}`
+                              product.images
+                                ? product.images[0]
                                 : notFound
                             }
                             alt="Product"
                           />
                         </div>
                         <div className="col-8">
-                          <p style={pStyle}>{product.item_name}</p>
+                          <p style={pStyle}>{product.name}</p>
                           <p
                             style={{
                               margin: "0",

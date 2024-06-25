@@ -37,16 +37,15 @@ const Product = (props) => {
       <div align="center">
         <Link
           className="text-center"
-          href={`/product/${props.data.id}`}
+          href={`/product/${props.data.item_code}`}
           onClick={scrollTop}
           style={{ textDecoration: "none" }}
         >
           <Image
             loading="lazy"
             src={
-              props.data.image
-                ? `https://hatlystore.tswsp.net${props.data.image}`
-                : notFound
+              props.data.images
+                ? props.data.images[0].length > 1 ? props.data.images[0] : notFound : notFound
             }
             alt={props.data.item_name}
             width={120}
@@ -62,7 +61,7 @@ const Product = (props) => {
         </Link>
         <Link
           className="text-center"
-          href={`/product/${props.data.id}`}
+          href={`/product/${props.data.item_code}`}
           onClick={scrollTop}
           style={{ textDecoration: "none" }}
         >
@@ -70,10 +69,10 @@ const Product = (props) => {
             {props.data.item_name}
           </p>
         </Link>
-        <p
+        {/* <p
           className="text-center mb-2"
           style={{ fontWeight: "600", color: "#20c997" }}
-        >{`${parseInt(props.data.price_list_rate)} EGP`}</p>
+        >{`${parseInt(props.data.price ? props.data.price : 0)} EGP`}</p> */}
         <div className="row">
           <p className="text-center m-0">
             <span className="fa fa-star checked"></span>
@@ -85,7 +84,7 @@ const Product = (props) => {
         </div>
         <Link
           onClick={scrollTop}
-          href={`/product/${props.data.id}`}
+          href={`/product/${props.data.item_code}`}
           className="btn bg-white col-12 mt-1"
           style={{ color: "#384a8c" }}
         >

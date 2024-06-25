@@ -45,22 +45,22 @@ const index = ({ data }) => {
       <div className={style.mainOrderDetailsContainer}>
         {/* <div className={style.detailItem}> */}
         <p>Order Id:</p>
-        <p>#{data.name}</p>
+        <p>#{data._id}</p>
         <p>Date:</p>
-        <p>{getDate(data.creation)}</p>
+        <p>{getDate(data.createdAt)}</p>
         <p>Delivery Status:</p>
         <p>{"Delivered"}</p>
         {/* </div> */}
       </div>
       <div className={style.orderItems}>
-        {data.ordersItems.map(el =>
+        {data.products?.map(el =>
           <OrderItem
-            key={el.name}
-            name={el.item_name}
-            category={el.item_group}
-            price={parseFloat(el.base_amount).toFixed(1)}
-            quantity={parseInt(el.qty)}
-            image={`https://hatlystore.tswsp.net${el.image}`}
+            key={el.product.item_code}
+            name={el.product.name}
+            category={el.product.item_group}
+            price={parseFloat(el.product.price).toFixed(1)}
+            quantity={parseInt(el.quantity)}
+            image={el.product.image[0]}
           />
         )
         }
@@ -73,24 +73,24 @@ const index = ({ data }) => {
             <p className={style.dataHeader}>Name</p>
             <p className={style.data}>{data.contact_display}</p>
             <p className={style.dataHeader}>Phone Number</p>
-            <p className={style.data}>{data.contact_mobile}</p>
+            <p className={style.data}>{data.userId.phone}</p>
           </div>
         </div>
         <div className={style.deliveryAddress}>
           <h4 className={style.sectionHeader}>Delivery Address</h4>
           <div className={style.gridContainer}>
             <p className={style.dataHeader}>Address</p>
-            <p className={style.data}>{data.state}</p>
-            {/* <p className={style.dataHeader}>City</p>
-            <p className={style.data}>{data.city}</p>
+            <p className={style.data}>{data.address.country}</p>
+            <p className={style.dataHeader}>City</p>
+            <p className={style.data}>{data.address.city}</p>
             <p className={style.dataHeader}>Street</p>
-            <p className={style.data}>{data.street}</p>
+            <p className={style.data}>{data.address.street}</p>
             <p className={style.dataHeader}>Building</p>
-            <p className={style.data}>{data.building}</p>
+            <p className={style.data}>{data.address.building}</p>
             <p className={style.dataHeader}>Floor</p>
-            <p className={style.data}>{data.floor}</p>
+            <p className={style.data}>{data.address.floor}</p>
             <p className={style.dataHeader}>Apartment</p>
-            <p className={style.data}>{data.apartment}</p> */}
+            <p className={style.data}>{data.address.apartment}</p>
             {
               data.extraDescription &&
               <p className={style.dataHeader}>Extra Description</p>
@@ -106,11 +106,11 @@ const index = ({ data }) => {
             <h4 className={style.sectionHeader}>Order Info</h4>
             <div className={style.priceGridContainer}>
               <p className={style.priceTitle}>Sub Total</p>
-              <p className={style.price}>{parseFloat(data.total).toFixed(1)}</p>
+              <p className={style.price}>{parseFloat(data.subTotal).toFixed(1)}</p>
               <p className={`${style.priceTitle} ${style.underline}`}>Delivery Fees</p>
-              <p className={style.price}>{parseInt(data.total_taxes_and_charges)}</p>
+              <p className={style.price}>{parseInt(data.deliveryFees)}</p>
               <p className={style.priceTitle}>Total:</p>
-              <p className={style.price}>{parseFloat(data.grand_total).toFixed(1)}</p>
+              <p className={style.price}>{parseFloat(data.totalAmount).toFixed(1)}</p>
             </div>
           </div>
         </div>

@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import EmptyCart from "./EmptyCart";
 import FilledCart from "./FilledCart";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import sliderImage5 from "../../../img/slider2.jpg";
 import { motion } from "framer-motion";
+import { fetchCart } from "../../../redux/cartRedux";
 
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
+
+
+
   return (
     <motion.div
       initial={{ opacity: 0 }}

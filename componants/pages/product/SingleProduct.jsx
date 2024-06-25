@@ -4,7 +4,7 @@ import Product from "../shop/Product";
 import { useParams, Link } from "react-router-dom";
 import { fetchProduct } from "../../../API/product";
 import { useDispatch, useSelector } from "react-redux";
-import { addProduct } from "../../../redux/cartRedux";
+import { addProduct, addToCart } from "../../../redux/cartRedux";
 import { motion } from "framer-motion";
 import ReactImageMagnify from "react-image-magnify";
 import { storeData } from "../../../redux/recentlyRedux";
@@ -14,9 +14,11 @@ import LoadingSingle from "../../LoadingSingle";
 import sliderImage3 from "../../../img/slider2.jpg";
 import sliderImage5 from "../../../img/slider6.jpg";
 import BookItem from "../../BookItem/BookItem";
+import { userState } from "../../../redux/features/user/userSlice";
 
 
 const SingleProduct = () => {
+  const user = useSelector(userState)
   const [selectedBradns, setSelectedBradns] = useState()
   const recentlyViewed = useSelector((state) => state.recently);
   const [img, setimgs] = useState();
@@ -38,9 +40,9 @@ const SingleProduct = () => {
   const handleClick = (e) => {
     setAddCartDisable({ on: true, discrption: "PRODUCT ON THE CART" });
     dispatch(
-      addProduct({
+      addToCart({
         product,
-        price: product.price_list_rate,
+        // price: product.price,
         singleProductQuantity: singleProductQuantity,
       })
     );
@@ -167,7 +169,7 @@ const SingleProduct = () => {
                           onClick={(e) => {
                             setimgs(e.target.getAttribute("src"));
                           }}
-                          src={image ? `${`https://hatlystore.tswsp.net${image}`}` : notFound}
+                          src={image?.length > 1 ? image : notFound}
                           style={{ width: "100%", cursor: "pointer" }}
                         ></img>
                       </div>

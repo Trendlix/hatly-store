@@ -1,14 +1,17 @@
 import React from "react";
 // import Swiper core and required modules
-import SwiperCore, { Autoplay } from "swiper";
-
-import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/scrollbar";
+import 'swiper/css';
+import 'swiper/css/autoplay';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+
+// Import Swiper core and required modules
+import { Autoplay, Pagination, Navigation } from 'swiper';
+
+// Initialize Swiper with the required modules
 import CategoryDevider from "./pages/home/CategoryDevider";
 import Category from "./pages/home/Category";
 
@@ -18,10 +21,9 @@ import chargerImage from "../img/image2-1536x1152.png";
 import headphonesImage from "../img/image3-1536x1152.png";
 import otherImage from "../img/accessories.png";
 
-
 const categoryArray = [
   {
-    name: "Phones",
+    name: "Mobiles",
     img: phonesImage,
     url: 'Mobiles'
   },
@@ -42,14 +44,14 @@ const categoryArray = [
     url: 'Headphones'
   },
   {
-    name: "Others",
+    name: "Cases",
     img: otherImage,
-    url: 'Mobiles'
+    url: 'Cases'
   }
 ];
 
 const CategoriesSlider = (props) => {
-  SwiperCore.use([Autoplay]);
+  // SwiperCore.use([Autoplay]);
   // console.log(props.number)
   return (
     <Swiper
@@ -75,6 +77,7 @@ const CategoriesSlider = (props) => {
       autoplay={{
         delay: 1000,
       }}
+      modules={[Autoplay]}
     >
 
             {categoryArray.map((category, i) => {

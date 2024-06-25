@@ -6,6 +6,7 @@ import Image from 'next/image';
 import notFound from "../../img/notFound.png";
 import useMobileDeviceDetection from '../../hooks/useMobileDetection';
 import Link from 'next/link';
+
 const OrderOverview = ({ img, productName, productCategory, totalPrice , orderId }) => {
   const isMobile = useMobileDeviceDetection()
   return (

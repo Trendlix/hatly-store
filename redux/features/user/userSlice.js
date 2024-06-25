@@ -1,85 +1,76 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-
 import API_URL from "../../../API/ApiUrl";
+import { syncCart } from '../../../redux/cartRedux';
 
-axios.defaults.withCredentials = true
+axios.defaults.withCredentials = true;
 
 const initialState = {
-  loading : false ,
+  loading: false,
   isAuthenticated: false,
-  user : null,
-  message : null,
-}
+  user: null,
+  message: null,
+};
 
 const userSlice = createSlice({
-  name  : "user",
-  initialState ,
-  reducers : {
-    setUser :(state,action)=>{
+  name: "user",
+  initialState,
+  reducers: {
+    setUser: (state, action) => {
       state.user = action.payload.user;
     },
-    loggingIn : (state) =>{
+    loggingIn: (state) => {
       state.loading = true;
     },
-    loggingOut : (state)=>{
+    loggingOut: (state) => {
       state.loading = true;
     },
-    loginSuccess : (state , action)=>{
+    loginSuccess: (state, action) => {
       state.loading = false;
       state.isAuthenticated = true;
       state.user = action.payload.user;
     },
-    loginFailed : (state , action)=>{
+    loginFailed: (state) => {
       state.loading = false;
     },
-    logout : (state , action)=>{
+    logout: (state) => {
       state.isAuthenticated = false;
       state.loading = false;
       state.user = null;
       state.message = null;
     },
-    logoutFailed : (state , action)=>{
+    logoutFailed: (state) => {
       state.loading = false;
     }
   },
-  // extraReducers: {
-  //   [HYDRATE]: (state, action) => {
-  //     // console.log('HYDRATE', state, action.payload);
-  //     return {
-  //       ...state,
-  //       ...action.payload.subject,
-  //     };
-  //   },
-  // },
-})
-
-
+});
 
 export const userState = state => state.user;
 export const userReducer = userSlice.reducer;
 export const userActions = userSlice.actions;
 
 export const getUser = () => {
-  return async (dispatch, getState) => {
+  return async (dispatch) => {
     try {
       dispatch(userSlice.actions.loggingIn());
-      const req = await axios.get(`${API_URL}/users/me`)
-      console.log(req.data)
-        dispatch(userSlice.actions.loginSuccess({user : req.data.body}));
-      } catch (e) {
-        dispatch(userSlice.actions.loginFailed())
+      const req = await axios.get(`${API_URL}/users/me`);
+      dispatch(userSlice.actions.loginSuccess({ user: req.data.body }));
+      await dispatch(syncCart());
+    } catch (e) {
+      dispatch(userSlice.actions.loginFailed());
+    }
   }
-  }
-}
-export const logout = ()=>{
-  return async (dispatch)=>{
+};
+
+export const logout = () => {
+  return async (dispatch) => {
     try {
       dispatch(userSlice.actions.loggingOut());
-      const req = await axios.get(`${API_URL}/users/logout`)
+      await axios.get(`${API_URL}/users/logout`);
       dispatch(userSlice.actions.logout());
     } catch (e) {
+      console.error('Logout failed:', e);
       dispatch(userSlice.actions.logoutFailed());
     }
   }
-}
+};

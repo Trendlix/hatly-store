@@ -6,12 +6,21 @@ import React from "react";
 // MDBCarouselElement,
 // } from "mdb-react-ui-kit";
 
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Autoplay } from "swiper";
+// Import Swiper styles
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/autoplay';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+
+// Import Swiper core and required modules
+import { Autoplay, Pagination, Navigation } from 'swiper';
 import Link from 'next/link'
-import "swiper/css";
-import "swiper/css/navigation";
 import Image from 'next/image'
+
+
 export default function ImageSlider(props) {
   // console.log(props.img)
   // return (

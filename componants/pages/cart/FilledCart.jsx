@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { removeProduct } from "../../../redux/cartRedux";
+import { removeFromCart } from "../../../redux/cartRedux";
 import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
@@ -7,7 +7,7 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import notFound from "../../../img/notFound.png";
 import Link from "next/link";
 import Image from "next/image";
-import { userState } from "../../../redux/features/user/userSlice";
+import { getUser, userState } from "../../../redux/features/user/userSlice";
 
 const pStyle = {
   WebkitBoxOrient: "vertical",
@@ -19,7 +19,8 @@ const pStyle = {
 };
 
 const FilledCart = (props) => {
-  const {user,isAuthenticated} = useSelector(userState); 
+  const {user, isAuthenticated} = useSelector(userState); 
+  console.log('passed cart', props.data)
   const dispatch = useDispatch();
   return (
     <div className="row mt-4">
@@ -38,6 +39,7 @@ const FilledCart = (props) => {
         </div>
         <div className="row">
           {props.data.products.map((data, i) => {
+            console.log('data', data)
             return (
               <div className="col-6 col-md-6 col-lg-4 col-xl-3 pt-3" key={i}>
                 <div
@@ -56,10 +58,11 @@ const FilledCart = (props) => {
                         behavior: "smooth",
                       });
                     }}
-                      href={`/product/${data.id}`}
+                      href={`/product/${data.product.item_code}`}
                       className="col-12 col-md-12"
                     >
-                      <Image width="100" height="100" style={{ filter: 'drop-shadow(white 0px 0px 70px)' }} src={data.image ? `https://hatlystore.tswsp.net${data.image}` : notFound} alt="cart"></Image>
+                      {console.log('data.product.image', data.product.image)}
+                      <Image width="100" height="100" style={{ filter: 'drop-shadow(white 0px 0px 70px)' }} src={data?.product.image[0].length > 1 ? data.product.image[0] : notFound} alt="cart"></Image>
                     </Link>
                     <div className="col-12 col-md-12 mb-0">
                       <p style={pStyle}>
@@ -75,7 +78,7 @@ const FilledCart = (props) => {
                         >
                           [{data.quantity}]{" "}
                         </span>
-                        {data.item_name}
+                        {data.product.name}
                       </p>
                       <div className="row justify-content-between">
                         <p
@@ -87,7 +90,7 @@ const FilledCart = (props) => {
                             margin: "0",
                           }}
                         >
-                          {`EGP ${data.price_list_rate * data.quantity}`}
+                          {`EGP ${data.product.price * data.quantity}`}
                         </p>
                         <Link
                           className="text-danger col-auto"
@@ -99,13 +102,13 @@ const FilledCart = (props) => {
                               left: 0,
                               behavior: "smooth",
                             });
-                            if (props.data.quantity > 0) {
+                            if (data.quantity > 0) {
                               dispatch(
-                                removeProduct({
-                                  id: data.id,
-                                  price: data.price_list_rate * data.quantity,
+                                removeFromCart({
+                                  product: data.product
                                 })
                               );
+                              
                             }
                           }}
                         >

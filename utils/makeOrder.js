@@ -3,31 +3,25 @@ import API_URL from "../API/ApiUrl"
 
 axios.defaults.withCredentials = true;
 
-const makeOrder = async (data, cart, paymentMethod, TransactionId) => {
+const makeOrder = async (data, paymentMethod, TransactionId) => {
   try {
-    const res = await axios.post(`${API_URL}/orders`, {
-      headers: {
-        "Accept": "*/*",
-      },
-      userData: {
-        firstName: data.firstName,
-        lastName: data.lastName,
-        email: data.email,
-        phone: data.phone,
-        state: data.state,
-        city: data.city,
-        street: data.street,
-        building: data.building,
-        floor: data.floor,
-        apartment: data.apartment,
-        extraDescription: data.extraDescription,
-      },
-      orderedItems: cart.products,
-      totalPrice: cart.total,
-      delivery: 50,
-      subTotal: cart.total + 50,
-      paymentMethod,
-      TransactionId
+    const res = await axios.post(`${API_URL}/cart/checkout`, {
+        headers: {
+          "Accept": "*/*",
+        },
+        address: {
+          city: data.city,
+          street: data.street,
+          building: data.building,
+          floor: data.floor,
+          apartment: data.apartment,
+          extraDescription: data.extraDescription,
+        },
+      // orderedItems: cart.products,
+      // totalPrice: cart.total,
+        deliveryFees: 50,
+        paymentMethod,
+        TransactionId
     })
     console.log(res.data)
     return res;

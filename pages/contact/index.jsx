@@ -94,7 +94,7 @@ const ContactUS = () => {
                   icon2: faCartPlus,
                   y: '0'
                 }))
-            });
+            }).catch((err) => console.log(err))
           })}
             className="col-12 p-4 mt-3"
             style={{

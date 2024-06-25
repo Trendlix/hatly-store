@@ -1,19 +1,14 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import Product from "../../../componants/pages/shop/Product";
-
 import Link from 'next/link'
-
-// import { useParams, Link } from "react-router-dom";
-
 import { fetchProduct } from "../../../API/product";
 import { useDispatch, useSelector } from "react-redux";
-import { addProduct } from "../../../redux/cartRedux";
+import { addProduct, addToCart } from "../../../redux/cartRedux";
 import { motion } from "framer-motion";
 import ReactImageMagnify from "react-image-magnify";
 import { storeData } from "../../../redux/recentlyRedux";
 import notFound from "../../../img/notFound.png";
-import video from "../../../img/video.mp4";
 import LoadingSingle from "../../../componants/LoadingSingle";
 import sliderImage3 from "../../../img/slider2.jpg";
 import sliderImage5 from "../../../img/slider6.jpg";
@@ -23,65 +18,113 @@ import { useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import CopyLink from "../../../componants/CopyLink/CopyLink";
+import { getUser, userState } from "../../../redux/features/user/userSlice";
 
 
 const SingleProduct = () => {
-  const [selectedBradns, setSelectedBradns] = useState()
+  const user = useSelector(userState)
+  const router = useRouter()
+  const { productId } = router.query
+  console.log(productId)
+  const dispatch = useDispatch();
   const recentlyViewed = useSelector((state) => state.recently);
+  const cart = useSelector((state) => state.cart);
+  console.log(cart)
+  const productIndex = cart.products.length > 0 ? cart.products.findIndex(product => product._id == productId) : -1
+  const productQuantity = productIndex > -1 ? cart.products[productIndex].quantity : 1
+  const [selectedBradns, setSelectedBradns] = useState()
+  // const recentlyViewed = {products: [{ price_list_rate: 20, id: 1, image: mobile, item_name: 'mobile', actual_qty: 100, item_group: 'mobiles', description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." }, { price_list_rate: 20, id: 1, image: mobile, item_name: 'mobile', actual_qty: 100, item_group: 'mobiles', description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." }, { price_list_rate: 20, id: 1, image: mobile, item_name: 'mobile', actual_qty: 100, item_group: 'mobiles', description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." }]}
   const [img, setimgs] = useState();
   const [product, setProduct] = useState({});
-  const [productImgs, setProductImgs] = useState([]);
+  const [productImgs, setProductImgs] = useState();
   const [productCategoey, setProductCategoey] = useState();
   const [relatedProducts, setRelatedProducts] = useState([]);
-  const [singleProductQuantity, setSingleProductQuantity] = useState(1);
-  const [loading, setLoading] = useState(true);
+  const [singleProductQuantity, setSingleProductQuantity] = useState(productQuantity);
+  const [loading, setLoading] = useState(false);
   const [gallary, setGallary] = useState([]);
   const [addCartDisable, setAddCartDisable] = useState({
     on: false,
     discrption: "ADD TO CART",
   });
-  const router = useRouter()
-  const { productId } = router.query
-  const dispatch = useDispatch();
-  const cart = useSelector((state) => state.cart);
+  const [productColors, setProductColors] = useState([])
+  const [productRams, setProductRams] = useState([]);
+  const [productStorages, setProductStorages] = useState([])
+  const [selectedColor, setSelectedColor] = useState('')
+  const [selectedRam, setSelectedRam] = useState('')
+  const [selectedRom, setSelectedRom] = useState('')
+  const [productVariances, setProductVariances] = useState([])
+
   const handleClick = (e) => {
     setAddCartDisable({ on: true, discrption: "PRODUCT ON THE CART" });
     dispatch(
-      addProduct({
+      addToCart({
         product,
-        price: product.price_list_rate,
-        singleProductQuantity: singleProductQuantity,
+        // price: product.price_list_rate,
+        quantity: singleProductQuantity,
       })
     );
   };
+
   const [book, setBook] = useState(false);
 
   const handleBookItem = () => {
     setBook(prev => true);
   }
 
+  function getAttributeValue(attributes, key) {
+    for (let attribute of attributes) {
+      // Check if the attribute object has the specified key
+      if (key in attribute) {
+        return attribute[key]; // Return the value corresponding to the key
+      }
+    }
+    return null; // Return null if key is not found
+  }
+
   const getProduct = async () => {
     try {
-      const res = await fetchProduct.get(`products/${productId}`)
-      const res2 = await fetchProduct.get(`attactments`, {
-        params: {
-          code: res.data[0].item_code
-        }
-      })
-      setGallary([res.data[0].image, ...res2.data.map((el) => {
-        return el.file_url
-      })])
+      setLoading(true);
+      const res = await fetchProduct.get(`products/erp/${productId}`)
+      console.log(res)
+      // const res2 = await fetchProduct.get(`attactments`, {
+      //   params: {
+      //     code: res.data[0].item_code
+      //   }
+      // })
+      setProductVariances(res.data)
+      let colors = new Set();
+      let rams = new Set();
+      let storages = new Set();
 
-      setLoading(false);
+      res.data.forEach(item => {
+        const color = getAttributeValue(item.attributes, 'Colour');
+        const ram = getAttributeValue(item.attributes, 'Ram');
+        const storage = getAttributeValue(item.attributes, 'Rom');
+
+        if (color) colors.add(color.toLowerCase());
+        if (ram) rams.add(ram);
+        if (storage) storages.add(storage);
+      });
+
+      setProductColors([...colors]);
+      setProductRams([...rams]);
+      setProductStorages([...storages]);
+
+      setGallary(res.data[0]?.image?.map((el) => {
+        return el
+      }))
       setProduct(res.data[0]);
-      setimgs(res.data[0].image ? `https://hatlystore.tswsp.net${res.data[0].image}` : notFound);
+      setSelectedColor(getAttributeValue(res.data[0].attributes, 'Colour').toLowerCase());
+      setSelectedRam(getAttributeValue(res.data[0].attributes, 'Ram'))
+      setSelectedRom(getAttributeValue(res.data[0].attributes, 'Rom'))
+      setimgs(res.data[0].image ? res.data[0].image[0].length > 1 ? res.data[0].image[0] : notFound : notFound);
       setProductImgs([
-        res.data[0].image ? `https://hatlystore.tswsp.net${res.data[0].image}` : notFound,
+        res.data[0].image ? res.data[0].image[0].length > 1 ? res.data[0].image[0] : notFound : notFound,
       ]);
       setProductCategoey(res.data[0].item_group);
       setSelectedBradns(res.data[0].brand)
       cart.products.map((item, i) => {
-        if (item.id == res.data[0].id) {
+        if (item.product.item_code == res.data[0].item_code) {
           setAddCartDisable({ on: true, discrption: "PRODUCT ON THE CART" });
         }
       });
@@ -90,11 +133,11 @@ const SingleProduct = () => {
         localStorage.setItem("product", JSON.stringify([res.data[0]]));
       } else {
         recentlyData = JSON.parse(localStorage.getItem("product"));
-        if (recentlyData.id) {
+        if (recentlyData._id) {
           recentlyData = [res.data[0], ...recentlyData];
         } else {
           recentlyData.map((el, i) => {
-            if (el.id == res.data[0].id) {
+            if (el._id == res.data[0].item_code) {
               return recentlyData.splice(i, 1);
             }
           });
@@ -107,7 +150,10 @@ const SingleProduct = () => {
           recentlyData,
         })
       );
-    } catch (er) { }
+      setLoading(false)
+    } catch (er) { 
+      console.log(er.message)
+    }
   };
 
   const getRelatedProducts = async (selectedBradns) => {
@@ -122,16 +168,19 @@ const SingleProduct = () => {
     } catch (er) { }
   };
 
-  // const getRelatedGallary = async (productCategoey) => {
-  //   try {
-  //     var res;
-  //     res = await fetchProduct.get(`/category/${productCategoey}`);
-  //     setRelatedProducts(res.data);
-  //   } catch (er) { }
-  // };
+  const getRelatedGallary = async (productCategoey) => {
+    try {
+      var res;
+      res = await fetchProduct.get(`/category/${productCategoey}`);
+      setRelatedProducts(res.data);
+    } catch (er) { }
+  };
 
   useEffect(() => {
     getProduct()
+    console.log('productColors', productColors)
+    console.log('productRams', productRams)
+    console.log('productStorages', productStorages)
   }, [productId]);
 
   useEffect(() => {
@@ -139,6 +188,31 @@ const SingleProduct = () => {
       getRelatedProducts(selectedBradns);
     }
   }, [productCategoey]);
+
+  const handleProductColorFiltering = (color) =>{
+    const filteredProduct = productVariances.find(product => product.attributes[0].Colour.toLowerCase() === color)
+    console.log('filteredProduct', filteredProduct)
+    setProduct(filteredProduct)
+    setSelectedColor(color)
+    setGallary(filteredProduct?.image?.map((el) => {
+      return el
+    }))
+    setProduct(filteredProduct);
+    setSelectedColor(getAttributeValue(filteredProduct.attributes, 'Colour').toLowerCase());
+    setSelectedRam(getAttributeValue(filteredProduct.attributes, 'Ram'))
+    setSelectedRom(getAttributeValue(filteredProduct.attributes, 'Rom'))
+    setimgs(filteredProduct.image ? filteredProduct.image[0].length > 1 ? filteredProduct.image[0] : notFound : notFound);
+    setProductImgs([
+      filteredProduct.image ? filteredProduct.image[0].length > 1 ? filteredProduct.image[0] : notFound : notFound,
+    ]);
+    setProductCategoey(filteredProduct.item_group);
+    setSelectedBradns(filteredProduct.brand)
+    cart.products.map((item, i) => {
+      if (item.product.item_code == filteredProduct.item_code) {
+        setAddCartDisable({ on: true, discrption: "PRODUCT ON THE CART" });
+      }
+    });
+  }
 
   return (
     <>
@@ -169,49 +243,44 @@ const SingleProduct = () => {
                 className="col-11 col-lg me-md-3 p-0"
               >
                 <div className="row justify-content-center">
-                  <div className="col-2">
-                    {gallary.map((image, i) => {
-                      return (
-                        <div key={i} className="col-12 mt-2 col-md-12">
-                          <Image
-                            onClick={(e) => {
-                              setimgs(e.target.getAttribute("src"));
-                            }}
-                            src={image ? `${`https://hatlystore.tswsp.net${image}`}` : notFound}
-                            style={{ width: "100%", cursor: "pointer" }}
-                            width="100"
-                            height="100"
-                            alt="Product"
-                          ></Image>
-                        </div>
-                      );
-                    })}
-                  </div>
-                  <div className="col-10  col-lg-8 d-flex justify-content-center js">
+                  {/* Main Image */}
+                  <div className="col-12 col-md-10 d-flex justify-content-center mt-3">
                     <ReactImageMagnify
-                      style={{
-                        borderRadius: "5px",
-                        overflow: "hidden",
-                        width: "30%",
+                      style={{ borderRadius: "5px", overflow: "hidden", width: "70%" }}
+                      smallImage={{
+                        alt: "Wristwatch by Ted Baker London",
+                        isFluidWidth: true,
+                        src: img?.length > 1 ? img : notFound.src,
                       }}
-                      {...{
-                        smallImage: {
-                          alt: "Wristwatch by Ted Baker London",
-                          isFluidWidth: true,
-                          src: img ? `${img}` : notFound,
-                        },
-                        largeImage: {
-                          src: img ? `${img}` : notFound,
-                          width: 800,
-                          height: 800,
-                        },
-                        enlargedImageContainerDimensions: {
-                          width: "50%",
-                          height: "50%",
-                        },
-                        enlargedImagePosition: "over",
+                      largeImage={{
+                        src: img?.length > 1 ? img : notFound.src,
+                        width: 800,
+                        height: 800,
                       }}
+                      enlargedImageContainerDimensions={{
+                        width: "50%",
+                        height: "50%",
+                      }}
+                      enlargedImagePosition="over"
                     />
+                  </div>
+
+                  {/* Gallery Images */}
+                  <div className="col-12 col-md-10 d-flex align-items-start ">
+                    {gallary?.map((image, i) => (
+                      <div key={i} className="p-2">
+                        <Image
+                          onClick={(e) => {
+                            setimgs(e.target.getAttribute("src"));
+                          }}
+                          src={image.length > 1 ? image : notFound}
+                          style={{ width: "100%", cursor: "pointer" }}
+                          width="100"
+                          height="100"
+                          alt="Product"
+                        />
+                      </div>
+                    ))}
                   </div>
                 </div>
               </motion.div>
@@ -235,9 +304,10 @@ const SingleProduct = () => {
                     boxShadow: "0 13px 86px rgb(0 0 0 / 10%)",
                     borderRadius: "5px",
                     display: "flex",
-                    alignItems: "center",
+                    alignItems: "start",
                     height: "100%",
                     position: "relative",
+                    gap: 6,
                   }}
                 >
                 <CopyLink link={productId}/>
@@ -263,7 +333,7 @@ const SingleProduct = () => {
                           fontWeight: "400",
                         }}
                       >
-                        {product.item_name}
+                        {product.name}
                       </h4>
 
                       <p>
@@ -284,9 +354,154 @@ const SingleProduct = () => {
                     </div>
 
                     {/* {product.actual_qty > 0 && product.actual_qty < 10 ? ( */}
-                    {product.actual_qty > 0 ? (
-                      <div className="row mt-2">
+                    {product.stockQty > 0 ? (
+                      <div className="row mt-4">
                         <div className="col-12">
+                          
+                         <div style={{display: "flex", flexDirection: "column", gap: 25, marginBottom: 20}}>
+                          
+                          <div style={{
+                              display: "flex",
+                              flexDirection: "row",
+                              alignItems: "center",
+                              gap: 20,
+                            }}>
+                              <p style={{
+                                fontSize: 16,
+                                fontWeight: "bold",
+                                color: "#737373",
+                                margin: 0,
+                              }}>Select Color:</p>
+                              <div style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                alignItems: "center",
+                                gap: 8,
+                              }}>
+                                {productColors.map(color => (
+                                  <div style={{border: color === selectedColor ? "2px solid black" : "none", width: "53px", height: "53px", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center"}}>
+                                    <div style={{
+                                      width: "45px",
+                                      height: "45px",
+                                      borderRadius: "50%",
+                                      backgroundColor: color,
+                                      cursor: "pointer",
+                                    }}
+                                    onClick={()=>handleProductColorFiltering(color)}
+                                    ></div>
+                                  </div>                               
+                                  ))}
+                                <p style={{
+                                  fontSize: 14,
+                                  color: "#737373",
+                                  fontWeight: "bold",
+                                  textTransform: "capitalize",
+                                  margin: 0,  
+                                  height: "40px",  
+                                  display: "flex",
+                                  alignItems: "center"
+                                  }}>{selectedColor}</p>
+                              </div>
+                            </div>
+
+                            <div style={{
+                              display: "flex",
+                              flexDirection: "row",
+                              alignItems: "center",
+                              gap: 20,
+                            }}>
+                              <p style={{
+                                fontSize: 16,
+                                fontWeight: "bold",
+                                color: "#737373",
+                                margin: 0,  // Ensure there's no margin affecting the alignment
+                              }}>Select Ram:</p>
+                              <div style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                alignItems: "center",
+                                gap: 8,
+                              }}>
+                                {productRams.map(ram => (
+                                  <div key={ram} style={{
+                                    padding: 6,
+                                    border: selectedRam === ram ? "2px solid rgba(0, 0, 0)" : "1px solid #737373",
+                                    cursor: "pointer",
+                                    color: "black",
+                                    fontWeight: "bold",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",  // Center the text within the square
+                                    height: "40px",  // Ensure a consistent height
+                                    minWidth: "40px",  // Ensure a consistent width
+                                    boxSizing: "border-box",  // Include padding and border in the element's total width and height
+                                  }}
+                                  onClick={() => setSelectedRam(ram)}
+                                  >{ram} GB</div>
+                                ))}
+                                <p style={{
+                                  fontSize: 14,
+                                  color: "#737373",
+                                  fontWeight: "bold",
+                                  textTransform: "capitalize",
+                                  margin: 0,  // Ensure there's no margin affecting the alignment
+                                  height: "40px",  // Match the height of the RAM squares
+                                  display: "flex",
+                                  alignItems: "center",
+                                }}>{selectedRam} GB</p>
+                              </div>
+                            </div>
+
+                            <div style={{
+                              display: "flex",
+                              flexDirection: "row",
+                              alignItems: "center",
+                              gap: 20,
+                            }}>
+                              <p style={{
+                                fontSize: 16,
+                                fontWeight: "bold",
+                                color: "#737373",
+                                margin: 0,  // Ensure there's no margin affecting the alignment
+                              }}>Select Rom:</p>
+                              <div style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                alignItems: "center",
+                                gap: 8,
+                              }}>
+                                {productStorages.map(rom => (
+                                  <div key={rom} style={{
+                                    padding: 6,
+                                    border: selectedRom === rom ? "2px solid rgba(0, 0, 0)" : "1px solid #737373",
+                                    cursor: "pointer",
+                                    color: "black",
+                                    fontWeight: "bold",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",  // Center the text within the square
+                                    height: "40px",  // Ensure a consistent height
+                                    minWidth: "40px",  // Ensure a consistent width
+                                    boxSizing: "border-box",  // Include padding and border in the element's total width and height
+                                  }}
+                                  onClick={() => selectedRom(rom)}
+                                  >{rom} GB</div>
+                                ))}
+                                <p style={{
+                                  fontSize: 14,
+                                  color: "#737373",
+                                  fontWeight: "bold",
+                                  textTransform: "capitalize",
+                                  margin: 0,  // Ensure there's no margin affecting the alignment
+                                  height: "40px",  // Match the height of the RAM squares
+                                  display: "flex",
+                                  alignItems: "center",
+                                }}>{selectedRom} GB</p>
+                              </div>
+                            </div>
+
+                         </div>
+
                           <button disabled className="text-white btn btn-success">In Stock</button>
                           <p className="pt-3">
                             {
@@ -295,7 +510,7 @@ const SingleProduct = () => {
                                 disabled
                               >
                                 {" "}
-                                {parseInt(product.actual_qty)}{" "}
+                                {parseInt(product.stockQty - singleProductQuantity)}{" "}
                               </button>
                             }{" "}
                             Items remaining
@@ -325,7 +540,7 @@ const SingleProduct = () => {
                             onClick={() => {
                               if (
                                 singleProductQuantity > 0 &&
-                                singleProductQuantity < product.actual_qty
+                                singleProductQuantity < product.stockQty
                               ) {
                                 setSingleProductQuantity(
                                   singleProductQuantity + 1
@@ -341,7 +556,7 @@ const SingleProduct = () => {
                           </button>
                         </div>
                       </div>
-                    ) : (product.actual_qty >= 10 ? (
+                    ) : (product.stockQty >= 1 ? (
                       <div className="row mt-2">
                         <div className="col-12">
                           <button disabled className="text-white btn btn-success mb-3">In Stock</button>
@@ -370,7 +585,7 @@ const SingleProduct = () => {
                             onClick={() => {
                               if (
                                 singleProductQuantity > 0 &&
-                                singleProductQuantity < product.actual_qty
+                                singleProductQuantity < product.stockQty
                               ) {
                                 setSingleProductQuantity(
                                   singleProductQuantity + 1
@@ -386,9 +601,156 @@ const SingleProduct = () => {
                           </button>
                         </div>
                       </div>
-                    ) : (<button className="btn btn-danger fw-bold" disabled>
-                      Sold out
-                    </button>)
+                    ) : (
+                      <div className="col-12">
+                         <div style={{display: "flex", flexDirection: "column", gap: 25, marginBottom: 20}}>
+                          
+                          <div style={{
+                              display: "flex",
+                              flexDirection: "row",
+                              alignItems: "center",
+                              gap: 20,
+                            }}>
+                              <p style={{
+                                fontSize: 16,
+                                fontWeight: "bold",
+                                color: "#737373",
+                                margin: 0,
+                              }}>Select Color:</p>
+                              <div style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                alignItems: "center",
+                                gap: 8,
+                              }}>
+                                {productColors.map(color => (
+                                  <div style={{border: color === selectedColor ? "2px solid black" : "none", width: "53px", height: "53px", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center"}}>
+                                    <div style={{
+                                      width: "45px",
+                                      height: "45px",
+                                      borderRadius: "50%",
+                                      backgroundColor: color,
+                                      cursor: "pointer",
+                                    }}
+                                    onClick={()=>handleProductColorFiltering(color)}
+                                    ></div>
+                                  </div>                               
+                                  ))}
+                                <p style={{
+                                  fontSize: 14,
+                                  color: "#737373",
+                                  fontWeight: "bold",
+                                  textTransform: "capitalize",
+                                  margin: 0,  
+                                  height: "40px",  
+                                  display: "flex",
+                                  alignItems: "center"
+                                  }}>{selectedColor}</p>
+                              </div>
+                            </div>
+
+                            <div style={{
+                              display: "flex",
+                              flexDirection: "row",
+                              alignItems: "center",
+                              gap: 20,
+                            }}>
+                              <p style={{
+                                fontSize: 16,
+                                fontWeight: "bold",
+                                color: "#737373",
+                                margin: 0,  // Ensure there's no margin affecting the alignment
+                              }}>Select Ram:</p>
+                              <div style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                alignItems: "center",
+                                gap: 8,
+                              }}>
+                                {productRams.map(ram => (
+                                  <div key={ram} style={{
+                                    padding: 6,
+                                    border: selectedRam === ram ? "2px solid rgba(0, 0, 0)" : "1px solid #737373",
+                                    cursor: "pointer",
+                                    color: "black",
+                                    fontWeight: "bold",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",  // Center the text within the square
+                                    height: "40px",  // Ensure a consistent height
+                                    minWidth: "40px",  // Ensure a consistent width
+                                    boxSizing: "border-box",  // Include padding and border in the element's total width and height
+                                  }}
+                                  onClick={() => setSelectedRam(ram)}
+                                  >{ram} GB</div>
+                                ))}
+                                <p style={{
+                                  fontSize: 14,
+                                  color: "#737373",
+                                  fontWeight: "bold",
+                                  textTransform: "capitalize",
+                                  margin: 0,  // Ensure there's no margin affecting the alignment
+                                  height: "40px",  // Match the height of the RAM squares
+                                  display: "flex",
+                                  alignItems: "center",
+                                }}>{selectedRam} GB</p>
+                              </div>
+                            </div>
+
+                            <div style={{
+                              display: "flex",
+                              flexDirection: "row",
+                              alignItems: "center",
+                              gap: 20,
+                            }}>
+                              <p style={{
+                                fontSize: 16,
+                                fontWeight: "bold",
+                                color: "#737373",
+                                margin: 0,  // Ensure there's no margin affecting the alignment
+                              }}>Select Rom:</p>
+                              <div style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                alignItems: "center",
+                                gap: 8,
+                              }}>
+                                {productStorages.map(rom => (
+                                  <div key={rom} style={{
+                                    padding: 6,
+                                    border: selectedRom === rom ? "2px solid rgba(0, 0, 0)" : "1px solid #737373",
+                                    cursor: "pointer",
+                                    color: "black",
+                                    fontWeight: "bold",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",  // Center the text within the square
+                                    height: "40px",  // Ensure a consistent height
+                                    minWidth: "40px",  // Ensure a consistent width
+                                    boxSizing: "border-box",  // Include padding and border in the element's total width and height
+                                  }}
+                                  onClick={() => selectedRom(rom)}
+                                  >{rom} GB</div>
+                                ))}
+                                <p style={{
+                                  fontSize: 14,
+                                  color: "#737373",
+                                  fontWeight: "bold",
+                                  textTransform: "capitalize",
+                                  margin: 0,  // Ensure there's no margin affecting the alignment
+                                  height: "40px",  // Match the height of the RAM squares
+                                  display: "flex",
+                                  alignItems: "center",
+                                }}>{selectedRom} GB</p>
+                              </div>
+                            </div>
+
+                         </div>
+                         <button className="btn btn-danger fw-bold" disabled>
+                            Sold Out
+                          </button>
+                       </div>
+                       )
                     )}
 
                     <div className="row pt-3">
@@ -396,10 +758,10 @@ const SingleProduct = () => {
                         <h4>
                           EGP{" "}
                           <span className="text-success" style={{ fontWeight: "bold" }}>
-                            {parseInt(product?.price_list_rate)}
+                            {parseInt(product?.price)}
                           </span>
                         </h4>
-                        {product.actual_qty > 0 ? (
+                        {product.stockQty > 0 ? (
                           <>
                             <button
                               disabled={addCartDisable.on}
@@ -504,7 +866,17 @@ const SingleProduct = () => {
               <h4 className="pb-2" style={{ borderBottom: "1px solid #ededed" }}>
                 RELATED PRODUCTS
               </h4>
-              {relatedProducts.map((data, i) => {
+              {relatedProducts.length>8 && relatedProducts.slice(0,8).map((data, i) => {
+                return (
+                  <Product
+                    grid="col-6 col-sm-6 col-md-4 col-lg-2 mb-5"
+                    key={i}
+                    data={data}
+                  ></Product>
+                );
+              })
+              }
+              {relatedProducts.length< 8 && relatedProducts.map((data, i) => {
                 return (
                   <Product
                     grid="col-6 col-sm-6 col-md-4 col-lg-2 mb-5"

@@ -37,8 +37,8 @@ const Checkout = () => {
   useEffect(() => {
     const data = cart.products.map((product) => {
       return {
-        name: product.item_name,
-        amount_cents: product.price_list_rate * 100,
+        name: product.product.item_name,
+        amount_cents: product.product.price * 100,
         quantity: product.quantity,
       };
     });
