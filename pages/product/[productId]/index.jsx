@@ -390,7 +390,8 @@ const SingleProduct = () => {
                           
                          <div style={{display: "flex", flexDirection: "column", gap: 25, marginBottom: 20}}>
                           
-                          <div style={{
+                          {productColors.length > 0 && (
+                            <div style={{
                               display: "flex",
                               flexDirection: "row",
                               alignItems: "center",
@@ -433,7 +434,9 @@ const SingleProduct = () => {
                                   }}>{selectedColor}</p>
                               </div>
                             </div>
+                          )}
 
+                          {productRams.length >  0 && (
                             <div style={{
                               display: "flex",
                               flexDirection: "row",
@@ -482,6 +485,9 @@ const SingleProduct = () => {
                               </div>
                             </div>
 
+                          )} 
+
+                          {productStorages.length > 0 && (
                             <div style={{
                               display: "flex",
                               flexDirection: "row",
@@ -529,7 +535,7 @@ const SingleProduct = () => {
                                 }}>{selectedRom} GB</p>
                               </div>
                             </div>
-
+                          )}
                          </div>
 
                           <button disabled className="text-white btn btn-success">In Stock</button>
@@ -635,7 +641,8 @@ const SingleProduct = () => {
                       <div className="col-12">
                          <div style={{display: "flex", flexDirection: "column", gap: 25, marginBottom: 20, marginTop: 20}}>
                           
-                          <div style={{
+                          {productColors.length > 0 && (
+                            <div style={{
                               display: "flex",
                               flexDirection: "row",
                               alignItems: "center",
@@ -678,6 +685,7 @@ const SingleProduct = () => {
                                   }}>{selectedColor}</p>
                               </div>
                             </div>
+                          )}
 
                             {productRams.length > 0 && (
                               <div style={{
