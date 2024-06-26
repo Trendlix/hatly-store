@@ -53,7 +53,8 @@ const SingleProduct = () => {
   const [selectedRam, setSelectedRam] = useState('')
   const [selectedRom, setSelectedRom] = useState('')
   const [productVariances, setProductVariances] = useState([])
-
+  const [productVariancesAfterColor, setProductVariancesAfterColor] = useState([])
+  const [productVariancesAfterRam, setProductVariancesAfterRam] = useState([])
   const handleClick = (e) => {
     setAddCartDisable({ on: true, discrption: "PRODUCT ON THE CART" });
     dispatch(
@@ -81,6 +82,25 @@ const SingleProduct = () => {
     return null; // Return null if key is not found
   }
 
+  const updateProductState = (product) => {
+    setProduct(product);
+    setSelectedColor(getAttributeValue(product.attributes, 'Colour').toLowerCase());
+    setSelectedRam(getAttributeValue(product.attributes, 'Ram'));
+    setSelectedRom(getAttributeValue(product.attributes, 'Rom'));
+    setGallary(product?.image?.map((el) => {
+      return el
+    }))
+    setimgs(product.image ? (product.image[0].length > 1 ? product.image[0] : notFound) : notFound);
+    setProductImgs([product.image ? (product.image[0].length > 1 ? product.image[0] : notFound) : notFound]);
+    setProductCategoey(product.item_group);
+    setSelectedBradns(product.brand);
+    cart.products.map((item) => {
+      if (item.product.item_code === product.item_code) {
+        setAddCartDisable({ on: true, description: "PRODUCT ON THE CART" });
+      }
+    });
+  };
+
   const getProduct = async () => {
     try {
       setLoading(true);
@@ -91,17 +111,23 @@ const SingleProduct = () => {
       //     code: res.data[0].item_code
       //   }
       // })
-      setProductVariances(res.data)
+      const data = res.data;
+      console.log('res.data', res.data)
+      setProductVariances(data);
       let colors = new Set();
       let rams = new Set();
       let storages = new Set();
 
-      res.data.forEach(item => {
+
+      data.forEach(item => {
         const color = getAttributeValue(item.attributes, 'Colour');
+        if (color) colors.add(color.toLowerCase());
+      });
+
+      const itemsWithSameColor = data.filter(item => getAttributeValue(item.attributes, 'Colour').toLowerCase() === getAttributeValue(data[0].attributes, 'Colour').toLowerCase());
+      itemsWithSameColor.forEach(item => {
         const ram = getAttributeValue(item.attributes, 'Ram');
         const storage = getAttributeValue(item.attributes, 'Rom');
-
-        if (color) colors.add(color.toLowerCase());
         if (ram) rams.add(ram);
         if (storage) storages.add(storage);
       });
@@ -109,39 +135,26 @@ const SingleProduct = () => {
       setProductColors([...colors]);
       setProductRams([...rams]);
       setProductStorages([...storages]);
+      setProductVariancesAfterColor(itemsWithSameColor);
 
-      setGallary(res.data[0]?.image?.map((el) => {
-        return el
-      }))
-      setProduct(res.data[0]);
-      setSelectedColor(getAttributeValue(res.data[0].attributes, 'Colour').toLowerCase());
-      setSelectedRam(getAttributeValue(res.data[0].attributes, 'Ram'))
-      setSelectedRom(getAttributeValue(res.data[0].attributes, 'Rom'))
-      setimgs(res.data[0].image ? res.data[0].image[0].length > 1 ? res.data[0].image[0] : notFound : notFound);
-      setProductImgs([
-        res.data[0].image ? res.data[0].image[0].length > 1 ? res.data[0].image[0] : notFound : notFound,
-      ]);
-      setProductCategoey(res.data[0].item_group);
-      setSelectedBradns(res.data[0].brand)
-      cart.products.map((item, i) => {
-        if (item.product.item_code == res.data[0].item_code) {
-          setAddCartDisable({ on: true, discrption: "PRODUCT ON THE CART" });
-        }
-      });
+     
+      const initialProduct = data[0];
+      updateProductState(initialProduct);
+
       var recentlyData;
       if (localStorage.getItem("product") == null) {
-        localStorage.setItem("product", JSON.stringify([res.data[0]]));
+        localStorage.setItem("product", JSON.stringify([initialProduct]));
       } else {
         recentlyData = JSON.parse(localStorage.getItem("product"));
         if (recentlyData._id) {
-          recentlyData = [res.data[0], ...recentlyData];
+          recentlyData = [initialProduct, ...recentlyData];
         } else {
           recentlyData.map((el, i) => {
-            if (el._id == res.data[0].item_code) {
+            if (el._id == initialProduct.item_code) {
               return recentlyData.splice(i, 1);
             }
           });
-          recentlyData = [res.data[0], ...recentlyData];
+          recentlyData = [initialProduct, ...recentlyData];
         }
         localStorage.setItem("product", JSON.stringify(recentlyData));
       }
@@ -190,28 +203,44 @@ const SingleProduct = () => {
   }, [productCategoey]);
 
   const handleProductColorFiltering = (color) =>{
-    const filteredProduct = productVariances.find(product => product.attributes[0].Colour.toLowerCase() === color)
-    console.log('filteredProduct', filteredProduct)
-    setProduct(filteredProduct)
-    setSelectedColor(color)
-    setGallary(filteredProduct?.image?.map((el) => {
-      return el
-    }))
-    setProduct(filteredProduct);
-    setSelectedColor(getAttributeValue(filteredProduct.attributes, 'Colour').toLowerCase());
-    setSelectedRam(getAttributeValue(filteredProduct.attributes, 'Ram'))
-    setSelectedRom(getAttributeValue(filteredProduct.attributes, 'Rom'))
-    setimgs(filteredProduct.image ? filteredProduct.image[0].length > 1 ? filteredProduct.image[0] : notFound : notFound);
-    setProductImgs([
-      filteredProduct.image ? filteredProduct.image[0].length > 1 ? filteredProduct.image[0] : notFound : notFound,
-    ]);
-    setProductCategoey(filteredProduct.item_group);
-    setSelectedBradns(filteredProduct.brand)
-    cart.products.map((item, i) => {
-      if (item.product.item_code == filteredProduct.item_code) {
-        setAddCartDisable({ on: true, discrption: "PRODUCT ON THE CART" });
-      }
+    const filteredProduct = productVariances.filter(product => getAttributeValue(product.attributes, 'Colour').toLowerCase() === color);
+    setProductVariancesAfterColor(filteredProduct);
+
+    let rams = new Set();
+    let storages = new Set();
+    filteredProduct.forEach(item => {
+      const ram = getAttributeValue(item.attributes, 'Ram');
+      const storage = getAttributeValue(item.attributes, 'Rom');
+      if (ram) rams.add(ram);
+      if (storage) storages.add(storage);
     });
+
+    setProductRams([...rams]);
+    setProductStorages([...storages]);
+    updateProductState(filteredProduct[0]);
+  }
+
+  const handleRamFiltering = (ram) => {
+    console.log('ram', ram)
+    setSelectedRam(ram);
+    const filteredProduct = productVariancesAfterColor.filter(product => getAttributeValue(product.attributes, 'Ram') === ram);
+    setProductVariancesAfterRam(filteredProduct);
+
+    let storages = new Set();
+    filteredProduct.forEach(item => {
+      const storage = getAttributeValue(item.attributes, 'Rom');
+      if (storage) storages.add(storage);
+    });
+
+    setProductStorages([...storages]);
+    updateProductState(filteredProduct[0]);
+  }
+
+  const handleRomFiltering = (rom) => {
+    console.log('rom', rom)
+    setSelectedRom(rom);
+    const filteredProduct = productVariancesAfterColor.filter(product => getAttributeValue(product.attributes, 'Rom') === rom);
+    updateProductState(filteredProduct[0]);
   }
 
   return (
@@ -437,7 +466,7 @@ const SingleProduct = () => {
                                     minWidth: "40px",  // Ensure a consistent width
                                     boxSizing: "border-box",  // Include padding and border in the element's total width and height
                                   }}
-                                  onClick={() => setSelectedRam(ram)}
+                                  onClick={() => handleRamFiltering(ram)}
                                   >{ram} GB</div>
                                 ))}
                                 <p style={{
@@ -485,7 +514,7 @@ const SingleProduct = () => {
                                     minWidth: "40px",  // Ensure a consistent width
                                     boxSizing: "border-box",  // Include padding and border in the element's total width and height
                                   }}
-                                  onClick={() => selectedRom(rom)}
+                                  onClick={() => handleRomFiltering(rom)}
                                   >{rom} GB</div>
                                 ))}
                                 <p style={{
@@ -604,7 +633,7 @@ const SingleProduct = () => {
                       </div>
                     ) : (
                       <div className="col-12">
-                         <div style={{display: "flex", flexDirection: "column", gap: 25, marginBottom: 20}}>
+                         <div style={{display: "flex", flexDirection: "column", gap: 25, marginBottom: 20, marginTop: 20}}>
                           
                           <div style={{
                               display: "flex",
@@ -650,102 +679,106 @@ const SingleProduct = () => {
                               </div>
                             </div>
 
-                            <div style={{
-                              display: "flex",
-                              flexDirection: "row",
-                              alignItems: "center",
-                              gap: 20,
-                            }}>
-                              <p style={{
-                                fontSize: 16,
-                                fontWeight: "bold",
-                                color: "#737373",
-                                margin: 0,  // Ensure there's no margin affecting the alignment
-                              }}>Select Ram:</p>
+                            {productRams.length > 0 && (
                               <div style={{
                                 display: "flex",
                                 flexDirection: "row",
                                 alignItems: "center",
-                                gap: 8,
+                                gap: 20,
                               }}>
-                                {productRams.map(ram => (
-                                  <div key={ram} style={{
-                                    padding: 6,
-                                    border: selectedRam === ram ? "2px solid rgba(0, 0, 0)" : "1px solid #737373",
-                                    cursor: "pointer",
-                                    color: "black",
+                                <p style={{
+                                  fontSize: 16,
+                                  fontWeight: "bold",
+                                  color: "#737373",
+                                  margin: 0,  // Ensure there's no margin affecting the alignment
+                                }}>Select Ram:</p>
+                                <div style={{
+                                  display: "flex",
+                                  flexDirection: "row",
+                                  alignItems: "center",
+                                  gap: 8,
+                                }}>
+                                  {productRams.map(ram => (
+                                    <div key={ram} style={{
+                                      padding: 6,
+                                      border: selectedRam === ram ? "2px solid rgba(0, 0, 0)" : "1px solid #737373",
+                                      cursor: "pointer",
+                                      color: "black",
+                                      fontWeight: "bold",
+                                      display: "flex",
+                                      alignItems: "center",
+                                      justifyContent: "center",  // Center the text within the square
+                                      height: "40px",  // Ensure a consistent height
+                                      minWidth: "40px",  // Ensure a consistent width
+                                      boxSizing: "border-box",  // Include padding and border in the element's total width and height
+                                    }}
+                                    onClick={() => handleRamFiltering(ram)}
+                                    >{ram} GB</div>
+                                  ))}
+                                  <p style={{
+                                    fontSize: 14,
+                                    color: "#737373",
                                     fontWeight: "bold",
+                                    textTransform: "capitalize",
+                                    margin: 0,  // Ensure there's no margin affecting the alignment
+                                    height: "40px",  // Match the height of the RAM squares
                                     display: "flex",
                                     alignItems: "center",
-                                    justifyContent: "center",  // Center the text within the square
-                                    height: "40px",  // Ensure a consistent height
-                                    minWidth: "40px",  // Ensure a consistent width
-                                    boxSizing: "border-box",  // Include padding and border in the element's total width and height
-                                  }}
-                                  onClick={() => setSelectedRam(ram)}
-                                  >{ram} GB</div>
-                                ))}
-                                <p style={{
-                                  fontSize: 14,
-                                  color: "#737373",
-                                  fontWeight: "bold",
-                                  textTransform: "capitalize",
-                                  margin: 0,  // Ensure there's no margin affecting the alignment
-                                  height: "40px",  // Match the height of the RAM squares
-                                  display: "flex",
-                                  alignItems: "center",
-                                }}>{selectedRam} GB</p>
+                                  }}>{selectedRam} GB</p>
+                                </div>
                               </div>
-                            </div>
+                            )}
 
-                            <div style={{
-                              display: "flex",
-                              flexDirection: "row",
-                              alignItems: "center",
-                              gap: 20,
-                            }}>
-                              <p style={{
-                                fontSize: 16,
-                                fontWeight: "bold",
-                                color: "#737373",
-                                margin: 0,  // Ensure there's no margin affecting the alignment
-                              }}>Select Rom:</p>
+                            {productStorages.length > 0 && (
                               <div style={{
                                 display: "flex",
                                 flexDirection: "row",
                                 alignItems: "center",
-                                gap: 8,
+                                gap: 20,
                               }}>
-                                {productStorages.map(rom => (
-                                  <div key={rom} style={{
-                                    padding: 6,
-                                    border: selectedRom === rom ? "2px solid rgba(0, 0, 0)" : "1px solid #737373",
-                                    cursor: "pointer",
-                                    color: "black",
+                                <p style={{
+                                  fontSize: 16,
+                                  fontWeight: "bold",
+                                  color: "#737373",
+                                  margin: 0,  // Ensure there's no margin affecting the alignment
+                                }}>Select Rom:</p>
+                                <div style={{
+                                  display: "flex",
+                                  flexDirection: "row",
+                                  alignItems: "center",
+                                  gap: 8,
+                                }}>
+                                  {productStorages.map(rom => (
+                                    <div key={rom} style={{
+                                      padding: 6,
+                                      border: selectedRom === rom ? "2px solid rgba(0, 0, 0)" : "1px solid #737373",
+                                      cursor: "pointer",
+                                      color: "black",
+                                      fontWeight: "bold",
+                                      display: "flex",
+                                      alignItems: "center",
+                                      justifyContent: "center",  // Center the text within the square
+                                      height: "40px",  // Ensure a consistent height
+                                      minWidth: "40px",  // Ensure a consistent width
+                                      boxSizing: "border-box",  // Include padding and border in the element's total width and height
+                                    }}
+                                    onClick={() => handleRomFiltering(rom)}
+                                    >{rom} GB</div>
+                                  ))}
+                                  <p style={{
+                                    fontSize: 14,
+                                    color: "#737373",
                                     fontWeight: "bold",
+                                    textTransform: "capitalize",
+                                    margin: 0,  // Ensure there's no margin affecting the alignment
+                                    height: "40px",  // Match the height of the RAM squares
                                     display: "flex",
                                     alignItems: "center",
-                                    justifyContent: "center",  // Center the text within the square
-                                    height: "40px",  // Ensure a consistent height
-                                    minWidth: "40px",  // Ensure a consistent width
-                                    boxSizing: "border-box",  // Include padding and border in the element's total width and height
-                                  }}
-                                  onClick={() => selectedRom(rom)}
-                                  >{rom} GB</div>
-                                ))}
-                                <p style={{
-                                  fontSize: 14,
-                                  color: "#737373",
-                                  fontWeight: "bold",
-                                  textTransform: "capitalize",
-                                  margin: 0,  // Ensure there's no margin affecting the alignment
-                                  height: "40px",  // Match the height of the RAM squares
-                                  display: "flex",
-                                  alignItems: "center",
-                                }}>{selectedRom} GB</p>
+                                  }}>{selectedRom} GB</p>
+                                </div>
                               </div>
-                            </div>
-
+  
+                            )}
                          </div>
                          <button className="btn btn-danger fw-bold" disabled>
                             Sold Out
