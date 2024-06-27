@@ -20,6 +20,7 @@ const pStyle = {
 
 const FilledCart = (props) => {
   const {user, isAuthenticated} = useSelector(userState); 
+  console.log('isAuthenticated', isAuthenticated)
   console.log('passed cart', props.data)
   const dispatch = useDispatch();
   return (
