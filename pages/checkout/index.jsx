@@ -75,18 +75,19 @@ const Checkout = () => {
   useEffect(() => {
     const data = cart.products.map(product => {
       return {
-        name: product.name,
-        amount_cents: product.price * 100,
+        name: product.product.item_name,
+        amount_cents: product.product.price * 100,
         quantity: product.quantity,
       };
     });
+    console.log('data', data)
     setItems(data);
   }, [cart]);
 
   const [paymentKeys, setPaymentKeys] = useState("");
   const [display, setDisplay] = useState("none");
-  const [iframeID, setIframeID] = useState();
-  const [integrationID, setIntegrationID] = useState(2501045);
+  const [iframeID, setIframeID] = useState(402130);
+  const [integrationID, setIntegrationID] = useState(2297355);
   const [cash, setCash] = useState(true);
   const [disable, setDisable] = useState({
     value: false,
