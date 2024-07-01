@@ -44,7 +44,7 @@ const SingleProduct = () => {
   const [gallary, setGallary] = useState([]);
   const [addCartDisable, setAddCartDisable] = useState({
     on: false,
-    discrption: "ADD TO CART",
+    description: "ADD TO CART",
   });
   const [productColors, setProductColors] = useState([])
   const [productRams, setProductRams] = useState([]);
@@ -55,8 +55,9 @@ const SingleProduct = () => {
   const [productVariances, setProductVariances] = useState([])
   const [productVariancesAfterColor, setProductVariancesAfterColor] = useState([])
   const [productVariancesAfterRam, setProductVariancesAfterRam] = useState([])
+
   const handleClick = (e) => {
-    setAddCartDisable({ on: true, discrption: "PRODUCT ON THE CART" });
+    setAddCartDisable({ on: true, description: "PRODUCT ON THE CART" });
     dispatch(
       addToCart({
         product,
@@ -814,7 +815,7 @@ const SingleProduct = () => {
                               <span>
                                 <i className="fa fa-cart-plus"></i>
                               </span>{" "}
-                              {addCartDisable.discrption}
+                              {addCartDisable.description}
                             </button>
 
                             <button

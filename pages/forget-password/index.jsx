@@ -34,7 +34,7 @@ const index = () => {
       
       // const req = await axios.post(`/api/login`, {
       await axios.post(`${API_URL}/users/forgotPassword`, {
-        Headers: {
+        headers: {
           "Accept": "*/*",
           "Content-Type": "application/json",
         },
