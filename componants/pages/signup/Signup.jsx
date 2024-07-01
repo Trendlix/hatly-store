@@ -92,7 +92,7 @@ const Signup = () => {
       const password = enteredPassword;
       const confirmPassword = enteredPasswordConfirmation;
       const req = await axios.post(`${API_URL}/users/signup`, {
-        Headers: {
+        headers: {
           "Accept": "*/*",
           "Content-Type": "application/json",
         },
@@ -105,7 +105,7 @@ const Signup = () => {
       }).catch(e => { throw new Error(e.response.data.message) })
       console.log(req.data.body)
       const name = req.data.body.firstName;
-      toast.success(`Welcome ${name}`, {
+      toast.success(`Account created successfully`, {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -115,8 +115,8 @@ const Signup = () => {
         progress: undefined,
         theme: "light",
       });
-      dispatch(userActions.loginSuccess({user : req.data.body}))
-      navigate('/', { replace: true })
+      // dispatch(userActions.loginSuccess({user : req.data.body}))
+      navigate('/login', { replace: true })
     } catch (e) {
       console.log(e)
       dispatch(userActions.loginFailed())

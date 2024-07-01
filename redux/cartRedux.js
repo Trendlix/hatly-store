@@ -4,7 +4,7 @@ import axios from "axios";
 import { userState } from './features/user/userSlice';
 import API_URL from "../API/ApiUrl";
 
-axios.defaults.withCredentials = true;
+// axios.defaults.withCredentials = true;
 
 // const saveToCookies = cartState => {
 //   const strState = JSON.stringify(cartState);
@@ -25,11 +25,12 @@ if (typeof window !== "undefined") {
 }
 
 export const syncCart = createAsyncThunk('cart/syncCart', async (_, { getState, dispatch }) => {
-  const { isAuthenticated } = userState(getState());
-  if (isAuthenticated) {
+  const state = getState();
+  const userState = state.user;
+  if (userState.isAuthenticated) {
     const localCart = JSON.parse(localStorage.getItem('cart'));
     if (localCart && localCart.products.length > 0) {
-      const response = await axios.post(`${API_URL}/cart/sync`, localCart);
+      const response = await axios.post(`${API_URL}/cart/sync`, {localCart, user: userState.user});
       localStorage.removeItem('cart');
       const cart = {
         products: response.data.products.map(product => ({ ...product.product, quantity: product.quantity })),
@@ -45,12 +46,13 @@ export const syncCart = createAsyncThunk('cart/syncCart', async (_, { getState, 
 
 export const fetchCart = createAsyncThunk('cart/fetchCart', async (_, { getState }) => {
   const state = getState();
-  const { isAuthenticated } = state.user;  // Accessing authentication state directly from the Redux state
-  console.log('is authenticated on fetch cart', isAuthenticated);
+  const userState = state.user;
+    // Accessing authentication state directly from the Redux state
+  console.log('is authenticated on fetch cart', userState.isAuthenticated);
 
-  if (isAuthenticated) {
+  if (userState.isAuthenticated) {
     try {
-      const response = await axios.get(`${API_URL}/cart`);
+      const response = await axios.get(`${API_URL}/cart/${userState.user._id}`);
       const cart = {
         products: response.data.products.map(product => ({
           product: product.product,
@@ -72,11 +74,13 @@ export const fetchCart = createAsyncThunk('cart/fetchCart', async (_, { getState
 
 export const addToCart = createAsyncThunk('cart/addToCart', async ({ product, quantity }, { getState, dispatch }) => {
   console.log('start add to cart');
-  const { isAuthenticated } = userState(getState());
-  console.log('is authenticated on add to cart', isAuthenticated);
+  const state = getState();
+  const userState = state.user;
   
-  if (isAuthenticated) {
-    const response = await axios.post(`${API_URL}/cart/add`, { product, quantity });
+  console.log('is authenticated on add to cart', userState.isAuthenticated);
+  
+  if (userState.isAuthenticated) {
+    const response = await axios.post(`${API_URL}/cart/add`, { product, quantity, user: userState.user });
     console.log(response.data);
     await dispatch(fetchCart());
     return response.data;
@@ -106,10 +110,13 @@ export const addToCart = createAsyncThunk('cart/addToCart', async ({ product, qu
 
 
 export const removeFromCart = createAsyncThunk('cart/removeFromCart', async ({ product }, { getState, dispatch }) => {
-  const { isAuthenticated } = userState(getState());
+  const state = getState();
+  const userState = state.user;
   
-  if (isAuthenticated) {
-    const response = await axios.delete(`${API_URL}/cart/${product.item_code}`);
+  console.log('is authenticated on add to cart', userState.isAuthenticated);
+  
+  if (userState.isAuthenticated) {
+    const response = await axios.delete(`${API_URL}/cart/${product.item_code}`, {data: {user: userState.user}});
     console.log(response.data);
     await dispatch(fetchCart());
     return response.data;
@@ -133,9 +140,10 @@ export const removeFromCart = createAsyncThunk('cart/removeFromCart', async ({ p
 });
 
 export const checkoutCart = createAsyncThunk('cart/checkoutCart', async ({ address, paymentMethod }, { getState }) => {
-  const { isAuthenticated } = userState(getState());
-  if (isAuthenticated) {
-    const response = await axios.post(`${API_URL}/cart/checkout`, { address, paymentMethod });
+  const state = getState();
+  const userState = state.user;
+  if (userState.isAuthenticated) {
+    const response = await axios.post(`${API_URL}/cart/checkout`, { address, paymentMethod, user: userState.user });
     return response.data;
   } else {
     throw new Error("User not authenticated");

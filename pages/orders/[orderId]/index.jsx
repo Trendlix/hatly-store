@@ -8,9 +8,12 @@ import img from '../../../img/MacBook-Pro-2021.jpg'
 import axios from 'axios';
 import API_URL from '../../../API/ApiUrl';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { userState } from '../../../redux/features/user/userSlice';
 
 axios.defaults.withCredentials = true;
 const index = ({ data }) => {
+  // const userState = useSelector((state)=>state.user)
   // const getOrderHandler = async () => {
   //   const req = await axios.get(`${API_URL}/orders/${orderId}`)
   //   setOrder(req.data)
@@ -129,7 +132,7 @@ export async function getServerSideProps(context) {
 
   try {
     const { orderId } = context.params
-    const req = await axios.get(`${API_URL}/orders/${orderId}`, {
+    const req = await axios.get(`${API_URL}/orders/${userState.user.id}/${orderId}`, {
       headers: {
         Cookie: context.req.headers.cookie,
         "Accept-Encoding": "gzip,deflate,compress"
