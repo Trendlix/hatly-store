@@ -14,6 +14,7 @@ import dashboardAnimation from '../../utils/dashboardAnimation';
 import axios from 'axios';
 import API_URL from '../../API/ApiUrl';
 import LoadingOverlay from '../../componants/LoadingOverlay/LoadingOverlay';
+import { userState } from '../../redux/features/user/userSlice';
 
 axios.defaults.withCredentials = true;
 const scrollTop = () => {
@@ -25,6 +26,7 @@ const scrollTop = () => {
 };
 const index = () => {
   const dispatch = useDispatch()
+  // const userState = useSelector(state => state.user)
   const { isOpened } = useSelector(sidebarState)
   const [products, setProducts] = useState([])
   const [pages, setPages] = useState([])
@@ -32,7 +34,7 @@ const index = () => {
   const [loading, setLoading] = useState(false)
   const getOrdersHandler = async () => {
     setLoading(true)
-    const res = await axios.get(`${API_URL}/orders`)
+    const res = await axios.get(`${API_URL}/orders/${userState.user._id}`)
     const { totalLength, data } = res.data
     setProducts(data)
     console.log(data)

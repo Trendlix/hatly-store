@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import API_URL from "../../../API/ApiUrl";
 import { syncCart } from '../../../redux/cartRedux';
+import AUTH_URL from "../../../API/AUTH_URL";
 
 axios.defaults.withCredentials = true;
 
@@ -53,9 +54,12 @@ export const getUser = () => {
   return async (dispatch) => {
     try {
       dispatch(userSlice.actions.loggingIn());
-      const req = await axios.get(`${API_URL}/users/me`);
-      dispatch(userSlice.actions.loginSuccess({ user: req.data.body }));
-      await dispatch(syncCart());
+      const req = await axios.get(`${AUTH_URL}/me`);
+      console.log('req', req)
+      if(req.data.user) {
+        dispatch(userSlice.actions.loginSuccess({ user: req.data.user }));
+        await dispatch(syncCart());
+      }
     } catch (e) {
       dispatch(userSlice.actions.loginFailed());
     }
@@ -66,7 +70,7 @@ export const logout = () => {
   return async (dispatch) => {
     try {
       dispatch(userSlice.actions.loggingOut());
-      await axios.get(`${API_URL}/users/logout`);
+      await axios.get(`${AUTH_URL}/logout`);
       dispatch(userSlice.actions.logout());
     } catch (e) {
       console.error('Logout failed:', e);

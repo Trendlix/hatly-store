@@ -12,6 +12,7 @@ import API_URL from '../../API/ApiUrl'
 
 import style from '../../styles/loginLayout.module.css'
 import LoadingOverlay from '../../componants/LoadingOverlay/LoadingOverlay';
+import AUTH_URL from '../../API/AUTH_URL';
 axios.defaults.withCredentials = true
 const Login = () => {
   const dispatch = useDispatch()
@@ -49,11 +50,11 @@ const Login = () => {
       const password = enteredPassword;
       // const req = await axios.post(`/api/login`, {
         console.log(email, password)
-      const req = await axios.post(`${API_URL}/users/login`, {
-        Headers: {
-          "Accept": "*/*" ,
-          "Content-Type": "application/json",
-        },
+      const req = await axios.post(`${AUTH_URL}/login`, {
+        // Headers: {
+        //   "Accept": "*/*" ,
+        //   "Content-Type": "application/json",
+        // },
         email,
         password
       })
@@ -76,7 +77,7 @@ const Login = () => {
         progress: undefined,
         theme: "light",
       });
-      dispatch(userActions.loginSuccess({ user: req.data.body }))
+      dispatch(userActions.loginSuccess({ user: req.data.user }))
       router.push('/account/overview')
       // if(!status.error)
       // navigate('/',{replace : true})
